@@ -1,0 +1,30 @@
+{
+  "id": "headache_adult_v1",
+  "title": "Baş Ağrısı - Erişkin",
+  "lang": "tr",
+  "complaints": ["baş ağrısı", "headache", "migren"],
+  "age_groups": ["adult"],
+  "pregnancy": ["any"],
+  "esi_hint": "Thunderclap veya nörolojik defisit varsa ESI-2; yoksa çoğunlukla ESI-4.",
+  "red_flags": [
+    "Ani, şiddetli (thunderclap) başlangıç",
+    "Nörolojik defisit (görme kaybı, güçsüzlük, konuşma bozukluğu)",
+    "Ateş + ense sertliği",
+    "Travma sonrası yeni baş ağrısı",
+    "İmmünsüpresyon öyküsü"
+  ],
+  "immediate_actions": [
+    "Vital bulgular",
+    "Nörolojik muayene",
+    "Gerekirse acil görüntüleme"
+  ],
+  "questions_to_ask_next": [
+    "Baş ağrısı ne kadar süredir var?",
+    "Şiddeti aniden mi başladı?",
+    "Eşlik eden bulantı/kusma var mı?"
+  ],
+  "routing_hint": { "specialty": "nöroloji", "priority": "high" },
+  "evidence": [{ "source": "ACEP Headache Clinical Policy", "url": "https://..." }],
+  "version": 1,
+  "updated_at": "2025-09-09"
+}

@@ -1,0 +1,32 @@
+{
+  "id": "vertigo_adult_v1",
+  "title": "Vertigo - Erişkin",
+  "lang": "tr",
+  "complaints": ["baş dönmesi", "vertigo", "denge kaybı", "bulantı"],
+  "age_groups": ["adult"],
+  "pregnancy": ["any"],
+  "esi_hint": "Santral vertigo şüphesi → ESI-2; periferik → ESI-3-4.",
+  "red_flags": [
+    "Ani işitme kaybı",
+    "Nörolojik defisit",
+    "Şiddetli baş ağrısı",
+    "Diplopi",
+    "Ataksi"
+  ],
+  "immediate_actions": [
+    "Nörolojik muayene",
+    "Dix-Hallpike testi",
+    "Vital bulgular",
+    "İşitme değerlendirmesi"
+  ],
+  "questions_to_ask_next": [
+    "Baş hareketleriyle tetikleniyor mu?",
+    "İşitme kaybı var mı?",
+    "Kulak çınlaması var mı?",
+    "Daha önce böyle atak oldu mu?"
+  ],
+  "routing_hint": { "specialty": "kulak burun boğaz", "priority": "low" },
+  "evidence": [{ "source": "AAO-HNS Vertigo Guidelines 2017", "url": "https://..." }],
+  "version": 1,
+  "updated_at": "2025-01-15"
+}

@@ -1,0 +1,32 @@
+{
+  "id": "tooth_pain_adult_v1",
+  "title": "Diş Ağrısı - Erişkin",
+  "lang": "tr",
+  "complaints": ["diş ağrısı", "tooth pain", "diş sancısı", "ağız ağrısı"],
+  "age_groups": ["adult"],
+  "pregnancy": ["any"],
+  "esi_hint": "Yüz şişliği + ateş → ESI-3, basit ağrı → ESI-4–5.",
+  "red_flags": [
+    "Yüz şişliği",
+    "Yutkunma güçlüğü",
+    "Ateş + diş ağrısı",
+    "Çene açamama",
+    "Boyun şişliği"
+  ],
+  "immediate_actions": [
+    "Ağız muayenesi",
+    "Yüz şişliği kontrolü",
+    "Ateş ölçümü",
+    "Çene hareket açıklığı"
+  ],
+  "questions_to_ask_next": [
+    "Yüzde şişlik var mı?",
+    "Ateş var mı?",
+    "Çenenizi açabiliyor musunuz?",
+    "Antibiyotik kullanıyor musunuz?"
+  ],
+  "routing_hint": { "specialty": "diş hekimliği", "priority": "low" },
+  "evidence": [{ "source": "ADA Guidelines - Dental Pain", "url": "https://..." }],
+  "version": 1,
+  "updated_at": "2025-01-15"
+}

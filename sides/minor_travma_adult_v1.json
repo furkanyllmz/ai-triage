@@ -1,0 +1,35 @@
+{
+  "id": "minor_travma_adult_v1",
+  "title": "Minör Travma - Erişkin",
+  "lang": "tr",
+  "complaints": ["minör travma", "minor trauma", "küçük yaralanma", "hafif travma", "düşük enerjili travma"],
+  "age_groups": ["adult"],
+  "pregnancy": ["any"],
+  "esi_hint": "Basit minör travma → ESI-4/5, komplikasyon şüphesi → ESI-3.",
+  "red_flags": [
+    "Kırık şüphesi",
+    "Eklem dislokasyonu",
+    "Tendon yaralanması",
+    "Sinir yaralanması",
+    "Damar yaralanması",
+    "Enfeksiyon bulguları"
+  ],
+  "immediate_actions": [
+    "Yaralanma bölgesi muayenesi",
+    "Nörovasküler muayene",
+    "Hareket açıklığı testi",
+    "Palpasyon",
+    "Yara temizliği"
+  ],
+  "questions_to_ask_next": [
+    "Nasıl yaralandınız?",
+    "Ağrı şiddeti nedir?",
+    "Hareket edebiliyor musunuz?",
+    "Uyuşma var mı?",
+    "Tetanoz aşısı güncel mi?"
+  ],
+  "routing_hint": { "specialty": "ortopedi", "priority": "low" },
+  "evidence": [{ "source": "Orthopedics Guidelines - Minor Trauma", "url": "https://..." }],
+  "version": 1,
+  "updated_at": "2025-01-15"
+}

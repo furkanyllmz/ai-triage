@@ -1,0 +1,79 @@
+{
+  "saved_at": "2025-09-09T23:16:48",
+  "triage": {
+    "triage_level": "ESI-2",
+    "red_flags": [],
+    "immediate_actions": [
+      "Vital bulgular",
+      "Nörolojik muayene"
+    ],
+    "questions_to_ask_next": [
+      "Baş ağrısı ne kadar süredir var?",
+      "Şiddeti aniden mi başladı?",
+      "Eşlik eden bulantı/kusma var mı?",
+      "Baş dönmesi hangi pozisyonda daha kötüleşiyor?"
+    ],
+    "routing": {
+      "specialty": "Nöroloji",
+      "priority": "high"
+    },
+    "rationale_brief": "Baş dönmesi, özellikle belirli bir pozisyonda kötüleşmesi nedeniyle, ciddi bir altta yatan nörolojik sorunun göstergesi olabilir. Bu nedenle, hızlı bir nörolojik değerlendirme ve görüntüleme gereklidir.",
+    "evidence_ids": [
+      "Baş Ağrısı - Erişkin"
+    ],
+    "model_meta": {
+      "model": "gemini-1.5-flash",
+      "prompt_version": "triage-prompt-v1",
+      "corpus_hint": "memory-cards"
+    }
+  },
+  "input_context": {
+    "patient_id": null,
+    "age": 30,
+    "sex": "F",
+    "complaint_text": "başım dönüyor,özellikle sol üste bakınca",
+    "vitals": {},
+    "pregnancy": "any",
+    "chief": null,
+    "k": 3,
+    "age_group": "adult"
+  },
+  "rag_cards": [
+    {
+      "id": "abdominal_pain_adult_v1",
+      "title": "Karın Ağrısı - Erişkin",
+      "content": "Karın Ağrısı - Erişkin\nESI ipucu: Şiddetli karın ağrısı + instabilite → ESI-2, aksi halde çoğunlukla ESI-3–4.\nRed flags:\n- Şiddetli ani başlayan ağrı\n- Defans / rebound hassasiyet\n- Ateş + hipotansiyon\n- Kanlı kusma veya kanlı dışkı\n- Gebelik şüphesi + alt karın ağrısı\nİlk eylemler:\n- Vital bulgular\n- Ateş ölçümü\n- Ağrı skoru\nSorulacak ek sorular:\n- Ağrı yayılıyor mu?\n- Kusma/ishal var mı?\n- Gebelik şüphesi var mı?",
+      "score": 0.8394601345062256,
+      "evidence": [
+        {
+          "source": "Tintinalli Emergency Medicine - Abdominal Pain",
+          "url": "https://..."
+        }
+      ]
+    },
+    {
+      "id": "headache_adult_v1",
+      "title": "Baş Ağrısı - Erişkin",
+      "content": "Baş Ağrısı - Erişkin\nESI ipucu: Thunderclap veya nörolojik defisit varsa ESI-2; yoksa çoğunlukla ESI-4.\nRed flags:\n- Ani, şiddetli (thunderclap) başlangıç\n- Nörolojik defisit (görme kaybı, güçsüzlük, konuşma bozukluğu)\n- Ateş + ense sertliği\n- Travma sonrası yeni baş ağrısı\n- İmmünsüpresyon öyküsü\nİlk eylemler:\n- Vital bulgular\n- Nörolojik muayene\n- Gerekirse acil görüntüleme\nSorulacak ek sorular:\n- Baş ağrısı ne kadar süredir var?\n- Şiddeti aniden mi başladı?\n- Eşlik eden bulantı/kusma var mı?",
+      "score": 0.833983302116394,
+      "evidence": [
+        {
+          "source": "ACEP Headache Clinical Policy",
+          "url": "https://..."
+        }
+      ]
+    },
+    {
+      "id": "sore_throat_adult_v1",
+      "title": "Boğaz Ağrısı - Erişkin",
+      "content": "Boğaz Ağrısı - Erişkin\nESI ipucu: Red-flag yoksa genelde ESI-4.\nRed flags:\n- Solunum sıkıntısı/stridor\n- Ağız açmada güçlük (trismus)\n- Tükürük yutamama/salya akması\n- Boyunda hızla artan şişlik\n- Yüksek ateş + ense sertliği\nİlk eylemler:\n- Vital bulguların alınması\n- Ateş ölçümü\n- O2 satürasyonu kontrolü\nSorulacak ek sorular:\n- Yutkunmada zorlanma var mı?\n- Nefes almakta güçlük var mı?\n- Boyunda şişlik veya ses değişikliği var mı?",
+      "score": 0.8326331973075867,
+      "evidence": [
+        {
+          "source": "NICE Sore Throat Guideline",
+          "url": "https://..."
+        }
+      ]
+    }
+  ]
+}

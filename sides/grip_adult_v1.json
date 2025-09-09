@@ -1,0 +1,35 @@
+{
+  "id": "grip_adult_v1",
+  "title": "Grip (İnfluenza) - Erişkin",
+  "lang": "tr",
+  "complaints": ["grip", "influenza", "soğuk algınlığı", "üst solunum yolu enfeksiyonu", "viral enfeksiyon"],
+  "age_groups": ["adult"],
+  "pregnancy": ["any"],
+  "esi_hint": "Komplikasyonsuz grip → ESI-4/5, pnömoni şüphesi → ESI-2/3.",
+  "red_flags": [
+    "Nefes darlığı",
+    "Göğüs ağrısı",
+    "Yüksek ateş (>39°C)",
+    "Şiddetli baş ağrısı",
+    "Bilinç bozukluğu",
+    "Dehidratasyon"
+  ],
+  "immediate_actions": [
+    "Vital bulgular",
+    "Ateş ölçümü",
+    "Akciğer dinleme",
+    "Boğaz muayenesi",
+    "Genel durum değerlendirmesi"
+  ],
+  "questions_to_ask_next": [
+    "Şikayetler ne zaman başladı?",
+    "Ateş kaç gündür var?",
+    "Öksürük var mı?",
+    "Nefes almada güçlük var mı?",
+    "Grip aşısı oldunuz mu?"
+  ],
+  "routing_hint": { "specialty": "dahiliye", "priority": "low" },
+  "evidence": [{ "source": "Internal Medicine Guidelines - Influenza", "url": "https://..." }],
+  "version": 1,
+  "updated_at": "2025-01-15"
+}

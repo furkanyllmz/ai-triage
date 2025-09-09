@@ -1,0 +1,46 @@
+{
+  "saved_at": "2025-09-10T00:39:50",
+  "triage": {
+    "triage_level": "ESI-1",
+    "red_flags": [
+      "intihar girişimi",
+      "cinayet itirafı"
+    ],
+    "immediate_actions": [
+      "Hastayı güvenli bir yere taşıyın",
+      "Polisle iletişime geçin",
+      "Hastanın güvenliğini sağlayın",
+      "Hastanın ruhsal durumunu değerlendirin"
+    ],
+    "questions_to_ask_next": [
+      "Hastanın intihar düşünceleri hakkında daha fazla bilgi alın",
+      "Hastanın babasını öldürme olayı hakkında daha fazla bilgi alın",
+      "Hastanın ruhsal geçmişi hakkında bilgi alın",
+      "Hastanın ilaç kullanımı hakkında bilgi alın",
+      "Hastanın yakın zamanda travmatik bir olay yaşamış olup olmadığı hakkında bilgi alın"
+    ],
+    "routing": {
+      "specialty": "Psikiyatri",
+      "priority": "high"
+    },
+    "rationale_brief": "Hasta intihar girişimi ve cinayet itirafında bulunduğu için acil psikiyatrik değerlendirme ve müdahale gerektirir. ESI-1 önceliklendirmesi, hastanın yaşamı için acil bir tehdit olduğu ve derhal müdahale edilmesi gerektiği içindir.",
+    "evidence_ids": [],
+    "model_meta": {
+      "model": "gemini-1.5-flash",
+      "prompt_version": "triage-prompt-v1",
+      "corpus_hint": "memory-cards"
+    }
+  },
+  "input_context": {
+    "patient_id": null,
+    "age": 3,
+    "sex": "F",
+    "complaint_text": "sinir krizine girdim babamı öldürdüm intihar edicekken polisler beni vazgeçirdi kendimde değildim",
+    "vitals": {},
+    "pregnancy": "any",
+    "chief": null,
+    "k": 3,
+    "age_group": "pediatric"
+  },
+  "rag_cards": []
+}

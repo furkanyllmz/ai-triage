@@ -1,0 +1,35 @@
+{
+  "id": "gebelik_adult_v1",
+  "title": "Gebelik İle İlgili Şikayetler - Erişkin",
+  "lang": "tr",
+  "complaints": ["gebelik", "pregnancy", "hamilelik", "gebelik şikayeti", "obstetrik acil"],
+  "age_groups": ["adult"],
+  "pregnancy": ["pregnant"],
+  "esi_hint": "Obstetrik acil → ESI-1/2, rutin gebelik şikayeti → ESI-3/4.",
+  "red_flags": [
+    "Vajinal kanama",
+    "Şiddetli karın ağrısı",
+    "Preeklampsi bulguları",
+    "Fetal hareket azalması",
+    "Erken doğum belirtileri",
+    "Şiddetli baş ağrısı + hipertansiyon"
+  ],
+  "immediate_actions": [
+    "Vital bulgular",
+    "Obstetrik muayene",
+    "Fetal kalp atışı",
+    "Vajinal muayene",
+    "Tansiyon ölçümü"
+  ],
+  "questions_to_ask_next": [
+    "Kaçıncı hafta gebesiniz?",
+    "Vajinal kanama var mı?",
+    "Bebek hareketlerini hissediyor musunuz?",
+    "Kasılma var mı?",
+    "Baş ağrısı var mı?"
+  ],
+  "routing_hint": { "specialty": "kadın doğum", "priority": "high" },
+  "evidence": [{ "source": "Obstetrics Guidelines - Pregnancy Emergencies", "url": "https://..." }],
+  "version": 1,
+  "updated_at": "2025-01-15"
+}

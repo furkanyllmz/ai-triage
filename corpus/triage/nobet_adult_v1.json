@@ -1,0 +1,35 @@
+{
+  "id": "nobet_adult_v1",
+  "title": "Nöbet (Epileptik Nöbet) - Erişkin",
+  "lang": "tr",
+  "complaints": ["nöbet", "seizure", "epileptik nöbet", "konvülziyon", "kasılma"],
+  "age_groups": ["adult"],
+  "pregnancy": ["any"],
+  "esi_hint": "Status epileptikus → ESI-1, tek nöbet → ESI-2/3.",
+  "red_flags": [
+    "Uzamış nöbet (>5 dk)",
+    "Status epileptikus",
+    "Travma sonrası nöbet",
+    "Ateş + nöbet",
+    "İlk kez nöbet",
+    "Gebelikte nöbet"
+  ],
+  "immediate_actions": [
+    "Hava yolu güvenliği",
+    "Vital bulgular",
+    "Kan şekeri ölçümü",
+    "Nörolojik muayene",
+    "Oksijen saturasyonu"
+  ],
+  "questions_to_ask_next": [
+    "Nöbet ne kadar sürdü?",
+    "Daha önce nöbet geçirdi mi?",
+    "İlaç kullanıyor mu?",
+    "Travma öyküsü var mı?",
+    "Ateş var mı?"
+  ],
+  "routing_hint": { "specialty": "nöroloji", "priority": "high" },
+  "evidence": [{ "source": "Neurology Guidelines - Seizure Management", "url": "https://..." }],
+  "version": 1,
+  "updated_at": "2025-01-15"
+}

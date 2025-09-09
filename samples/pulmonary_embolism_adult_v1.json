@@ -1,0 +1,32 @@
+{
+  "id": "pulmonary_embolism_adult_v1",
+  "title": "Pulmoner Emboli - Erişkin",
+  "lang": "tr",
+  "complaints": ["nefes darlığı", "göğüs ağrısı", "öksürük", "bacak şişliği"],
+  "age_groups": ["adult"],
+  "pregnancy": ["any"],
+  "esi_hint": "Masif PE → ESI-1; yüksek risk → ESI-2; düşük risk → ESI-3.",
+  "red_flags": [
+    "Ani başlayan nefes darlığı",
+    "Plöritik göğüs ağrısı",
+    "Hemoptizi",
+    "Hipotansiyon",
+    "DVT bulguları"
+  ],
+  "immediate_actions": [
+    "SpO2 ölçümü",
+    "D-dimer testi",
+    "Wells skoru",
+    "BT pulmoner anjiografi"
+  ],
+  "questions_to_ask_next": [
+    "Uzun yolculuk yaptınız mı?",
+    "Cerrahi geçirdiniz mi?",
+    "Oral kontraseptif kullanıyor musunuz?",
+    "Kanser öyküsü var mı?"
+  ],
+  "routing_hint": { "specialty": "göğüs hastalıkları", "priority": "high" },
+  "evidence": [{ "source": "ESC PE Guidelines 2019", "url": "https://..." }],
+  "version": 1,
+  "updated_at": "2025-01-15"
+}

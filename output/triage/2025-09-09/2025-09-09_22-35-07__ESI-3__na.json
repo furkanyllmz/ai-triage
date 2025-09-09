@@ -1,0 +1,79 @@
+{
+  "saved_at": "2025-09-09T22:35:07",
+  "triage": {
+    "triage_level": "ESI-3",
+    "red_flags": [],
+    "immediate_actions": [
+      "Vital bulgular",
+      "Ateş ölçümü",
+      "Ağrı skoru"
+    ],
+    "questions_to_ask_next": [
+      "Ağrı yayılıyor mu?",
+      "Kusma/ishal var mı?",
+      "Gebelik şüphesi var mı?"
+    ],
+    "routing": {
+      "specialty": "Acil Servis",
+      "priority": "medium"
+    },
+    "rationale_brief": "Hasta karın ağrısı ve ishal şikayeti ile başvurdu. Red flag belirtisi yok. Karın ağrısı ESI-3-4 olarak değerlendirilir.",
+    "evidence_ids": [
+      "Karın Ağrısı - Erişkin"
+    ],
+    "model_meta": {
+      "model": "gemini-1.5-flash",
+      "prompt_version": "triage-prompt-v1",
+      "corpus_hint": "memory-cards"
+    }
+  },
+  "input_context": {
+    "patient_id": null,
+    "age": 25,
+    "sex": "F",
+    "complaint_text": "karın ağrım çok fazla ve ishalim",
+    "vitals": {},
+    "pregnancy": "any",
+    "chief": null,
+    "k": 3,
+    "age_group": "adult"
+  },
+  "rag_cards": [
+    {
+      "id": "abdominal_pain_adult_v1",
+      "title": "Karın Ağrısı - Erişkin",
+      "content": "Karın Ağrısı - Erişkin\nESI ipucu: Şiddetli karın ağrısı + instabilite → ESI-2, aksi halde çoğunlukla ESI-3–4.\nRed flags:\n- Şiddetli ani başlayan ağrı\n- Defans / rebound hassasiyet\n- Ateş + hipotansiyon\n- Kanlı kusma veya kanlı dışkı\n- Gebelik şüphesi + alt karın ağrısı\nİlk eylemler:\n- Vital bulgular\n- Ateş ölçümü\n- Ağrı skoru\nSorulacak ek sorular:\n- Ağrı yayılıyor mu?\n- Kusma/ishal var mı?\n- Gebelik şüphesi var mı?",
+      "score": 0.8519209623336792,
+      "evidence": [
+        {
+          "source": "Tintinalli Emergency Medicine - Abdominal Pain",
+          "url": "https://..."
+        }
+      ]
+    },
+    {
+      "id": "chest_pain_adult_v1",
+      "title": "Göğüs Ağrısı - Erişkin",
+      "content": "Göğüs Ağrısı - Erişkin\nESI ipucu: Red-flag varsa ESI-2; instabil vitallerde ESI-1.\nRed flags:\n- 20+ dk süren baskı tarzı ağrı\n- Dispne/soğuk terleme/senkop\n- Kola/çeneye/arkaya yayılım\n- SpO2 < 92 veya sistolik TA < 90\nİlk eylemler:\n- 12 derivasyon EKG ≤10 dk\n- O2 satürasyon ölçümü\n- Vital takibi\nSorulacak ek sorular:\n- Ağrı eforla artıyor mu?\n- Ailede erken yaş KAH var mı?\n- Sigara/DM/HT öyküsü var mı?",
+      "score": 0.8302032351493835,
+      "evidence": [
+        {
+          "source": "AHA Chest Pain Guideline 2021",
+          "url": "https://..."
+        }
+      ]
+    },
+    {
+      "id": "sore_throat_adult_v1",
+      "title": "Boğaz Ağrısı - Erişkin",
+      "content": "Boğaz Ağrısı - Erişkin\nESI ipucu: Red-flag yoksa genelde ESI-4.\nRed flags:\n- Solunum sıkıntısı/stridor\n- Ağız açmada güçlük (trismus)\n- Tükürük yutamama/salya akması\n- Boyunda hızla artan şişlik\n- Yüksek ateş + ense sertliği\nİlk eylemler:\n- Vital bulguların alınması\n- Ateş ölçümü\n- O2 satürasyonu kontrolü\nSorulacak ek sorular:\n- Yutkunmada zorlanma var mı?\n- Nefes almakta güçlük var mı?\n- Boyunda şişlik veya ses değişikliği var mı?",
+      "score": 0.8264133334159851,
+      "evidence": [
+        {
+          "source": "NICE Sore Throat Guideline",
+          "url": "https://..."
+        }
+      ]
+    }
+  ]
+}

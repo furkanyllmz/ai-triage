@@ -1,0 +1,35 @@
+{
+  "id": "yan_agrisi_adult_v1",
+  "title": "Yan Ağrısı (Flank Pain) - Erişkin",
+  "lang": "tr",
+  "complaints": ["yan ağrısı", "flank pain", "böbrek ağrısı", "bel yan ağrısı", "kostovertebral ağrı"],
+  "age_groups": ["adult"],
+  "pregnancy": ["any"],
+  "esi_hint": "Böbrek taşı koliği → ESI-2/3, kronik yan ağrısı → ESI-4/5.",
+  "red_flags": [
+    "Şiddetli kolik ağrı",
+    "Ateş + yan ağrısı",
+    "Hematüri",
+    "Oligüri/anüri",
+    "Bulantı kusma",
+    "Hipertansiyon"
+  ],
+  "immediate_actions": [
+    "Vital bulgular",
+    "Böbrek muayenesi",
+    "Kostovertebral açı hassasiyeti",
+    "İdrar analizi",
+    "Ağrı değerlendirmesi"
+  ],
+  "questions_to_ask_next": [
+    "Ağrı nasıl başladı?",
+    "İdrarda kan var mı?",
+    "Ateş var mı?",
+    "İdrar yapmada güçlük var mı?",
+    "Daha önce böbrek taşı geçirdiniz mi?"
+  ],
+  "routing_hint": { "specialty": "üroloji", "priority": "medium" },
+  "evidence": [{ "source": "Urology Guidelines - Flank Pain", "url": "https://..." }],
+  "version": 1,
+  "updated_at": "2025-01-15"
+}

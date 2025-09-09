@@ -1,0 +1,35 @@
+{
+  "id": "bayilma_adult_v1",
+  "title": "Bayılma (Senkop) - Erişkin",
+  "lang": "tr",
+  "complaints": ["bayılma", "syncope", "senkop", "bilinç kaybı", "fenalaşma"],
+  "age_groups": ["adult"],
+  "pregnancy": ["any"],
+  "esi_hint": "Kardiyak senkop şüphesi → ESI-2, vazovagal senkop → ESI-3/4.",
+  "red_flags": [
+    "Göğüs ağrısı + senkop",
+    "Çarpıntı + senkop",
+    "Efor sırasında senkop",
+    "Aile öyküsü (ani ölüm)",
+    "Nörolojik bulgular",
+    "Gastrointestinal kanama"
+  ],
+  "immediate_actions": [
+    "EKG çekimi",
+    "Vital bulgular",
+    "Ortez test",
+    "Kardiyak muayene",
+    "Nörolojik muayene"
+  ],
+  "questions_to_ask_next": [
+    "Senkop sırasında ne yapıyordunuz?",
+    "Göğüs ağrısı oldu mu?",
+    "Çarpıntı hissettiniz mi?",
+    "Daha önce böyle bir durum yaşandı mı?",
+    "Ailede ani ölüm öyküsü var mı?"
+  ],
+  "routing_hint": { "specialty": "kardiyoloji", "priority": "medium" },
+  "evidence": [{ "source": "Cardiology Guidelines - Syncope", "url": "https://..." }],
+  "version": 1,
+  "updated_at": "2025-01-15"
+}

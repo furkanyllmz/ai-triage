@@ -1,0 +1,35 @@
+{
+  "id": "bilinc_bozuklugu_adult_v1",
+  "title": "Bilinç Bozukluğu - Erişkin",
+  "lang": "tr",
+  "complaints": ["bilinç bozukluğu", "consciousness disorder", "bilinç kaybı", "mental durum değişikliği", "konfüzyon"],
+  "age_groups": ["adult"],
+  "pregnancy": ["any"],
+  "esi_hint": "Akut bilinç bozukluğu → ESI-1/2, kronik konfüzyon → ESI-3/4.",
+  "red_flags": [
+    "Ani bilinç kaybı",
+    "Nörolojik defisit",
+    "Ateş + bilinç bozukluğu",
+    "Hipoglisemi",
+    "Travma öyküsü",
+    "İlaç zehirlenmesi şüphesi"
+  ],
+  "immediate_actions": [
+    "Vital bulgular kontrolü",
+    "Kan şekeri ölçümü",
+    "Nörolojik muayene",
+    "Glasgow Koma Skalası",
+    "Oksijen saturasyonu"
+  ],
+  "questions_to_ask_next": [
+    "Ne zaman başladı?",
+    "Travma öyküsü var mı?",
+    "İlaç kullanımı var mı?",
+    "Daha önce böyle bir durum yaşandı mı?",
+    "Ateş var mı?"
+  ],
+  "routing_hint": { "specialty": "nöroloji", "priority": "high" },
+  "evidence": [{ "source": "Emergency Medicine Guidelines - Altered Mental Status", "url": "https://..." }],
+  "version": 1,
+  "updated_at": "2025-01-15"
+}

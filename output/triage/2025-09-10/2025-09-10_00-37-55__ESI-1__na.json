@@ -1,0 +1,44 @@
+{
+  "saved_at": "2025-09-10T00:37:55",
+  "triage": {
+    "triage_level": "ESI-1",
+    "red_flags": [
+      "Nefes almada güçlük",
+      "Morarma"
+    ],
+    "immediate_actions": [
+      "Acil Servis'e yönlendir",
+      "Oksijen desteği sağla",
+      "Kalp masajı yapmaya başla (gerekirse)"
+    ],
+    "questions_to_ask_next": [
+      "Çocuğun nefes alıp vermesi ne kadar zor?",
+      "Morarma ne zaman başladı?",
+      "Çocuk bilinçsiz mi?",
+      "Çocuğun nabzı var mı?"
+    ],
+    "routing": {
+      "specialty": "Acil Tıp",
+      "priority": "high"
+    },
+    "rationale_brief": "3 yaşında bir kız çocuğunda nefes almada güçlük ve morarma acil bir durumdur ve hemen tıbbi müdahale gerektirir. ESI-1 önceliklidir.",
+    "evidence_ids": [],
+    "model_meta": {
+      "model": "gemini-1.5-flash",
+      "prompt_version": "triage-prompt-v1",
+      "corpus_hint": "memory-cards"
+    }
+  },
+  "input_context": {
+    "patient_id": null,
+    "age": 3,
+    "sex": "F",
+    "complaint_text": "Çocuğum morardı, nefes almıyor.",
+    "vitals": {},
+    "pregnancy": "any",
+    "chief": null,
+    "k": 3,
+    "age_group": "pediatric"
+  },
+  "rag_cards": []
+}

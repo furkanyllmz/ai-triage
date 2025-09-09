@@ -1,0 +1,35 @@
+{
+  "id": "major_travma_adult_v1",
+  "title": "Majör Travma - Erişkin",
+  "lang": "tr",
+  "complaints": ["majör travma", "major trauma", "ağır travma", "çoklu travma", "yüksek enerjili travma"],
+  "age_groups": ["adult"],
+  "pregnancy": ["any"],
+  "esi_hint": "Majör travma → ESI-1, stabil majör travma → ESI-2.",
+  "red_flags": [
+    "Hemodinamik instabilite",
+    "Bilinç bozukluğu",
+    "Solunum sıkıntısı",
+    "Çoklu kırık",
+    "İç organ yaralanması şüphesi",
+    "Spinal yaralanma şüphesi"
+  ],
+  "immediate_actions": [
+    "ABCDE yaklaşımı",
+    "Vital bulgular",
+    "Spinal immobilizasyon",
+    "İV erişim",
+    "Oksijen desteği"
+  ],
+  "questions_to_ask_next": [
+    "Travma mekanizması nedir?",
+    "Bilinç kaybı oldu mu?",
+    "Ağrı nerede?",
+    "Hareket edebiliyor musunuz?",
+    "Nefes almada güçlük var mı?"
+  ],
+  "routing_hint": { "specialty": "acil tıp", "priority": "critical" },
+  "evidence": [{ "source": "Trauma Guidelines - Major Trauma Management", "url": "https://..." }],
+  "version": 1,
+  "updated_at": "2025-01-15"
+}

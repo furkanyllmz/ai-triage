@@ -1,0 +1,32 @@
+{
+  "id": "sore_throat_adult_v1",
+  "title": "Boğaz Ağrısı - Erişkin",
+  "lang": "tr",
+  "complaints": ["boğaz ağrısı", "sore throat", "gırtlak ağrısı", "yutkunma güçlüğü"],
+  "age_groups": ["adult"],
+  "pregnancy": ["any"],
+  "esi_hint": "Solunum sıkıntısı + şişlik → ESI-2, basit enfeksiyon → ESI-4–5.",
+  "red_flags": [
+    "Nefes almada güçlük",
+    "Yutkunamama",
+    "Ses kısıklığı",
+    "Boyunda şişlik",
+    "Yüksek ateş + titreme"
+  ],
+  "immediate_actions": [
+    "Boğaz muayenesi",
+    "Ateş ölçümü",
+    "Boyun palpasyonu",
+    "Vital bulgular"
+  ],
+  "questions_to_ask_next": [
+    "Ateş var mı?",
+    "Yutkunmada zorluk var mı?",
+    "Öksürük eşlik ediyor mu?",
+    "Boyunda şişlik hissediyor musunuz?"
+  ],
+  "routing_hint": { "specialty": "kulak burun boğaz", "priority": "low" },
+  "evidence": [{ "source": "IDSA Guidelines - Pharyngitis", "url": "https://..." }],
+  "version": 1,
+  "updated_at": "2025-01-15"
+}

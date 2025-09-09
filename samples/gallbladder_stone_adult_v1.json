@@ -1,0 +1,32 @@
+{
+  "id": "gallbladder_stone_adult_v1",
+  "title": "Safra Kesesi Taşı - Erişkin",
+  "lang": "tr",
+  "complaints": ["sağ üst karın ağrısı", "safra taşı", "bulantı", "sarılık"],
+  "age_groups": ["adult"],
+  "pregnancy": ["any"],
+  "esi_hint": "Kolanjit/pankreatit → ESI-2; basit kolik → ESI-3.",
+  "red_flags": [
+    "Murphy işareti pozitif",
+    "Sarılık",
+    "Ateş + titreme",
+    "Şiddetli karın ağrısı",
+    "Hipotansiyon"
+  ],
+  "immediate_actions": [
+    "Vital bulgular",
+    "Karaciğer fonksiyon testleri",
+    "Bilirubin düzeyi",
+    "Abdominal USG"
+  ],
+  "questions_to_ask_next": [
+    "Ağrı yemekten sonra mı başlıyor?",
+    "Daha önce böyle ağrı oldu mu?",
+    "İdrar rengi değişti mi?",
+    "Ailede safra taşı var mı?"
+  ],
+  "routing_hint": { "specialty": "genel cerrahi", "priority": "medium" },
+  "evidence": [{ "source": "WSES Cholecystitis Guidelines 2020", "url": "https://..." }],
+  "version": 1,
+  "updated_at": "2025-01-15"
+}

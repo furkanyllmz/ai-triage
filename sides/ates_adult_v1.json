@@ -1,0 +1,35 @@
+{
+  "id": "ates_adult_v1",
+  "title": "Ateş (Fever) - Erişkin",
+  "lang": "tr",
+  "complaints": ["ateş", "fever", "yüksek ateş", "hipertermi", "ateşlenme"],
+  "age_groups": ["adult"],
+  "pregnancy": ["any"],
+  "esi_hint": "Yüksek ateş + sepsis bulguları → ESI-1/2, basit ateş → ESI-3/4.",
+  "red_flags": [
+    "Yüksek ateş (>39.5°C)",
+    "Sepsis bulguları",
+    "Bilinç bozukluğu + ateş",
+    "Solunum sıkıntısı + ateş",
+    "Hipotansiyon",
+    "İmmünsüpresyon + ateş"
+  ],
+  "immediate_actions": [
+    "Vital bulgular",
+    "Ateş ölçümü",
+    "Enfeksiyon odağı araştırması",
+    "Sepsis değerlendirmesi",
+    "Genel durum muayenesi"
+  ],
+  "questions_to_ask_next": [
+    "Ateş ne zaman başladı?",
+    "En yüksek kaç derece oldu?",
+    "Başka şikayetler var mı?",
+    "İlaç kullanımı var mı?",
+    "Kronik hastalık var mı?"
+  ],
+  "routing_hint": { "specialty": "enfeksiyon hastalıkları", "priority": "medium" },
+  "evidence": [{ "source": "Infectious Diseases Guidelines - Fever", "url": "https://..." }],
+  "version": 1,
+  "updated_at": "2025-01-15"
+}

@@ -1,0 +1,32 @@
+{
+  "id": "leg_pain_adult_v1",
+  "title": "Bacak Ağrısı - Erişkin",
+  "lang": "tr",
+  "complaints": ["bacak ağrısı", "leg pain", "baldır ağrısı", "uyluk ağrısı"],
+  "age_groups": ["adult"],
+  "pregnancy": ["any"],
+  "esi_hint": "DVT şüphesi + şişlik → ESI-2, kas ağrısı → ESI-4.",
+  "red_flags": [
+    "Ani şişlik + ağrı",
+    "Bacakta kızarıklık",
+    "Nefes darlığı eşlik ediyor",
+    "Nabız alınamıyor",
+    "Soğukluk + renk değişimi"
+  ],
+  "immediate_actions": [
+    "Nabız kontrolü",
+    "Şişlik değerlendirmesi",
+    "Renk değişimi kontrolü",
+    "Wells skoru hesaplama"
+  ],
+  "questions_to_ask_next": [
+    "Şişlik var mı?",
+    "Uzun yolculuk yaptınız mı?",
+    "Ameliyat geçirdiniz mi?",
+    "Kan sulandırıcı kullanıyor musunuz?"
+  ],
+  "routing_hint": { "specialty": "damar cerrahisi", "priority": "medium" },
+  "evidence": [{ "source": "ESC Guidelines - DVT", "url": "https://..." }],
+  "version": 1,
+  "updated_at": "2025-01-15"
+}

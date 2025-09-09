@@ -1,0 +1,32 @@
+{
+  "id": "diabetic_ketoacidosis_adult_v1",
+  "title": "Diyabetik Ketoasidoz - Erişkin",
+  "lang": "tr",
+  "complaints": ["yüksek şeker", "kusma", "karın ağrısı", "nefes darlığı"],
+  "age_groups": ["adult"],
+  "pregnancy": ["any"],
+  "esi_hint": "DKA → ESI-1; hafif hiperglisemi → ESI-2-3.",
+  "red_flags": [
+    "Kan şekeri > 250 mg/dL",
+    "Keton pozitifliği",
+    "pH < 7.3",
+    "Dehidratasyon",
+    "Kussmaul solunumu"
+  ],
+  "immediate_actions": [
+    "Kan şekeri ölçümü",
+    "Arter kan gazı",
+    "Keton ölçümü",
+    "IV sıvı başlangıcı"
+  ],
+  "questions_to_ask_next": [
+    "DM tanınız var mı?",
+    "İnsülin kullanıyor musunuz?",
+    "Enfeksiyon belirtisi var mı?",
+    "İlaçları aksattınız mı?"
+  ],
+  "routing_hint": { "specialty": "endokrinoloji", "priority": "critical" },
+  "evidence": [{ "source": "ADA DKA Guidelines 2022", "url": "https://..." }],
+  "version": 1,
+  "updated_at": "2025-01-15"
+}

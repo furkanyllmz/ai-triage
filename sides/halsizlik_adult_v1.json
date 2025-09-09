@@ -1,0 +1,35 @@
+{
+  "id": "halsizlik_adult_v1",
+  "title": "Halsizlik (Genel Durum Bozukluğu) - Erişkin",
+  "lang": "tr",
+  "complaints": ["halsizlik", "weakness", "güçsüzlük", "yorgunluk", "genel durum bozukluğu"],
+  "age_groups": ["adult"],
+  "pregnancy": ["any"],
+  "esi_hint": "Akut şiddetli halsizlik + vital bozukluk → ESI-2/3, kronik halsizlik → ESI-4/5.",
+  "red_flags": [
+    "Ani başlayan şiddetli halsizlik",
+    "Ateş + halsizlik",
+    "Nefes darlığı + halsizlik",
+    "Göğüs ağrısı + halsizlik",
+    "Bilinç bozukluğu",
+    "Dehidratasyon bulguları"
+  ],
+  "immediate_actions": [
+    "Vital bulgular",
+    "Genel görünüm değerlendirmesi",
+    "Dehidratasyon bulguları",
+    "Kardiyopulmoner muayene",
+    "Nörolojik muayene"
+  ],
+  "questions_to_ask_next": [
+    "Ne zaman başladı?",
+    "Ateş var mı?",
+    "İştah kaybı var mı?",
+    "Kilo kaybı var mı?",
+    "İlaç kullanımı var mı?"
+  ],
+  "routing_hint": { "specialty": "dahiliye", "priority": "low" },
+  "evidence": [{ "source": "Internal Medicine Guidelines - Fatigue", "url": "https://..." }],
+  "version": 1,
+  "updated_at": "2025-01-15"
+}

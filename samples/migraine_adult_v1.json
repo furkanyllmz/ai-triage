@@ -1,0 +1,32 @@
+{
+  "id": "migraine_adult_v1",
+  "title": "Migren - Erişkin",
+  "lang": "tr",
+  "complaints": ["baş ağrısı", "migren", "bulantı", "ışık hassasiyeti"],
+  "age_groups": ["adult"],
+  "pregnancy": ["any"],
+  "esi_hint": "Status migrainosus → ESI-2; tipik migren → ESI-4.",
+  "red_flags": [
+    "İlk kez olan şiddetli baş ağrısı",
+    "Ateş + ense sertliği",
+    "Nörolojik defisit",
+    "Travma sonrası baş ağrısı",
+    "50 yaş üstü yeni başlayan"
+  ],
+  "immediate_actions": [
+    "Ağrı skoru",
+    "Nörolojik muayene",
+    "Vital bulgular",
+    "Ense sertliği kontrolü"
+  ],
+  "questions_to_ask_next": [
+    "Daha önce böyle ağrı oldu mu?",
+    "Aura var mı?",
+    "Tetikleyici faktör?",
+    "Ailede migren öyküsü?"
+  ],
+  "routing_hint": { "specialty": "nöroloji", "priority": "low" },
+  "evidence": [{ "source": "IHS Migraine Classification 2018", "url": "https://..." }],
+  "version": 1,
+  "updated_at": "2025-01-15"
+}

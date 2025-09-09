@@ -1,0 +1,35 @@
+{
+  "id": "bas_donmesi_adult_v1",
+  "title": "Baş Dönmesi (Vertigo/Dizziness) - Erişkin",
+  "lang": "tr",
+  "complaints": ["baş dönmesi", "vertigo", "dizziness", "sersemlik", "dengesizlik"],
+  "age_groups": ["adult"],
+  "pregnancy": ["any"],
+  "esi_hint": "Santral vertigo şüphesi → ESI-2/3, periferik vertigo → ESI-4/5.",
+  "red_flags": [
+    "Ani başlayan şiddetli vertigo",
+    "Nörolojik bulgular",
+    "Baş ağrısı + vertigo",
+    "İşitme kaybı + vertigo",
+    "Çift görme",
+    "Yutkunma güçlüğü"
+  ],
+  "immediate_actions": [
+    "Vital bulgular",
+    "Nörolojik muayene",
+    "Dix-Hallpike testi",
+    "Göz muayenesi",
+    "Kulak muayenesi"
+  ],
+  "questions_to_ask_next": [
+    "Döner tarzda mı?",
+    "Baş hareketleriyle artar mı?",
+    "İşitme kaybı var mı?",
+    "Kulak çınlaması var mı?",
+    "Baş ağrısı var mı?"
+  ],
+  "routing_hint": { "specialty": "kulak burun boğaz", "priority": "low" },
+  "evidence": [{ "source": "ENT Guidelines - Vertigo Management", "url": "https://..." }],
+  "version": 1,
+  "updated_at": "2025-01-15"
+}

@@ -1,0 +1,32 @@
+{
+  "id": "hypertensive_crisis_adult_v1",
+  "title": "Hipertansif Kriz - Erişkin",
+  "lang": "tr",
+  "complaints": ["yüksek tansiyon", "baş ağrısı", "göğüs ağrısı", "nefes darlığı"],
+  "age_groups": ["adult"],
+  "pregnancy": ["any"],
+  "esi_hint": "Organ hasarı → ESI-1; asemptomatik → ESI-3.",
+  "red_flags": [
+    "Sistolik TA > 180 mmHg",
+    "Diyastolik TA > 120 mmHg",
+    "Akut organ hasarı",
+    "Nörolojik semptomlar",
+    "Akut kalp yetmezliği"
+  ],
+  "immediate_actions": [
+    "Seri TA ölçümleri",
+    "EKG",
+    "Göz dibi muayenesi",
+    "Nörolojik muayene"
+  ],
+  "questions_to_ask_next": [
+    "HT ilaçlarını kullanıyor musunuz?",
+    "İlaçları bıraktınız mı?",
+    "Göğüs ağrısı var mı?",
+    "Görme bulanıklığı var mı?"
+  ],
+  "routing_hint": { "specialty": "kardiyoloji", "priority": "high" },
+  "evidence": [{ "source": "AHA Hypertensive Crisis Guidelines 2017", "url": "https://..." }],
+  "version": 1,
+  "updated_at": "2025-01-15"
+}

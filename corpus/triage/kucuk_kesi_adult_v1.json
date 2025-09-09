@@ -1,0 +1,35 @@
+{
+  "id": "kucuk_kesi_adult_v1",
+  "title": "Küçük Kesi (Yüzeyel Yara) - Erişkin",
+  "lang": "tr",
+  "complaints": ["küçük kesi", "superficial laceration", "yüzeyel yara", "küçük yara", "sıyrık"],
+  "age_groups": ["adult"],
+  "pregnancy": ["any"],
+  "esi_hint": "Basit küçük kesi → ESI-4/5, enfeksiyon şüphesi → ESI-3.",
+  "red_flags": [
+    "Enfeksiyon bulguları",
+    "Yabancı cisim",
+    "Kirli yara",
+    "Derin doku tutulumu",
+    "Kanama kontrolsüzlüğü",
+    "Tetanoz riski"
+  ],
+  "immediate_actions": [
+    "Yara temizliği",
+    "Kanama kontrolü",
+    "Yara derinliği değerlendirmesi",
+    "Yabancı cisim kontrolü",
+    "Tetanoz durumu sorgusu"
+  ],
+  "questions_to_ask_next": [
+    "Nasıl yaralandınız?",
+    "Ne zaman oldu?",
+    "Yara kirli mi?",
+    "Tetanoz aşısı ne zaman?",
+    "Ağrı şiddeti nedir?"
+  ],
+  "routing_hint": { "specialty": "acil tıp", "priority": "low" },
+  "evidence": [{ "source": "Emergency Medicine Guidelines - Minor Wounds", "url": "https://..." }],
+  "version": 1,
+  "updated_at": "2025-01-15"
+}

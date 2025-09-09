@@ -1,0 +1,32 @@
+{
+  "id": "myocardial_infarction_adult_v1",
+  "title": "Miyokard İnfarktüsü - Erişkin",
+  "lang": "tr",
+  "complaints": ["göğüs ağrısı", "kalp krizi", "sıkışma", "nefes darlığı"],
+  "age_groups": ["adult"],
+  "pregnancy": ["any"],
+  "esi_hint": "STEMI veya instabil vitaller → ESI-1; NSTEMI → ESI-2.",
+  "red_flags": [
+    "ST elevasyonu EKG'de",
+    "Troponin yüksekliği",
+    "Hipotansiyon + bradikardi",
+    "Akut kalp yetmezliği bulguları",
+    "Kardiyojenik şok"
+  ],
+  "immediate_actions": [
+    "Acil 12 derivasyon EKG",
+    "Troponin testi",
+    "IV erişim + oksijen",
+    "Kardiyoloji konsültasyonu"
+  ],
+  "questions_to_ask_next": [
+    "Ağrı ne zaman başladı?",
+    "Daha önce kalp krizi geçirdiniz mi?",
+    "Ailede erken yaş kalp hastalığı var mı?",
+    "Sigara/DM/hipertansiyon var mı?"
+  ],
+  "routing_hint": { "specialty": "kardiyoloji", "priority": "critical" },
+  "evidence": [{ "source": "ESC STEMI Guidelines 2023", "url": "https://..." }],
+  "version": 1,
+  "updated_at": "2025-01-15"
+}
