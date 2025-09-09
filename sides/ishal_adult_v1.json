@@ -1,0 +1,35 @@
+{
+  "id": "ishal_adult_v1",
+  "title": "İshal (Diyare) - Erişkin",
+  "lang": "tr",
+  "complaints": ["ishal", "diarrhea", "diyare", "sulu dışkı", "sık dışkı"],
+  "age_groups": ["adult"],
+  "pregnancy": ["any"],
+  "esi_hint": "Şiddetli dehidratasyon → ESI-2/3, basit ishal → ESI-4/5.",
+  "red_flags": [
+    "Şiddetli dehidratasyon",
+    "Kanlı ishal",
+    "Yüksek ateş + ishal",
+    "Şiddetli karın ağrısı",
+    "Elektrolit bozukluğu",
+    "Hipotansiyon"
+  ],
+  "immediate_actions": [
+    "Vital bulgular",
+    "Dehidratasyon değerlendirmesi",
+    "Karın muayenesi",
+    "Dışkı karakteri sorgusu",
+    "Elektrolit durumu"
+  ],
+  "questions_to_ask_next": [
+    "Ne zaman başladı?",
+    "Dışkıda kan var mı?",
+    "Ateş var mı?",
+    "Karın ağrısı var mı?",
+    "Ne yediğinizi hatırlıyor musunuz?"
+  ],
+  "routing_hint": { "specialty": "gastroenteroloji", "priority": "medium" },
+  "evidence": [{ "source": "Gastroenterology Guidelines - Diarrhea", "url": "https://..." }],
+  "version": 1,
+  "updated_at": "2025-01-15"
+}

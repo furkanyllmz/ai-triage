@@ -1,0 +1,32 @@
+{
+  "id": "pneumonia_adult_v1",
+  "title": "Pnömoni - Erişkin",
+  "lang": "tr",
+  "complaints": ["öksürük", "ateş", "nefes darlığı", "göğüs ağrısı", "balgam"],
+  "age_groups": ["adult"],
+  "pregnancy": ["any"],
+  "esi_hint": "Sepsis/şok → ESI-1; şiddetli pnömoni → ESI-2; hafif → ESI-3.",
+  "red_flags": [
+    "SpO2 < 90%",
+    "Sistolik TA < 90 mmHg",
+    "Solunum sayısı > 30/dk",
+    "Konfüzyon",
+    "Üre > 7 mmol/L"
+  ],
+  "immediate_actions": [
+    "SpO2 ölçümü",
+    "Akciğer grafisi",
+    "Kan kültürü",
+    "CURB-65 skoru"
+  ],
+  "questions_to_ask_next": [
+    "Semptomlar ne kadar süredir?",
+    "Balgam renkli mi?",
+    "Kronik akciğer hastalığı var mı?",
+    "İmmünsüpresyon var mı?"
+  ],
+  "routing_hint": { "specialty": "göğüs hastalıkları", "priority": "medium" },
+  "evidence": [{ "source": "BTS Pneumonia Guidelines 2019", "url": "https://..." }],
+  "version": 1,
+  "updated_at": "2025-01-15"
+}

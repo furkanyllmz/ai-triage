@@ -1,0 +1,32 @@
+{
+  "id": "joint_pain_adult_v1",
+  "title": "Eklem Ağrısı - Erişkin",
+  "lang": "tr",
+  "complaints": ["eklem ağrısı", "joint pain", "diz ağrısı", "omuz ağrısı"],
+  "age_groups": ["adult"],
+  "pregnancy": ["any"],
+  "esi_hint": "Akut monoartrit + ateş → ESI-2–3, kronik → ESI-4–5.",
+  "red_flags": [
+    "Ani şişlik + kızarıklık",
+    "Ateş + eklem ağrısı",
+    "Hareket kısıtlılığı",
+    "Travma sonrası ağrı",
+    "Çoklu eklem tutulumu"
+  ],
+  "immediate_actions": [
+    "Eklem muayenesi",
+    "Hareket açıklığı testi",
+    "Ateş ölçümü",
+    "Şişlik değerlendirmesi"
+  ],
+  "questions_to_ask_next": [
+    "Hangi eklemler ağrıyor?",
+    "Sabah tutukluğu var mı?",
+    "Travma geçirdiniz mi?",
+    "Daha önce eklem hastalığı tanısı aldınız mı?"
+  ],
+  "routing_hint": { "specialty": "romatologi", "priority": "medium" },
+  "evidence": [{ "source": "ACR Guidelines - Joint Pain", "url": "https://..." }],
+  "version": 1,
+  "updated_at": "2025-01-15"
+}

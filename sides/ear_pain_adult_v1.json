@@ -1,0 +1,32 @@
+{
+  "id": "ear_pain_adult_v1",
+  "title": "Kulak Ağrısı - Erişkin",
+  "lang": "tr",
+  "complaints": ["kulak ağrısı", "ear pain", "kulak batması", "kulak sancısı"],
+  "age_groups": ["adult"],
+  "pregnancy": ["any"],
+  "esi_hint": "Şiddetli ağrı + işitme kaybı → ESI-3, basit otit → ESI-4.",
+  "red_flags": [
+    "Ani işitme kaybı",
+    "Kulaktan akıntı",
+    "Yüz felci",
+    "Şiddetli baş dönmesi",
+    "Yüksek ateş + kulak ağrısı"
+  ],
+  "immediate_actions": [
+    "Kulak muayenesi",
+    "İşitme testi",
+    "Ateş ölçümü",
+    "Timpan membran değerlendirmesi"
+  ],
+  "questions_to_ask_next": [
+    "İşitme azalması var mı?",
+    "Kulaktan akıntı var mı?",
+    "Baş dönmesi eşlik ediyor mu?",
+    "Soğuk algınlığı geçirdiniz mi?"
+  ],
+  "routing_hint": { "specialty": "kulak burun boğaz", "priority": "medium" },
+  "evidence": [{ "source": "AAO-HNS Guidelines - Otitis", "url": "https://..." }],
+  "version": 1,
+  "updated_at": "2025-01-15"
+}

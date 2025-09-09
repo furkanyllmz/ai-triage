@@ -1,0 +1,32 @@
+{
+  "id": "kidney_stone_adult_v1",
+  "title": "Böbrek Taşı - Erişkin",
+  "lang": "tr",
+  "complaints": ["yan ağrısı", "böbrek ağrısı", "idrar yaparken yanma", "kolik ağrı"],
+  "age_groups": ["adult"],
+  "pregnancy": ["any"],
+  "esi_hint": "Şiddetli ağrı + komplikasyon → ESI-2; basit kolik → ESI-3.",
+  "red_flags": [
+    "Ateş + yan ağrısı",
+    "Anüri/oligüri",
+    "Şiddetli bulantı/kusma",
+    "Hematüri + ağrı",
+    "Tek böbrek + obstrüksiyon"
+  ],
+  "immediate_actions": [
+    "Ağrı skoru değerlendirmesi",
+    "İdrar analizi",
+    "Böbrek fonksiyon testleri",
+    "Abdominal BT"
+  ],
+  "questions_to_ask_next": [
+    "Ağrı dalgalar halinde mi?",
+    "İdrarda kan görüyor musunuz?",
+    "Daha önce taş düştü mü?",
+    "Ailede taş öyküsü var mı?"
+  ],
+  "routing_hint": { "specialty": "üroloji", "priority": "medium" },
+  "evidence": [{ "source": "EAU Urolithiasis Guidelines 2023", "url": "https://..." }],
+  "version": 1,
+  "updated_at": "2025-01-15"
+}

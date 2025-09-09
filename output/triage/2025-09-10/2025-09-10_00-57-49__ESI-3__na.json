@@ -1,0 +1,85 @@
+{
+  "saved_at": "2025-09-10T00:57:49",
+  "triage": {
+    "triage_level": "ESI-3",
+    "red_flags": [],
+    "immediate_actions": [
+      "Vital bulguların alınması",
+      "Ateş ölçümü"
+    ],
+    "questions_to_ask_next": [
+      "Yutkunmada zorlanma var mı?",
+      "Nefes almakta güçlük var mı?",
+      "Boyunda şişlik veya ses değişikliği var mı?",
+      "Ateş ne zaman başladı?",
+      "En yüksek kaç derece oldu?",
+      "Başka şikayetler var mı?",
+      "İlaç kullanımı var mı?",
+      "Kronik hastalık var mı?"
+    ],
+    "routing": {
+      "specialty": "Acil Tıp",
+      "priority": "medium"
+    },
+    "rationale_brief": "Hasta ateş, boğaz ağrısı ve üşüme şikayeti ile başvurdu. Red flag belirtisi yok.  Boğaz ağrısı, grip ve ateş için gerekli sorular sorulacak.",
+    "evidence_ids": [
+      "Boğaz Ağrısı - Erişkin",
+      "Grip (İnfluenza) - Erişkin",
+      "Ateş (Fever) - Erişkin"
+    ],
+    "model_meta": {
+      "model": "gemini-1.5-flash",
+      "prompt_version": "triage-prompt-v1",
+      "corpus_hint": "memory-cards"
+    }
+  },
+  "input_context": {
+    "patient_id": null,
+    "age": 30,
+    "sex": "F",
+    "complaint_text": "ateşim var boğazım şiş üşüyorum",
+    "vitals": {},
+    "pregnancy": "any",
+    "chief": null,
+    "k": 3,
+    "age_group": "adult"
+  },
+  "rag_cards": [
+    {
+      "id": "sore_throat_adult_v1",
+      "title": "Boğaz Ağrısı - Erişkin",
+      "content": "Boğaz Ağrısı - Erişkin\nESI ipucu: Red-flag yoksa genelde ESI-4.\nRed flags:\n- Solunum sıkıntısı/stridor\n- Ağız açmada güçlük (trismus)\n- Tükürük yutamama/salya akması\n- Boyunda hızla artan şişlik\n- Yüksek ateş + ense sertliği\nİlk eylemler:\n- Vital bulguların alınması\n- Ateş ölçümü\n- O2 satürasyonu kontrolü\nSorulacak ek sorular:\n- Yutkunmada zorlanma var mı?\n- Nefes almakta güçlük var mı?\n- Boyunda şişlik veya ses değişikliği var mı?",
+      "score": 0.855970025062561,
+      "evidence": [
+        {
+          "source": "NICE Sore Throat Guideline",
+          "url": "https://..."
+        }
+      ]
+    },
+    {
+      "id": "grip_adult_v1",
+      "title": "Grip (İnfluenza) - Erişkin",
+      "content": "Grip (İnfluenza) - Erişkin\nESI ipucu: Komplikasyonsuz grip → ESI-4/5, pnömoni şüphesi → ESI-2/3.\nRed flags:\n- Nefes darlığı\n- Göğüs ağrısı\n- Yüksek ateş (>39°C)\n- Şiddetli baş ağrısı\n- Bilinç bozukluğu\n- Dehidratasyon\nİlk eylemler:\n- Vital bulgular\n- Ateş ölçümü\n- Akciğer dinleme\n- Boğaz muayenesi\n- Genel durum değerlendirmesi\nSorulacak ek sorular:\n- Şikayetler ne zaman başladı?\n- Ateş kaç gündür var?\n- Öksürük var mı?\n- Nefes almada güçlük var mı?\n- Grip aşısı oldunuz mu?",
+      "score": 0.8547166585922241,
+      "evidence": [
+        {
+          "source": "Internal Medicine Guidelines - Influenza",
+          "url": "https://..."
+        }
+      ]
+    },
+    {
+      "id": "ates_adult_v1",
+      "title": "Ateş (Fever) - Erişkin",
+      "content": "Ateş (Fever) - Erişkin\nESI ipucu: Yüksek ateş + sepsis bulguları → ESI-1/2, basit ateş → ESI-3/4.\nRed flags:\n- Yüksek ateş (>39.5°C)\n- Sepsis bulguları\n- Bilinç bozukluğu + ateş\n- Solunum sıkıntısı + ateş\n- Hipotansiyon\n- İmmünsüpresyon + ateş\nİlk eylemler:\n- Vital bulgular\n- Ateş ölçümü\n- Enfeksiyon odağı araştırması\n- Sepsis değerlendirmesi\n- Genel durum muayenesi\nSorulacak ek sorular:\n- Ateş ne zaman başladı?\n- En yüksek kaç derece oldu?\n- Başka şikayetler var mı?\n- İlaç kullanımı var mı?\n- Kronik hastalık var mı?",
+      "score": 0.8539220690727234,
+      "evidence": [
+        {
+          "source": "Infectious Diseases Guidelines - Fever",
+          "url": "https://..."
+        }
+      ]
+    }
+  ]
+}

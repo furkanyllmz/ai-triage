@@ -1,0 +1,35 @@
+{
+  "id": "buyuk_kesi_adult_v1",
+  "title": "Büyük Kesi (Derin Yara) - Erişkin",
+  "lang": "tr",
+  "complaints": ["büyük kesi", "deep laceration", "derin yara", "büyük yara", "kesi yarası"],
+  "age_groups": ["adult"],
+  "pregnancy": ["any"],
+  "esi_hint": "Arteriyel kanama → ESI-1/2, derin kesi → ESI-2/3, yüzeyel kesi → ESI-4.",
+  "red_flags": [
+    "Arteriyel kanama",
+    "Tendon yaralanması",
+    "Sinir yaralanması",
+    "Kemik görünümü",
+    "Yabancı cisim",
+    "Enfeksiyon bulguları"
+  ],
+  "immediate_actions": [
+    "Kanama kontrolü",
+    "Yara değerlendirmesi",
+    "Nörovasküler muayene",
+    "Tendon fonksiyon testi",
+    "Yara temizliği"
+  ],
+  "questions_to_ask_next": [
+    "Nasıl yaralandınız?",
+    "Kanama ne kadar sürdü?",
+    "Hareket edebiliyor musunuz?",
+    "Uyuşma var mı?",
+    "Tetanoz aşısı güncel mi?"
+  ],
+  "routing_hint": { "specialty": "plastik cerrahi", "priority": "medium" },
+  "evidence": [{ "source": "Plastic Surgery Guidelines - Wound Management", "url": "https://..." }],
+  "version": 1,
+  "updated_at": "2025-01-15"
+}

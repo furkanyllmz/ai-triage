@@ -1,0 +1,32 @@
+{
+  "id": "pelvic_pain_adult_v1",
+  "title": "Pelvik Ağrı - Erişkin",
+  "lang": "tr",
+  "complaints": ["pelvik ağrı", "pelvic pain", "kasık ağrısı", "alt karın ağrısı"],
+  "age_groups": ["adult"],
+  "pregnancy": ["any"],
+  "esi_hint": "Gebelik + ağrı → ESI-2, jinekolojik acil → ESI-2–3.",
+  "red_flags": [
+    "Gebelik + kanama",
+    "Şiddetli ani ağrı",
+    "Ateş + pelvik ağrı",
+    "İdrar yapamama",
+    "Vajinal akıntı + ağrı"
+  ],
+  "immediate_actions": [
+    "Gebelik testi",
+    "Vital bulgular",
+    "Pelvik muayene",
+    "İdrar analizi"
+  ],
+  "questions_to_ask_next": [
+    "Gebelik şüphesi var mı?",
+    "Adet düzensizliği var mı?",
+    "İdrar yaparken yanma var mı?",
+    "Vajinal akıntı var mı?"
+  ],
+  "routing_hint": { "specialty": "kadın doğum", "priority": "medium" },
+  "evidence": [{ "source": "ACOG Guidelines - Pelvic Pain", "url": "https://..." }],
+  "version": 1,
+  "updated_at": "2025-01-15"
+}

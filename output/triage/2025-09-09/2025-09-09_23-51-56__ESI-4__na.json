@@ -1,0 +1,78 @@
+{
+  "saved_at": "2025-09-09T23:51:56",
+  "triage": {
+    "triage_level": "ESI-4",
+    "red_flags": [],
+    "immediate_actions": [
+      "Göz muayenesi"
+    ],
+    "questions_to_ask_next": [
+      "Gözlerde kızarıklık veya şişme var mı?",
+      "Gözlerde akıntı var mı?",
+      "Gözlerinizi ovaladınız mı?",
+      "Son zamanlarda yeni bir kozmetik ürün kullandınız mı?"
+    ],
+    "routing": {
+      "specialty": "Opthalmology",
+      "priority": "low"
+    },
+    "rationale_brief": "Hasta göz kaşıntısı ve burun akıntısı şikayeti ile başvurdu. Red flag yok. ESI-4 olarak sınıflandırıldı.",
+    "evidence_ids": [
+      "Göz Ağrısı - Erişkin"
+    ],
+    "model_meta": {
+      "model": "gemini-1.5-flash",
+      "prompt_version": "triage-prompt-v1",
+      "corpus_hint": "memory-cards"
+    }
+  },
+  "input_context": {
+    "patient_id": null,
+    "age": 30,
+    "sex": "F",
+    "complaint_text": "gözlerim kaşınıyo çok fazla ve burnum akıyor,",
+    "vitals": {},
+    "pregnancy": "any",
+    "chief": null,
+    "k": 3,
+    "age_group": "adult"
+  },
+  "rag_cards": [
+    {
+      "id": "eye_pain_adult_v1",
+      "title": "Göz Ağrısı - Erişkin",
+      "content": "Göz Ağrısı - Erişkin\nESI ipucu: Ani görme kaybı + ağrı → ESI-2, yüzeyel irritasyon → ESI-4.\nRed flags:\n- Ani görme kaybı\n- Şiddetli ağrı + bulantı\n- Işık hassasiyeti\n- Göz içi basınç artışı\n- Travma sonrası ağrı\nİlk eylemler:\n- Görme keskinliği testi\n- Göz muayenesi\n- Işık refleksi kontrolü\n- Göz içi basınç ölçümü\nSorulacak ek sorular:\n- Görme bulanıklığı var mı?\n- Işığa hassasiyet var mı?\n- Göze yabancı cisim kaçtı mı?\n- Daha önce glokom tanısı aldınız mı?",
+      "score": 0.8434341549873352,
+      "evidence": [
+        {
+          "source": "AAO Guidelines - Eye Pain",
+          "url": "https://..."
+        }
+      ]
+    },
+    {
+      "id": "abdominal_pain_adult_v1",
+      "title": "Karın Ağrısı - Erişkin",
+      "content": "Karın Ağrısı - Erişkin\nESI ipucu: Şiddetli karın ağrısı + instabilite → ESI-2, aksi halde çoğunlukla ESI-3–4.\nRed flags:\n- Şiddetli ani başlayan ağrı\n- Defans / rebound hassasiyet\n- Ateş + hipotansiyon\n- Kanlı kusma veya kanlı dışkı\n- Gebelik şüphesi + alt karın ağrısı\nİlk eylemler:\n- Vital bulgular\n- Ateş ölçümü\n- Ağrı skoru\nSorulacak ek sorular:\n- Ağrı yayılıyor mu?\n- Kusma/ishal var mı?\n- Gebelik şüphesi var mı?",
+      "score": 0.836384117603302,
+      "evidence": [
+        {
+          "source": "Tintinalli Emergency Medicine - Abdominal Pain",
+          "url": "https://..."
+        }
+      ]
+    },
+    {
+      "id": "sore_throat_adult_v1",
+      "title": "Boğaz Ağrısı - Erişkin",
+      "content": "Boğaz Ağrısı - Erişkin\nESI ipucu: Red-flag yoksa genelde ESI-4.\nRed flags:\n- Solunum sıkıntısı/stridor\n- Ağız açmada güçlük (trismus)\n- Tükürük yutamama/salya akması\n- Boyunda hızla artan şişlik\n- Yüksek ateş + ense sertliği\nİlk eylemler:\n- Vital bulguların alınması\n- Ateş ölçümü\n- O2 satürasyonu kontrolü\nSorulacak ek sorular:\n- Yutkunmada zorlanma var mı?\n- Nefes almakta güçlük var mı?\n- Boyunda şişlik veya ses değişikliği var mı?",
+      "score": 0.8355059623718262,
+      "evidence": [
+        {
+          "source": "NICE Sore Throat Guideline",
+          "url": "https://..."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "id": "neck_pain_adult_v1",
+  "title": "Boyun Ağrısı - Erişkin",
+  "lang": "tr",
+  "complaints": ["boyun ağrısı", "neck pain", "boyun sertliği", "ense ağrısı"],
+  "age_groups": ["adult"],
+  "pregnancy": ["any"],
+  "esi_hint": "Boyun sertliği + ateş → ESI-2, mekanik ağrı → ESI-3–4.",
+  "red_flags": [
+    "Boyun sertliği + ateş",
+    "Nörolojik defisit",
+    "Travma sonrası ağrı",
+    "Kola yayılan ağrı",
+    "Şiddetli baş ağrısı eşlik ediyor"
+  ],
+  "immediate_actions": [
+    "Boyun sertliği testi",
+    "Nörolojik muayene",
+    "Ateş ölçümü",
+    "Hareket açıklığı değerlendirmesi"
+  ],
+  "questions_to_ask_next": [
+    "Travma geçirdiniz mi?",
+    "Ağrı kollara yayılıyor mu?",
+    "Uyuşma hissediyor musunuz?",
+    "Baş ağrısı eşlik ediyor mu?"
+  ],
+  "routing_hint": { "specialty": "nöroloji", "priority": "medium" },
+  "evidence": [{ "source": "Spine Society Guidelines - Neck Pain", "url": "https://..." }],
+  "version": 1,
+  "updated_at": "2025-01-15"
+}

@@ -1,0 +1,30 @@
+{
+  "id": "sore_throat_adult_v1",
+  "title": "Boğaz Ağrısı - Erişkin",
+  "lang": "tr",
+  "complaints": ["boğaz ağrısı", "sore throat", "yutkunma güçlüğü"],
+  "age_groups": ["adult"],
+  "pregnancy": ["any"],
+  "esi_hint": "Red-flag yoksa genelde ESI-4.",
+  "red_flags": [
+    "Solunum sıkıntısı/stridor",
+    "Ağız açmada güçlük (trismus)",
+    "Tükürük yutamama/salya akması",
+    "Boyunda hızla artan şişlik",
+    "Yüksek ateş + ense sertliği"
+  ],
+  "immediate_actions": [
+    "Vital bulguların alınması",
+    "Ateş ölçümü",
+    "O2 satürasyonu kontrolü"
+  ],
+  "questions_to_ask_next": [
+    "Yutkunmada zorlanma var mı?",
+    "Nefes almakta güçlük var mı?",
+    "Boyunda şişlik veya ses değişikliği var mı?"
+  ],
+  "routing_hint": { "specialty": "KBB", "priority": "medium" },
+  "evidence": [{ "source": "NICE Sore Throat Guideline", "url": "https://..." }],
+  "version": 1,
+  "updated_at": "2025-09-09"
+}

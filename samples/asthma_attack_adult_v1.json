@@ -1,0 +1,32 @@
+{
+  "id": "asthma_attack_adult_v1",
+  "title": "Astım Atağı - Erişkin",
+  "lang": "tr",
+  "complaints": ["nefes darlığı", "wheezing", "hırıltı", "göğüs sıkışması"],
+  "age_groups": ["adult"],
+  "pregnancy": ["any"],
+  "esi_hint": "Şiddetli atak + hipoksi → ESI-2; hafif-orta → ESI-3.",
+  "red_flags": [
+    "SpO2 < 90%",
+    "Peak flow < %50 beklenen",
+    "Siyanoz",
+    "Konuşamama (tek kelime)",
+    "Aksesuar kas kullanımı"
+  ],
+  "immediate_actions": [
+    "SpO2 ölçümü",
+    "Peak flow ölçümü",
+    "Nebülizatör (salbutamol)",
+    "Vital bulgular"
+  ],
+  "questions_to_ask_next": [
+    "Ne zaman başladı?",
+    "Tetikleyici faktör var mı?",
+    "Hangi ilaçları kullanıyorsunuz?",
+    "Daha önce entübe oldunuz mu?"
+  ],
+  "routing_hint": { "specialty": "göğüs hastalıkları", "priority": "high" },
+  "evidence": [{ "source": "GINA Asthma Guidelines 2023", "url": "https://..." }],
+  "version": 1,
+  "updated_at": "2025-01-15"
+}

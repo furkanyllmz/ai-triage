@@ -1,0 +1,32 @@
+{
+  "id": "gastroenteritis_adult_v1",
+  "title": "Gastroenterit - Erişkin",
+  "lang": "tr",
+  "complaints": ["ishal", "kusma", "karın ağrısı", "bulantı", "dehidratasyon"],
+  "age_groups": ["adult"],
+  "pregnancy": ["any"],
+  "esi_hint": "Şiddetli dehidratasyon → ESI-2; hafif-orta → ESI-3-4.",
+  "red_flags": [
+    "Şiddetli dehidratasyon",
+    "Kanlı ishal",
+    "Yüksek ateş (>39°C)",
+    "Hipotansiyon",
+    "Şiddetli karın ağrısı"
+  ],
+  "immediate_actions": [
+    "Vital bulgular",
+    "Dehidratasyon değerlendirmesi",
+    "Elektrolit paneli",
+    "Gaita incelemesi"
+  ],
+  "questions_to_ask_next": [
+    "Ne kadar süredir devam ediyor?",
+    "Günde kaç kez ishal?",
+    "Kanlı dışkı var mı?",
+    "Son yediği şüpheli yiyecek?"
+  ],
+  "routing_hint": { "specialty": "gastroenteroloji", "priority": "low" },
+  "evidence": [{ "source": "ACG Acute Diarrhea Guidelines 2016", "url": "https://..." }],
+  "version": 1,
+  "updated_at": "2025-01-15"
+}

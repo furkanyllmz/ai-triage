@@ -1,0 +1,32 @@
+{
+  "id": "stroke_adult_v1",
+  "title": "İnme - Erişkin",
+  "lang": "tr",
+  "complaints": ["güçsüzlük", "konuşma bozukluğu", "yüz asimetrisi", "baş dönmesi"],
+  "age_groups": ["adult"],
+  "pregnancy": ["any"],
+  "esi_hint": "Akut nörolojik defisit → ESI-1; TIA şüphesi → ESI-2.",
+  "red_flags": [
+    "Ani başlayan hemiparezi",
+    "Afazi/dizartri",
+    "Yüz felci",
+    "Ani görme kaybı",
+    "Şiddetli baş ağrısı + kusma"
+  ],
+  "immediate_actions": [
+    "NIHSS skoru",
+    "Kan şekeri ölçümü",
+    "Acil BT/MR",
+    "Nöroloji konsültasyonu"
+  ],
+  "questions_to_ask_next": [
+    "Semptomlar ne zaman başladı?",
+    "Antikoagülan kullanıyor musunuz?",
+    "Daha önce inme geçirdiniz mi?",
+    "Hipertansiyon/AF öyküsü var mı?"
+  ],
+  "routing_hint": { "specialty": "nöroloji", "priority": "critical" },
+  "evidence": [{ "source": "AHA Stroke Guidelines 2023", "url": "https://..." }],
+  "version": 1,
+  "updated_at": "2025-01-15"
+}

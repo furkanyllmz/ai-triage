@@ -1,0 +1,81 @@
+{
+  "saved_at": "2025-09-10T00:27:35",
+  "triage": {
+    "triage_level": "ESI-2",
+    "red_flags": [
+      "Kırık şüphesi"
+    ],
+    "immediate_actions": [
+      "Nörovasküler muayene",
+      "Deformite değerlendirmesi"
+    ],
+    "questions_to_ask_next": [
+      "Burnunuzda uyuşma veya karıncalanma hissi var mı?",
+      "Burnunuzu hareket ettirebiliyor musunuz?",
+      "Başka bir yerinizde de ağrı veya yaralanma var mı?"
+    ],
+    "routing": {
+      "specialty": "Acil Servis",
+      "priority": "high"
+    },
+    "rationale_brief": "Hasta darp edildiğini ve burnunun kırılmış olabileceğini bildirdiğinden, ESI-2 önceliği verildi. Kırık şüphesi nedeniyle nörovasküler muayene ve deformite değerlendirmesi acil olarak yapılmalıdır.",
+    "evidence_ids": [
+      "Kol Ağrısı - Erişkin",
+      "Minör Travma - Erişkin"
+    ],
+    "model_meta": {
+      "model": "gemini-1.5-flash",
+      "prompt_version": "triage-prompt-v1",
+      "corpus_hint": "memory-cards"
+    }
+  },
+  "input_context": {
+    "patient_id": null,
+    "age": 30,
+    "sex": "F",
+    "complaint_text": "darp edildim,burnum çok acıyor kırıldı galiba",
+    "vitals": {},
+    "pregnancy": "any",
+    "chief": null,
+    "k": 3,
+    "age_group": "adult"
+  },
+  "rag_cards": [
+    {
+      "id": "arm_pain_adult_v1",
+      "title": "Kol Ağrısı - Erişkin",
+      "content": "Kol Ağrısı - Erişkin\nESI ipucu: Travma + deformite → ESI-2, kas ağrısı → ESI-4.\nRed flags:\n- Travma sonrası deformite\n- Nabız alınamıyor\n- Uyuşma/güçsüzlük\n- Şiddetli şişlik\n- Göğüs ağrısı eşlik ediyor\nİlk eylemler:\n- Nabız kontrolü\n- Motor/duyu muayenesi\n- Deformite değerlendirmesi\n- Şişlik kontrolü\nSorulacak ek sorular:\n- Travma geçirdiniz mi?\n- Uyuşma hissediyor musunuz?\n- Elinizi hareket ettirebiliyor musunuz?\n- Göğüs ağrısı var mı?",
+      "score": 0.8330604434013367,
+      "evidence": [
+        {
+          "source": "AAOS Guidelines - Arm Pain",
+          "url": "https://..."
+        }
+      ]
+    },
+    {
+      "id": "minor_travma_adult_v1",
+      "title": "Minör Travma - Erişkin",
+      "content": "Minör Travma - Erişkin\nESI ipucu: Basit minör travma → ESI-4/5, komplikasyon şüphesi → ESI-3.\nRed flags:\n- Kırık şüphesi\n- Eklem dislokasyonu\n- Tendon yaralanması\n- Sinir yaralanması\n- Damar yaralanması\n- Enfeksiyon bulguları\nİlk eylemler:\n- Yaralanma bölgesi muayenesi\n- Nörovasküler muayene\n- Hareket açıklığı testi\n- Palpasyon\n- Yara temizliği\nSorulacak ek sorular:\n- Nasıl yaralandınız?\n- Ağrı şiddeti nedir?\n- Hareket edebiliyor musunuz?\n- Uyuşma var mı?\n- Tetanoz aşısı güncel mi?",
+      "score": 0.8291792273521423,
+      "evidence": [
+        {
+          "source": "Orthopedics Guidelines - Minor Trauma",
+          "url": "https://..."
+        }
+      ]
+    },
+    {
+      "id": "abdominal_pain_adult_v1",
+      "title": "Karın Ağrısı - Erişkin",
+      "content": "Karın Ağrısı - Erişkin\nESI ipucu: Şiddetli karın ağrısı + instabilite → ESI-2, aksi halde çoğunlukla ESI-3–4.\nRed flags:\n- Şiddetli ani başlayan ağrı\n- Defans / rebound hassasiyet\n- Ateş + hipotansiyon\n- Kanlı kusma veya kanlı dışkı\n- Gebelik şüphesi + alt karın ağrısı\nİlk eylemler:\n- Vital bulgular\n- Ateş ölçümü\n- Ağrı skoru\nSorulacak ek sorular:\n- Ağrı yayılıyor mu?\n- Kusma/ishal var mı?\n- Gebelik şüphesi var mı?",
+      "score": 0.8273100852966309,
+      "evidence": [
+        {
+          "source": "Tintinalli Emergency Medicine - Abdominal Pain",
+          "url": "https://..."
+        }
+      ]
+    }
+  ]
+}

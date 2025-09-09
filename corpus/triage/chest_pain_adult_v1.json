@@ -1,0 +1,29 @@
+{
+  "id": "chest_pain_adult_v1",
+  "title": "Göğüs Ağrısı - Erişkin",
+  "lang": "tr",
+  "complaints": ["göğüs ağrısı", "chest pain", "sıkışma", "baskı"],
+  "age_groups": ["adult"],
+  "pregnancy": ["any"],
+  "esi_hint": "Red-flag varsa ESI-2; instabil vitallerde ESI-1.",
+  "red_flags": [
+    "20+ dk süren baskı tarzı ağrı",
+    "Dispne/soğuk terleme/senkop",
+    "Kola/çeneye/arkaya yayılım",
+    "SpO2 < 92 veya sistolik TA < 90"
+  ],
+  "immediate_actions": [
+    "12 derivasyon EKG ≤10 dk",
+    "O2 satürasyon ölçümü",
+    "Vital takibi"
+  ],
+  "questions_to_ask_next": [
+    "Ağrı eforla artıyor mu?",
+    "Ailede erken yaş KAH var mı?",
+    "Sigara/DM/HT öyküsü var mı?"
+  ],
+  "routing_hint": { "specialty": "kardiyoloji", "priority": "high" },
+  "evidence": [{ "source": "AHA Chest Pain Guideline 2021", "url": "https://..." }],
+  "version": 1,
+  "updated_at": "2025-09-09"
+}

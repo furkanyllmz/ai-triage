@@ -1,0 +1,35 @@
+{
+  "id": "kuvvet_kaybi_adult_v1",
+  "title": "Kuvvet Kaybı (Motor Güçsüzlük) - Erişkin",
+  "lang": "tr",
+  "complaints": ["kuvvet kaybı", "motor weakness", "güçsüzlük", "felç", "paralizi"],
+  "age_groups": ["adult"],
+  "pregnancy": ["any"],
+  "esi_hint": "Akut kuvvet kaybı → ESI-1/2, kronik progresif → ESI-3/4.",
+  "red_flags": [
+    "Ani başlayan kuvvet kaybı",
+    "Bilateral kuvvet kaybı",
+    "Solunum kas tutulumu",
+    "Yutkunma güçlüğü",
+    "Konuşma bozukluğu",
+    "Bilinç bozukluğu"
+  ],
+  "immediate_actions": [
+    "Nörolojik muayene",
+    "Motor güç testi",
+    "Refleks muayenesi",
+    "Kranial sinir muayenesi",
+    "Vital bulgular"
+  ],
+  "questions_to_ask_next": [
+    "Ne zaman başladı?",
+    "Hangi bölgede güçsüzlük var?",
+    "Konuşma bozukluğu var mı?",
+    "Yutkunma güçlüğü var mı?",
+    "Travma öyküsü var mı?"
+  ],
+  "routing_hint": { "specialty": "nöroloji", "priority": "high" },
+  "evidence": [{ "source": "Neurology Guidelines - Motor Weakness", "url": "https://..." }],
+  "version": 1,
+  "updated_at": "2025-01-15"
+}

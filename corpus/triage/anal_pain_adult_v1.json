@@ -1,0 +1,32 @@
+{
+  "id": "anal_pain_adult_v1",
+  "title": "Anal Ağrı - Erişkin",
+  "lang": "tr",
+  "complaints": ["anal ağrı", "anal pain", "makat ağrısı", "hemoroid ağrısı","kalça deliği ağrısı","dübülüm ağrıyor"],
+  "age_groups": ["adult"],
+  "pregnancy": ["any"],
+  "esi_hint": "Şiddetli ağrı + kanama → ESI-3, basit hemoroid → ESI-4–5.",
+  "red_flags": [
+    "Şiddetli rektal kanama",
+    "Ateş + anal ağrı",
+    "İdrar yapamama",
+    "Şiddetli konstipasyon",
+    "Anal kitle"
+  ],
+  "immediate_actions": [
+    "Rektal muayene",
+    "Kanama değerlendirmesi",
+    "Ateş ölçümü",
+    "Vital bulgular"
+  ],
+  "questions_to_ask_next": [
+    "Kanama var mı?",
+    "Konstipasyon var mı?",
+    "Daha önce hemoroid tanısı aldınız mı?",
+    "İdrar yapmada zorluk var mı?"
+  ],
+  "routing_hint": { "specialty": "genel cerrahi", "priority": "low" },
+  "evidence": [{ "source": "ASCRS Guidelines - Anal Pain", "url": "https://..." }],
+  "version": 1,
+  "updated_at": "2025-01-15"
+}

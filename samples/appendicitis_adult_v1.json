@@ -1,0 +1,32 @@
+{
+  "id": "appendicitis_adult_v1",
+  "title": "Apandisit - Erişkin",
+  "lang": "tr",
+  "complaints": ["sağ alt karın ağrısı", "apandisit", "karın ağrısı", "bulantı"],
+  "age_groups": ["adult"],
+  "pregnancy": ["any"],
+  "esi_hint": "Perforasyon şüphesi → ESI-2; basit apandisit → ESI-3.",
+  "red_flags": [
+    "McBurney noktasında hassasiyet",
+    "Rebound hassasiyet",
+    "Ateş + lökositoz",
+    "Defans",
+    "Hipotansiyon + taşikardi"
+  ],
+  "immediate_actions": [
+    "Vital bulgular",
+    "Tam kan sayımı",
+    "CRP/sedim",
+    "Abdominal USG/BT"
+  ],
+  "questions_to_ask_next": [
+    "Ağrı göbekten başlayıp sağa kaydı mı?",
+    "Yürürken ağrı artıyor mu?",
+    "İştah kaybı var mı?",
+    "Son bağırsak hareketi ne zaman?"
+  ],
+  "routing_hint": { "specialty": "genel cerrahi", "priority": "high" },
+  "evidence": [{ "source": "WSES Appendicitis Guidelines 2020", "url": "https://..." }],
+  "version": 1,
+  "updated_at": "2025-01-15"
+}

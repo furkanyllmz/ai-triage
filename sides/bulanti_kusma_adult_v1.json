@@ -1,0 +1,35 @@
+{
+  "id": "bulanti_kusma_adult_v1",
+  "title": "Bulantı-Kusma - Erişkin",
+  "lang": "tr",
+  "complaints": ["bulantı", "kusma", "nausea", "vomiting", "mide bulantısı"],
+  "age_groups": ["adult"],
+  "pregnancy": ["any"],
+  "esi_hint": "Dehidratasyon + elektrolit bozukluğu → ESI-2/3, basit bulantı → ESI-4/5.",
+  "red_flags": [
+    "Şiddetli dehidratasyon",
+    "Karın ağrısı + kusma",
+    "Baş ağrısı + kusma",
+    "Ateş + kusma",
+    "Kanlı kusma",
+    "Safralı kusma"
+  ],
+  "immediate_actions": [
+    "Vital bulgular",
+    "Dehidratasyon değerlendirmesi",
+    "Karın muayenesi",
+    "Kusma içeriği değerlendirmesi",
+    "Nörolojik muayene"
+  ],
+  "questions_to_ask_next": [
+    "Ne zaman başladı?",
+    "Karın ağrısı var mı?",
+    "Ateş var mı?",
+    "Kusma içeriği nasıl?",
+    "Yemek yiyebiliyor musunuz?"
+  ],
+  "routing_hint": { "specialty": "gastroenteroloji", "priority": "medium" },
+  "evidence": [{ "source": "Gastroenterology Guidelines - Nausea and Vomiting", "url": "https://..." }],
+  "version": 1,
+  "updated_at": "2025-01-15"
+}

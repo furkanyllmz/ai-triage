@@ -1,0 +1,32 @@
+{
+  "id": "arm_pain_adult_v1",
+  "title": "Kol Ağrısı - Erişkin",
+  "lang": "tr",
+  "complaints": ["kol ağrısı", "arm pain", "önkol ağrısı", "pazı ağrısı"],
+  "age_groups": ["adult"],
+  "pregnancy": ["any"],
+  "esi_hint": "Travma + deformite → ESI-2, kas ağrısı → ESI-4.",
+  "red_flags": [
+    "Travma sonrası deformite",
+    "Nabız alınamıyor",
+    "Uyuşma/güçsüzlük",
+    "Şiddetli şişlik",
+    "Göğüs ağrısı eşlik ediyor"
+  ],
+  "immediate_actions": [
+    "Nabız kontrolü",
+    "Motor/duyu muayenesi",
+    "Deformite değerlendirmesi",
+    "Şişlik kontrolü"
+  ],
+  "questions_to_ask_next": [
+    "Travma geçirdiniz mi?",
+    "Uyuşma hissediyor musunuz?",
+    "Elinizi hareket ettirebiliyor musunuz?",
+    "Göğüs ağrısı var mı?"
+  ],
+  "routing_hint": { "specialty": "ortopedi", "priority": "medium" },
+  "evidence": [{ "source": "AAOS Guidelines - Arm Pain", "url": "https://..." }],
+  "version": 1,
+  "updated_at": "2025-01-15"
+}

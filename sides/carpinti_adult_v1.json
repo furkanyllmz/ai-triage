@@ -1,0 +1,35 @@
+{
+  "id": "carpinti_adult_v1",
+  "title": "Çarpıntı (Palpitasyon) - Erişkin",
+  "lang": "tr",
+  "complaints": ["çarpıntı", "palpitation", "kalp çarpması", "taşikardi", "kalp atışı hızlanması"],
+  "age_groups": ["adult"],
+  "pregnancy": ["any"],
+  "esi_hint": "Hemodinamik instabilite → ESI-1/2, stabil çarpıntı → ESI-3/4.",
+  "red_flags": [
+    "Göğüs ağrısı + çarpıntı",
+    "Nefes darlığı + çarpıntı",
+    "Bayılma + çarpıntı",
+    "Hipotansiyon",
+    "Şiddetli bradikardi",
+    "Şiddetli taşikardi (>150/dk)"
+  ],
+  "immediate_actions": [
+    "EKG çekimi",
+    "Vital bulgular",
+    "Kardiyak monitörizasyon",
+    "Oksijen saturasyonu",
+    "Kardiyak muayene"
+  ],
+  "questions_to_ask_next": [
+    "Ne zaman başladı?",
+    "Göğüs ağrısı var mı?",
+    "Nefes darlığı var mı?",
+    "Bayılma oldu mu?",
+    "İlaç kullanımı var mı?"
+  ],
+  "routing_hint": { "specialty": "kardiyoloji", "priority": "medium" },
+  "evidence": [{ "source": "Cardiology Guidelines - Palpitations", "url": "https://..." }],
+  "version": 1,
+  "updated_at": "2025-01-15"
+}

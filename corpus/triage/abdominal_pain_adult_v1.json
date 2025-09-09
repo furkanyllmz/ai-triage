@@ -1,0 +1,30 @@
+{
+  "id": "abdominal_pain_adult_v1",
+  "title": "Karın Ağrısı - Erişkin",
+  "lang": "tr",
+  "complaints": ["karın ağrısı", "abdominal pain", "mide ağrısı"],
+  "age_groups": ["adult"],
+  "pregnancy": ["any"],
+  "esi_hint": "Şiddetli karın ağrısı + instabilite → ESI-2, aksi halde çoğunlukla ESI-3–4.",
+  "red_flags": [
+    "Şiddetli ani başlayan ağrı",
+    "Defans / rebound hassasiyet",
+    "Ateş + hipotansiyon",
+    "Kanlı kusma veya kanlı dışkı",
+    "Gebelik şüphesi + alt karın ağrısı"
+  ],
+  "immediate_actions": [
+    "Vital bulgular",
+    "Ateş ölçümü",
+    "Ağrı skoru"
+  ],
+  "questions_to_ask_next": [
+    "Ağrı yayılıyor mu?",
+    "Kusma/ishal var mı?",
+    "Gebelik şüphesi var mı?"
+  ],
+  "routing_hint": { "specialty": "genel cerrahi", "priority": "medium" },
+  "evidence": [{ "source": "Tintinalli Emergency Medicine - Abdominal Pain", "url": "https://..." }],
+  "version": 1,
+  "updated_at": "2025-09-09"
+}

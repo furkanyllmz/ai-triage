@@ -1,0 +1,43 @@
+{
+  "saved_at": "2025-09-09T23:39:00",
+  "triage": {
+    "triage_level": "ESI-2",
+    "red_flags": [],
+    "immediate_actions": [
+      "Hasta için rahat bir pozisyon sağlayın."
+    ],
+    "questions_to_ask_next": [
+      "Ağrı ne zamandan beri devam ediyor?",
+      "Ağrının şiddeti nedir (0-10 ölçeği)?",
+      "Ağrıyı tarif eder misiniz?",
+      "Ağrıyla birlikte başka belirtiler var mı (ateş, bulantı, kusma, vb.)?",
+      "Son zamanlarda travma veya yaralanma geçirdiniz mi?",
+      "Geçmişte benzer bir ağrı yaşadınız mı?",
+      "İdrar yaparken zorluk çekiyor musunuz?",
+      "Kabızlık yaşıyor musunuz?"
+    ],
+    "routing": {
+      "specialty": "Acil Servis",
+      "priority": "high"
+    },
+    "rationale_brief": "Anal bölge ağrısı, çeşitli nedenlerden kaynaklanabilir ve acil değerlendirme gerektirir.  ESI-2 önceliği, ağrının şiddetine ve potansiyel olarak ciddi altta yatan nedenlere bağlı olarak verilmiştir.",
+    "evidence_ids": [],
+    "model_meta": {
+      "model": "gemini-1.5-flash",
+      "prompt_version": "triage-prompt-v1",
+      "corpus_hint": "memory-cards"
+    }
+  },
+  "input_context": {
+    "patient_id": null,
+    "age": 22,
+    "sex": "M",
+    "complaint_text": "götüm ağrıyor",
+    "vitals": {},
+    "pregnancy": "no",
+    "chief": null,
+    "k": 3,
+    "age_group": "adult"
+  },
+  "rag_cards": []
+}

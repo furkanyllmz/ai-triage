@@ -1,0 +1,32 @@
+{
+  "id": "anaphylaxis_adult_v1",
+  "title": "Anafilaksi - Erişkin",
+  "lang": "tr",
+  "complaints": ["alerjik reaksiyon", "nefes darlığı", "kaşıntı", "şişlik"],
+  "age_groups": ["adult"],
+  "pregnancy": ["any"],
+  "esi_hint": "Anafilaksi → ESI-1; hafif alerjik reaksiyon → ESI-3.",
+  "red_flags": [
+    "Ani başlayan yaygın ürtiker",
+    "Anjioödem (yüz/dudak şişliği)",
+    "Bronkospazm/stridor",
+    "Hipotansiyon",
+    "Gastrointestinal semptomlar"
+  ],
+  "immediate_actions": [
+    "Adrenalin IM",
+    "IV erişim",
+    "Oksijen",
+    "Antihistaminik + steroid"
+  ],
+  "questions_to_ask_next": [
+    "Ne ile temas ettiniz?",
+    "Daha önce alerjiniz oldu mu?",
+    "EpiPen var mı?",
+    "İlaç alerjiniz var mı?"
+  ],
+  "routing_hint": { "specialty": "acil tıp", "priority": "critical" },
+  "evidence": [{ "source": "EAACI Anaphylaxis Guidelines 2021", "url": "https://..." }],
+  "version": 1,
+  "updated_at": "2025-01-15"
+}

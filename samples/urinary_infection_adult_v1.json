@@ -1,0 +1,32 @@
+{
+  "id": "urinary_infection_adult_v1",
+  "title": "Üriner Enfeksiyon - Erişkin",
+  "lang": "tr",
+  "complaints": ["idrar yaparken yanma", "sık idrara çıkma", "yan ağrısı", "ateş"],
+  "age_groups": ["adult"],
+  "pregnancy": ["any"],
+  "esi_hint": "Pyelonefrit/sepsis → ESI-2; basit sistit → ESI-4.",
+  "red_flags": [
+    "Ateş + yan ağrısı",
+    "Hipotansiyon",
+    "Konfüzyon (yaşlılarda)",
+    "Şiddetli bulantı/kusma",
+    "Gebelik + UTI"
+  ],
+  "immediate_actions": [
+    "İdrar analizi",
+    "İdrar kültürü",
+    "Vital bulgular",
+    "Böbrek fonksiyon testleri"
+  ],
+  "questions_to_ask_next": [
+    "Semptomlar ne kadar süredir?",
+    "Daha önce UTI geçirdiniz mi?",
+    "Gebelik var mı?",
+    "İmmünsüpresyon var mı?"
+  ],
+  "routing_hint": { "specialty": "üroloji", "priority": "low" },
+  "evidence": [{ "source": "EAU UTI Guidelines 2023", "url": "https://..." }],
+  "version": 1,
+  "updated_at": "2025-01-15"
+}

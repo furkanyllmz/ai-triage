@@ -1,0 +1,32 @@
+{
+  "id": "eye_pain_adult_v1",
+  "title": "Göz Ağrısı - Erişkin",
+  "lang": "tr",
+  "complaints": ["göz ağrısı", "eye pain", "göz yanması", "göz batması"],
+  "age_groups": ["adult"],
+  "pregnancy": ["any"],
+  "esi_hint": "Ani görme kaybı + ağrı → ESI-2, yüzeyel irritasyon → ESI-4.",
+  "red_flags": [
+    "Ani görme kaybı",
+    "Şiddetli ağrı + bulantı",
+    "Işık hassasiyeti",
+    "Göz içi basınç artışı",
+    "Travma sonrası ağrı"
+  ],
+  "immediate_actions": [
+    "Görme keskinliği testi",
+    "Göz muayenesi",
+    "Işık refleksi kontrolü",
+    "Göz içi basınç ölçümü"
+  ],
+  "questions_to_ask_next": [
+    "Görme bulanıklığı var mı?",
+    "Işığa hassasiyet var mı?",
+    "Göze yabancı cisim kaçtı mı?",
+    "Daha önce glokom tanısı aldınız mı?"
+  ],
+  "routing_hint": { "specialty": "göz hastalıkları", "priority": "medium" },
+  "evidence": [{ "source": "AAO Guidelines - Eye Pain", "url": "https://..." }],
+  "version": 1,
+  "updated_at": "2025-01-15"
+}
