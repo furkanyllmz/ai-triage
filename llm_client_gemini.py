@@ -1,16 +1,15 @@
-# llm_client_gemini.py
+# llm_client_openai.py
 import os, json, time
 from typing import List, Dict
 from dotenv import load_dotenv
-import google.generativeai as genai
-from google.generativeai.protos import Schema, Type
+from openai import OpenAI
 from schemas import TriageOutput
 
 # .env dosyasını yükle
 load_dotenv()
 
-GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-1.5-flash")
-genai.configure(api_key=os.environ["GOOGLE_API_KEY"])
+GPT_MODEL = os.getenv("GPT_MODEL", "gpt-4.1-nano")
+client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
 
 SYSTEM_PROMPT = """Sen bir acil servis e-triyaj asistanısın.
 - Tanı koymazsın, tedavi önermezsin.
@@ -36,46 +35,6 @@ CONTEXT_SNIPPETS:
 {snippets}
 """
 
-# ---- Şema tanımları ----
-ROUTING_SCHEMA = Schema(
-    type=Type.OBJECT,
-    properties={
-        "specialty": Schema(type=Type.STRING),
-        "priority": Schema(type=Type.STRING, enum=["low", "medium", "high"]),
-    },
-    required=["specialty", "priority"],
-)
-
-TRIAGE_SCHEMA = Schema(
-    type=Type.OBJECT,
-    properties={
-        "triage_level": Schema(type=Type.STRING, enum=["ESI-1","ESI-2","ESI-3","ESI-4","ESI-5"]),
-        "red_flags": Schema(type=Type.ARRAY, items=Schema(type=Type.STRING)),
-        "immediate_actions": Schema(type=Type.ARRAY, items=Schema(type=Type.STRING)),
-        "questions_to_ask_next": Schema(type=Type.ARRAY, items=Schema(type=Type.STRING)),
-        "routing": ROUTING_SCHEMA,
-        "rationale_brief": Schema(type=Type.STRING),
-        "evidence_ids": Schema(type=Type.ARRAY, items=Schema(type=Type.STRING)),
-        "model_meta": Schema(
-            type=Type.OBJECT,
-            properties={
-                "model": Schema(type=Type.STRING),
-                "prompt_version": Schema(type=Type.STRING),
-                "corpus_hint": Schema(type=Type.STRING),
-            },
-        ),
-    },
-    required=[
-        "triage_level",
-        "red_flags",
-        "immediate_actions",
-        "questions_to_ask_next",
-        "routing",
-        "rationale_brief",
-        "evidence_ids",
-    ],
-)
-
 # ---- Yardımcı: Önceki Q/A'ları yazdır ----
 def render_followups(qa_list: List[Dict[str, str]] | None) -> str:
     if not qa_list:
@@ -84,7 +43,7 @@ def render_followups(qa_list: List[Dict[str, str]] | None) -> str:
     return f"ÖNCEKİ TAKİP SORULARI VE CEVAPLAR:\n{lines}\n"
 
 # ---- Ana çağrı ----
-def call_llm_triage_gemini(
+def call_llm_triage_openai(
     age: int,
     sex: str,
     complaint_text: str,
@@ -107,22 +66,20 @@ def call_llm_triage_gemini(
         followups=followup_text
     )
 
-    model = genai.GenerativeModel(
-        GEMINI_MODEL,
-        system_instruction=SYSTEM_PROMPT,
-        generation_config={
-            "temperature": 0.2,
-            "max_output_tokens": 700,
-            "response_mime_type": "application/json",
-            "response_schema": TRIAGE_SCHEMA,
-        },
-    )
-
     last_err = None
     for _ in range(max_retries + 1):
         try:
-            resp = model.generate_content(user_prompt)
-            raw = resp.text or "{}"
+            resp = client.chat.completions.create(
+                model=GPT_MODEL,
+                messages=[
+                    {"role": "system", "content": SYSTEM_PROMPT},
+                    {"role": "user", "content": user_prompt},
+                ],
+                response_format={ "type": "json_object" },
+                max_tokens=700,
+                temperature=0.2,
+            )
+            raw = resp.choices[0].message.content or "{}"
             data = json.loads(raw)
 
             # evidence_ids boş gelirse RAG’den doldur
@@ -130,7 +87,7 @@ def call_llm_triage_gemini(
 
             out = TriageOutput(**data)
             out.model_meta = {
-                "model": GEMINI_MODEL,
+                "model": GPT_MODEL,
                 "prompt_version": "triage-prompt-v1",
                 "corpus_hint": "memory-cards",
             }
