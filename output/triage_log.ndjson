@@ -68,3 +68,4 @@
 {"case_id": "510b0605", "triage_level": "ESI-2", "patient_id": null, "file": "output/triage/2025-09-10/2025-09-10_17-37-27__ESI-2__na.json"}
 {"case_id": "7c99211f", "triage_level": "ESI-3", "patient_id": null, "file": "output/triage/2025-09-10/2025-09-10_17-38-09__ESI-3__na.json"}
 {"case_id": "46c666df", "triage_level": "ESI-3", "patient_id": "string", "file": "output/triage/2025-09-11/2025-09-11_00-00-25__ESI-3__string.json"}
+{"case_id": "9bc77bb5", "triage_level": "ESI-3", "patient_id": "string", "file": "output/triage/2025-09-11/2025-09-11_00-35-45__ESI-3__string.json"}

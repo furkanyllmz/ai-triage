@@ -17,6 +17,9 @@ SYSTEM_PROMPT = """Sen bir acil servis e-triyaj asistanısın.
 - SADECE JSON döndürürsün (verilen şemaya uyan).
 - Emin olamadığında güvenli tarafta kal (daha yüksek öncelik).
 - "routing" mutlaka OBJEDİR: {"specialty": "...", "priority": "low|medium|high"}.
+- TÜM YANITLARINI TÜRKÇE VER. JSON içindeki tüm metin alanları Türkçe olmalı.
+- red_flags, immediate_actions, questions_to_ask_next alanları MUTLAKA LİSTE olmalı (string değil).
+- red_flags, immediate_actions, questions_to_ask_next, rationale_brief alanlarındaki metinler Türkçe olsun.
 """
 
 USER_TEMPLATE = """HASTA BİLGİSİ:
@@ -32,8 +35,30 @@ GÖREV:
 - Sadece JSON döndür (triage_level, red_flags, immediate_actions, questions_to_ask_next, routing, rationale_brief, evidence_ids).
 - evidence_ids alanına kullandığın kart id'lerini yaz.
 
+ÖRNEK JSON FORMATI:
+{{
+  "triage_level": "ESI-3",
+  "red_flags": ["Kırmızı bayrak 1", "Kırmızı bayrak 2"],
+  "immediate_actions": ["Acil eylem 1", "Acil eylem 2"],
+  "questions_to_ask_next": ["Soru 1", "Soru 2"],
+  "routing": {{"specialty": "kardiyoloji", "priority": "high"}},
+  "rationale_brief": "Kısa açıklama",
+  "evidence_ids": ["kart_id_1", "kart_id_2"]
+}}
+
 CONTEXT_SNIPPETS:
 {snippets}
+
+ÖRNEK JSON FORMATI:
+{{
+  "triage_level": "ESI-3",
+  "red_flags": ["Şiddetli göğüs ağrısı", "Nefes darlığı"],
+  "immediate_actions": ["EKG çek", "Oksijen sat ölç"],
+  "questions_to_ask_next": ["Ağrı ne zaman başladı?", "Daha önce kalp problemi var mı?"],
+  "routing": {{"specialty": "kardiyoloji", "priority": "high"}},
+  "rationale_brief": "Göğüs ağrısı ve nefes darlığı kardiyak acil durumu işaret edebilir",
+  "evidence_ids": ["chest_pain_adult_v1"]
+}}
 """
 
 def render_followups(qa_list: Optional[List[Dict[str, str]]]) -> str:

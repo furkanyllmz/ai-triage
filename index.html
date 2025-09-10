@@ -2,26 +2,30 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8" />
-  <title>Hızlı Değerlendirme (E-Triyaj)</title>
+  <title>Hızlı Değerlendirme (E-Triaj) Sistemi</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" type="image/png" href="logo.png">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --primary: #3b82f6;
-      --primary-dark: #2563eb;
+      --primary: #2563eb;
+      --primary-light: #3b82f6;
+      --primary-dark: #1d4ed8;
       --secondary: #64748b;
-      --success: #10b981;
-      --warning: #f59e0b;
-      --danger: #ef4444;
-      --bg-primary: #0f172a;
-      --bg-secondary: #1e293b;
-      --bg-card: #334155;
-      --text-primary: #f8fafc;
-      --text-secondary: #cbd5e1;
-      --text-muted: #94a3b8;
-      --border: #475569;
-      --border-light: #64748b;
-      --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-      --shadow-lg: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      --success: #059669;
+      --warning: #d97706;
+      --danger: #dc2626;
+      --bg-primary: #ffffff;
+      --bg-secondary: #f8fafc;
+      --bg-card: #ffffff;
+      --text-primary: #1e293b;
+      --text-secondary: #475569;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --border-light: #cbd5e1;
+      --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
     }
 
     * {
@@ -32,95 +36,171 @@
 
     body {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: linear-gradient(135deg, var(--bg-primary) 0%, #1a202c 100%);
+      background: var(--bg-secondary);
       color: var(--text-primary);
       line-height: 1.6;
       min-height: 100vh;
+      padding-top: 60px;
     }
 
     header {
-      background: rgba(30, 41, 59, 0.8);
-      backdrop-filter: blur(10px);
+      background: var(--bg-primary);
       border-bottom: 1px solid var(--border);
-      padding: 2rem 1rem;
-      text-align: center;
-      position: sticky;
+      padding: 0.75rem 1rem;
+      box-shadow: var(--shadow);
+      position: fixed;
       top: 0;
-      z-index: 100;
+      left: 0;
+      right: 0;
+      z-index: 1000;
     }
 
-    header h1 {
-      font-size: clamp(1.5rem, 4vw, 2.5rem);
-      font-weight: 700;
-      background: linear-gradient(135deg, var(--primary), #8b5cf6);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      margin-bottom: 0.5rem;
-    }
-
-    header p {
-      color: var(--text-secondary);
-      font-size: 1rem;
-      max-width: 600px;
+    .header-container {
+      max-width: 1200px;
       margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo-section {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .logo {
+      width: 32px;
+      height: 32px;
+      background: var(--primary);
+
+;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 700;
+      font-size: 1rem;
+      overflow: hidden;
+    }
+
+    .logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      border-radius: 8px;
+    }
+
+    .header-title {
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin: 0;
+    }
+
+    .header-subtitle {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin: 0;
+      display: none;
+    }
+
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+    }
+
+    .user-avatar {
+      width: 28px;
+      height: 28px;
+      background: var(--primary);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 500;
+      font-size: 0.75rem;
     }
 
     main {
-      max-width: 1200px;
-      margin: 2rem auto;
-      padding: 0 1rem 3rem;
+      max-width: 1400px;
+      margin: 1.5rem auto;
+      padding: 0 1rem 2rem;
       display: grid;
       grid-template-columns: 1fr;
-      gap: 2rem;
+      gap: 1.5rem;
     }
 
     @media (min-width: 768px) {
       main {
-        grid-template-columns: 1.2fr 1fr;
-        gap: 2.5rem;
+        grid-template-columns: 500px 1fr;
+        gap: 2rem;
       }
     }
 
+    .input-section {
+      max-width: 500px;
+    }
+
+    .results-section {
+      min-height: 600px;
+    }
+
     .card {
-      background: rgba(51, 65, 85, 0.6);
-      backdrop-filter: blur(10px);
+      background: var(--bg-card);
       border: 1px solid var(--border);
-      border-radius: 1rem;
+      border-radius: 12px;
       padding: 1.5rem;
       box-shadow: var(--shadow);
-      transition: all 0.3s ease;
+      transition: all 0.2s ease;
     }
 
     .card:hover {
-      transform: translateY(-2px);
       box-shadow: var(--shadow-lg);
       border-color: var(--border-light);
     }
 
     .card h2 {
-      font-size: 1.25rem;
+      font-size: 1.125rem;
       font-weight: 600;
-      margin-bottom: 1rem;
+      margin-bottom: 1.25rem;
       color: var(--text-primary);
       display: flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: 0.75rem;
     }
 
     .card h2::before {
       content: '';
       width: 4px;
-      height: 1.5rem;
-      background: linear-gradient(135deg, var(--primary), #8b5cf6);
+      height: 1.25rem;
+      background: var(--primary);
       border-radius: 2px;
+    }
+
+    .section-icon {
+      width: 20px;
+      height: 20px;
+      background: var(--primary);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 0.75rem;
+      font-weight: 600;
     }
 
     label {
       display: block;
       font-size: 0.875rem;
       font-weight: 500;
-      color: var(--text-secondary);
+      color: var(--text-primary);
       margin: 1rem 0 0.5rem;
     }
 
@@ -128,17 +208,18 @@
       width: 100%;
       padding: 0.75rem 1rem;
       border: 1px solid var(--border);
-      border-radius: 0.5rem;
-      background: rgba(30, 41, 59, 0.8);
+      border-radius: 8px;
+      background: var(--bg-primary);
       color: var(--text-primary);
       font-size: 0.875rem;
       transition: all 0.2s ease;
       outline: none;
+      font-family: inherit;
     }
 
     input:focus, select:focus, textarea:focus {
       border-color: var(--primary);
-      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
     }
 
     textarea {
@@ -164,7 +245,7 @@
       color: white;
       border: none;
       padding: 0.75rem 1.5rem;
-      border-radius: 0.5rem;
+      border-radius: 8px;
       font-size: 0.875rem;
       font-weight: 500;
       cursor: pointer;
@@ -173,25 +254,50 @@
       align-items: center;
       justify-content: center;
       gap: 0.5rem;
+      min-height: 44px;
     }
 
     .btn:hover {
       background: var(--primary-dark);
-      transform: translateY(-1px);
-      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+      box-shadow: var(--shadow-lg);
     }
 
     .btn.secondary {
-      background: transparent;
+      background: var(--bg-primary);
       border: 1px solid var(--border);
       color: var(--text-secondary);
     }
 
     .btn.secondary:hover {
-      background: rgba(100, 116, 139, 0.1);
+      background: var(--bg-secondary);
       border-color: var(--border-light);
-      transform: translateY(-1px);
-      box-shadow: none;
+    }
+
+    .btn.success {
+      background: var(--success);
+      color: white;
+    }
+
+    .btn.success:hover {
+      background: #059669;
+    }
+
+    .btn.warning {
+      background: var(--warning);
+      color: white;
+    }
+
+    .btn.warning:hover {
+      background: #d97706;
+    }
+
+    .btn.danger {
+      background: var(--danger);
+      color: white;
+    }
+
+    .btn.danger:hover {
+      background: #dc2626;
     }
 
     .split {
@@ -210,6 +316,10 @@
       align-items: center;
       flex-wrap: wrap;
       margin: 1rem 0;
+      padding: 1rem;
+      background: var(--bg-secondary);
+      border-radius: 8px;
+      border: 1px solid var(--border);
     }
 
     .badge {
@@ -217,16 +327,17 @@
       align-items: center;
       gap: 0.5rem;
       padding: 0.5rem 0.75rem;
-      border-radius: 9999px;
+      border-radius: 20px;
       border: 1px solid var(--border);
       font-weight: 500;
       font-size: 0.75rem;
-      background: rgba(30, 41, 59, 0.6);
+      background: var(--bg-primary);
+      color: var(--text-primary);
     }
 
     .dot {
-      width: 8px;
-      height: 8px;
+      width: 10px;
+      height: 10px;
       border-radius: 50%;
       flex-shrink: 0;
     }
@@ -235,11 +346,46 @@
     .yellow { background: var(--warning); }
     .red { background: var(--danger); }
 
+    /* ESI Color Coding for Result Summary */
+    .result-summary.esi-1,
+    .result-summary.esi-2 {
+      border-left: 4px solid #ef4444;
+      background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+    }
+
+    .result-summary.esi-3 {
+      border-left: 4px solid #f59e0b;
+      background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+    }
+
+    .result-summary.esi-4,
+    .result-summary.esi-5 {
+      border-left: 4px solid #10b981;
+      background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+    }
+
+    .result-summary.esi-1 .status-text, .esiBadge
+    .result-summary.esi-2 .status-text, .esiBadge {
+      color: #dc2626;
+      font-weight: 700;
+    }
+
+    .result-summary.esi-3 .status-text,.esiBadge {
+      color: #d97706;
+      font-weight: 700;
+    }
+
+    .result-summary.esi-4 .status-text,.esiBadge
+    .result-summary.esi-5 .status-text,.esiBadge {
+      color: #059669;
+      font-weight: 700;
+    }
+
     .qa {
-      background: rgba(30, 41, 59, 0.4);
-      border: 1px dashed var(--border);
-      border-radius: 0.75rem;
-      padding: 1rem;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.25rem;
       margin: 1rem 0;
     }
 
@@ -277,6 +423,10 @@
     .mono {
       font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
       font-size: 0.75rem;
+      background: var(--bg-secondary);
+      padding: 0.5rem;
+      border-radius: 4px;
+      border: 1px solid var(--border);
     }
 
     ul {
@@ -289,10 +439,169 @@
       color: var(--text-secondary);
     }
 
+    .info-card {
+      background: var(--primary);
+;
+      color: white;
+      padding: 1rem;
+      border-radius: 8px;
+      margin-bottom: 1.5rem;
+    }
+
+    .info-card h3 {
+      margin: 0 0 0.5rem 0;
+      font-size: 1rem;
+      font-weight: 600;
+    }
+
+    .info-card p {
+      margin: 0;
+      font-size: 0.875rem;
+      opacity: 0.9;
+    }
+
+    /* Results Panel Styles */
+    .result-summary {
+      background: var(--bg-secondary);
+      padding: 1rem;
+      border-radius: 8px;
+      margin-bottom: 1.5rem;
+    }
+
+    .status-indicator {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .status-text {
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .badges-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .badge.primary {
+      background: #6b7280;
+      color: white;
+    }
+
+    .badge.secondary {
+      background: #6b7280;
+      color: white;
+    }
+
+    .badge.tertiary {
+      background: #6b7280;
+      color: white;
+    }
+
+    /* ESI Badge Color Coding */
+    .badge.esi-1,
+    .badge.esi-2 {
+      background: #ef4444;
+      color: white;
+      font-weight: 700;
+    }
+
+    .badge.esi-3 {
+      background: #f59e0b;
+      color: white;
+      font-weight: 700;
+    }
+
+    .badge.esi-4,
+    .badge.esi-5 {
+      background: #10b981;
+      color: white;
+      font-weight: 700;
+    }
+
+    .rationale-section {
+      margin-bottom: 1.5rem;
+    }
+
+    .rationale-section h3 {
+      margin: 0 0 0.75rem 0;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+    }
+
+    .rationale-content {
+      background: var(--bg-secondary);
+      padding: 0.75rem;
+      border-radius: 6px;
+      font-size: 0.875rem;
+      line-height: 1.5;
+      border-left: 3px solid #3b82f6;
+    }
+
+    .section-block {
+      margin-bottom: 1.5rem;
+    }
+
+    .section-block h3 {
+      margin: 0 0 0.75rem 0;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+    }
+
+    .findings-list {
+      margin: 0;
+      padding-left: 1.25rem;
+    }
+
+    .findings-list li {
+      margin-bottom: 0.5rem;
+      font-size: 0.875rem;
+      line-height: 1.4;
+    }
+
     /* Responsive improvements */
+    @media (max-width: 768px) {
+      main {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+
+      .input-section {
+        max-width: none;
+      }
+
+      .header-container {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+      }
+      
+      .logo-section {
+        justify-content: center;
+      }
+      
+      .user-info {
+        justify-content: center;
+      }
+
+      .badges-container {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .result-summary {
+        padding: 0.75rem;
+      }
+    }
+
     @media (max-width: 640px) {
       header {
-        padding: 1.5rem 1rem;
+        padding: 1rem;
       }
       
       main {
@@ -306,6 +615,15 @@
       
       .split {
         flex-direction: column;
+      }
+
+      .rationale-content {
+        padding: 0.5rem;
+        font-size: 0.8rem;
+      }
+
+      .section-block h3 {
+        font-size: 0.8rem;
       }
     }
 
@@ -322,15 +640,32 @@
 </head>
 <body>
   <header>
-    <h1>Hızlı Değerlendirme (E-Triyaj)</h1>
-    <p>Şikâyeti gir → ilk değerlendirme → sistemin sorduğu soruları aynı sayfada yanıtla.</p>
-    <p style="font-size: 0.875rem; color: var(--text-muted); margin-top: 0.5rem;">Güncellenmiş format: Yapılandırılmış kategoriler, detaylı ESI kriterleri ve öncelikli soru sistemi</p>
+    <div class="header-container">
+      <div class="logo-section">
+        <div class="logo">
+          <img src="logo.png" alt="">
+        </div>
+        <div>
+          <h1 class="header-title">Hızlı Değerlendirme (E-Triaj) Sistemi</h1>
+          <p class="header-subtitle">Kişisel Sağlık Bilgilerinizi Yönetebileceğiniz Türkiye'nin Güvenilir Kişisel Sağlık Kayıt Sistemidir.</p>
+        </div>
+      </div>
+      <div class="user-info">
+        <span>Aile Hekimi Girişi</span>
+        <div class="user-avatar">AH</div>
+      </div>
+    </div>
   </header>
 
   <main>
     <!-- SOL: Giriş & Soru Akışı -->
-    <section class="card">
-      <h2>1) Hasta Bilgisi</h2>
+    <section class="card input-section">
+      <div class="info-card">
+        <h3>Triaj Değerlendirme</h3>
+        <p>Hasta bilgilerini girin ve sistemin sorularını yanıtlayın</p>
+      </div>
+      
+      <h2></span>Hasta Bilgisi</h2>
 
       <div class="row">
         <div>
@@ -340,8 +675,8 @@
         <div>
           <label>Cinsiyet</label>
           <select id="sex">
-            <option value="F">F</option>
-            <option value="M">M</option>
+            <option value="F">Kadın</option>
+            <option value="M">Erkek</option>
           </select>
         </div>
       </div>
@@ -353,14 +688,14 @@
         <div>
           <label>Gebelik</label>
           <select id="pregnancy">
-            <option value="any" selected>any</option>
-            <option value="positive">positive</option>
-            <option value="negative">negative</option>
+            <option value="any" selected>Seçilmedi</option>
+            <option value="positive">Pozitif</option>
+            <option value="negative">Negatif</option>
           </select>
         </div>
         <div>
-          <label>Chief (opsiyonel)</label>
-          <input id="chief" placeholder="örn. chest pain / göğüs ağrısı" />
+          <label>Hastalık Özeti</label>
+          <input id="chief" placeholder="Göğüs ağrısı" />
         </div>
       </div>
 
@@ -369,7 +704,7 @@
 
       <div class="hr"></div>
       <div class="split">
-        <button class="btn" id="startBtn">İlk gönder</button>
+        <button class="btn" id="startBtn">Başla</button>
         <button class="btn secondary" id="resetBtn">Sıfırla</button>
       </div>
 
@@ -377,14 +712,14 @@
 
       <div class="hr"></div>
 
-      <h2>2) Takip Soruları</h2>
+      <h2></span>Takip Soruları</h2>
       <div id="qaBox" class="qa" style="display:none;">
-        <div id="questionText" style="margin-bottom:8px;"></div>
+        <div id="questionText" style="margin-bottom:8px; font-weight: 500;"></div>
         <textarea id="answerInput" placeholder="Cevabınızı yazın..."></textarea>
         <div class="split" style="margin-top:8px;">
   <button class="btn" id="sendAnswerBtn">Yanıtla (sonraki soru)</button>
   <button class="btn secondary" id="skipBtn">Bu soruyu atla</button>
-  <button class="btn secondary" id="doneBtn">Bitir</button>
+  <button class="btn success" id="doneBtn">Bitir</button>
 </div>
 
         <div id="qaInfo" class="small muted" style="margin-top:6px;"></div>
@@ -394,32 +729,48 @@
 
       <div class="hr"></div>
       <div>
-        <h2>3) Oturum Bilgisi</h2>
+        <h2></span>Oturum Bilgisi</h2>
         <div class="small">Case ID: <span id="caseId" class="pill">-</span></div>
         <div class="small">Son kayıt: <span id="filePath">-</span></div>
       </div>
     </section>
 
     <!-- SAĞ: Canlı Sonuç Paneli -->
-    <aside class="card">
-      <h2>Sonuç Paneli</h2>
-      <div class="status" style="margin-bottom:8px;">
-        <span id="colorDot" class="dot green"></span>
-        <span id="esiBadge" class="badge">ESI: -</span>
-        <span id="priorityBadge" class="badge">Öncelik: -</span>
-        <span id="specBadge" class="badge">Bölüm: -</span>
+    <aside class="card results-section">
+      <h2></span>Değerlendirme Sonuçları</h2>
+      
+      <!-- Durum Özeti -->
+      <div class="result-summary">
+        <div class="status-indicator">
+          <span id="colorDot" class="dot green"></span>
+          <span class="status-text">Değerlendirme Durumu</span>
+        </div>
+        <div class="badges-container">
+          <span id="esiBadge" class="badge primary">ESI: -</span>
+          <span id="priorityBadge" class="badge secondary">Öncelik: -</span>
+          <span id="specBadge" class="badge tertiary">Bölüm: -</span>
+        </div>
       </div>
-      <div class="small muted" id="rationale">Henüz değerlendirme yapılmadı.</div>
+
+      <!-- Değerlendirme Açıklaması -->
+      <div class="rationale-section">
+        <h3>📋 Değerlendirme Açıklaması</h3>
+        <div class="rationale-content" id="rationale">Henüz değerlendirme yapılmadı. Hasta bilgilerini girin ve değerlendirmeyi başlatın.</div>
+      </div>
 
       <div class="hr"></div>
-      <div>
-        <strong>Red flags</strong>
-        <ul id="redFlags"></ul>
+      
+      <!-- Kritik Bulgular -->
+      <div class="section-block">
+        <h3>Kritik Bulgular (Red Flags)</h3>
+        <ul id="redFlags" class="findings-list"></ul>
       </div>
 
       <div class="hr"></div>
-      <div>
-        <strong>İlk eylemler</strong>
+      
+      <!-- İlk Müdahaleler -->
+      <div class="section-block">
+        <h3>İlk Müdahaleler</h3>
         <ul id="actions"></ul>
       </div>
 
@@ -470,9 +821,20 @@
   }
 });
     function setESI(esi){
-      $("esiBadge").textContent = "ESI: " + (esi||"-");
+      const esiBadge = $("esiBadge");
+      esiBadge.textContent = "ESI: " + (esi||"-");
       const dot = $("colorDot");
-      if(!esi){ dot.className = "dot green"; return; }
+      const resultSummary = document.querySelector(".result-summary");
+      
+      // Önceki ESI class'larını temizle
+      resultSummary.className = resultSummary.className.replace(/\besi-[1-5]\b/g, '');
+      esiBadge.className = esiBadge.className.replace(/\besi-[1-5]\b/g, '');
+      
+      if(!esi){ 
+        dot.className = "dot green";
+        esiBadge.className = "badge primary";
+        return; 
+      }
       
       // Yeni format: level_1, level_2, vb. veya eski format: esi-1, esi-2, vb.
       let level;
@@ -481,6 +843,10 @@
       } else {
         level = Number((esi+"").split("-")[1]);
       }
+      
+      // ESI class'ını result-summary ve esiBadge'e ekle
+      resultSummary.classList.add(`esi-${level}`);
+      esiBadge.className = `badge esi-${level}`;
       
       if(level<=2){ dot.className = "dot red"; }
       else if(level===3){ dot.className = "dot yellow"; }
