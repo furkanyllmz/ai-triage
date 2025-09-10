@@ -1,0 +1,76 @@
+{
+  "saved_at": "2025-09-10T17:38:09",
+  "triage": {
+    "triage_level": "ESI-3",
+    "red_flags": [],
+    "immediate_actions": [
+      "Vital bulgular"
+    ],
+    "questions_to_ask_next": [
+      "Baş ağrısının şiddeti nedir?",
+      "Baş ağrısı ne zamandan beri devam ediyor?",
+      "Baş ağrısı ile birlikte başka belirtiler var mı (bulantı, kusma, görme bozukluğu, konuşma güçlüğü, felç vb.)?"
+    ],
+    "routing": {
+      "specialty": "Acil Tıp",
+      "priority": "medium"
+    },
+    "rationale_brief": "Baş ağrısı yaygın bir şikayettir ve çoğu zaman ciddi bir sorunun göstergesi değildir. Ancak, şiddetli, ani başlayan veya nörolojik belirtilerle birlikte görülen baş ağrıları acil tıbbi müdahale gerektirebilir. Bu nedenle, hastanın detaylı değerlendirilmesi ve gerekli tetkiklerin yapılması önemlidir.",
+    "evidence_ids": [],
+    "model_meta": {
+      "model": "gemini-1.5-flash",
+      "prompt_version": "triage-prompt-v1",
+      "corpus_hint": "memory-cards"
+    }
+  },
+  "input_context": {
+    "patient_id": null,
+    "age": 30,
+    "sex": "F",
+    "complaint_text": "başım ağrıyor",
+    "vitals": {},
+    "pregnancy": "any",
+    "chief": null,
+    "k": 3,
+    "age_group": "adult",
+    "case_id": "7c99211f"
+  },
+  "rag_cards": [
+    {
+      "id": "bas_donmesi_adult_v1",
+      "title": "Baş Dönmesi (Vertigo/Dizziness) - Erişkin",
+      "content": "Baş Dönmesi (Vertigo/Dizziness) - Erişkin\nESI ipucu: Santral vertigo şüphesi → ESI-2/3, periferik vertigo → ESI-4/5.\nRed flags:\n- Ani başlayan şiddetli vertigo\n- Nörolojik bulgular\n- Baş ağrısı + vertigo\n- İşitme kaybı + vertigo\n- Çift görme\n- Yutkunma güçlüğü\nİlk eylemler:\n- Vital bulgular\n- Nörolojik muayene\n- Dix-Hallpike testi\n- Göz muayenesi\n- Kulak muayenesi\nSorulacak ek sorular:\n- Döner tarzda mı?\n- Baş hareketleriyle artar mı?\n- İşitme kaybı var mı?\n- Kulak çınlaması var mı?\n- Baş ağrısı var mı?",
+      "score": 0.8272808790206909,
+      "evidence": [
+        {
+          "source": "ENT Guidelines - Vertigo Management",
+          "url": "https://..."
+        }
+      ]
+    },
+    {
+      "id": "abdominal_pain_adult_v1",
+      "title": "Karın Ağrısı - Erişkin",
+      "content": "Karın Ağrısı - Erişkin\nESI ipucu: Şiddetli karın ağrısı + instabilite → ESI-2, aksi halde çoğunlukla ESI-3–4.\nRed flags:\n- Şiddetli ani başlayan ağrı\n- Defans / rebound hassasiyet\n- Ateş + hipotansiyon\n- Kanlı kusma veya kanlı dışkı\n- Gebelik şüphesi + alt karın ağrısı\nİlk eylemler:\n- Vital bulgular\n- Ateş ölçümü\n- Ağrı skoru\nSorulacak ek sorular:\n- Ağrı yayılıyor mu?\n- Kusma/ishal var mı?\n- Gebelik şüphesi var mı?",
+      "score": 0.8270863890647888,
+      "evidence": [
+        {
+          "source": "Tintinalli Emergency Medicine - Abdominal Pain",
+          "url": "https://..."
+        }
+      ]
+    },
+    {
+      "id": "pelvic_pain_adult_v1",
+      "title": "Pelvik Ağrı - Erişkin",
+      "content": "Pelvik Ağrı - Erişkin\nESI ipucu: Gebelik + ağrı → ESI-2, jinekolojik acil → ESI-2–3.\nRed flags:\n- Gebelik + kanama\n- Şiddetli ani ağrı\n- Ateş + pelvik ağrı\n- İdrar yapamama\n- Vajinal akıntı + ağrı\nİlk eylemler:\n- Gebelik testi\n- Vital bulgular\n- Pelvik muayene\n- İdrar analizi\nSorulacak ek sorular:\n- Gebelik şüphesi var mı?\n- Adet düzensizliği var mı?\n- İdrar yaparken yanma var mı?\n- Vajinal akıntı var mı?",
+      "score": 0.8266059160232544,
+      "evidence": [
+        {
+          "source": "ACOG Guidelines - Pelvic Pain",
+          "url": "https://..."
+        }
+      ]
+    }
+  ]
+}

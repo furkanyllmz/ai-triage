@@ -1,0 +1,82 @@
+{
+  "saved_at": "2025-09-10T17:37:27",
+  "triage": {
+    "triage_level": "ESI-2",
+    "red_flags": [
+      "Göğüs ağrısı"
+    ],
+    "immediate_actions": [
+      "12 derivasyon EKG ≤10 dk",
+      "O2 satürasyon ölçümü",
+      "Vital takibi"
+    ],
+    "questions_to_ask_next": [
+      "Ağrı eforla artıyor mu?",
+      "Ailede erken yaş KAH var mı?",
+      "Sigara/DM/HT öyküsü var mı?"
+    ],
+    "routing": {
+      "specialty": "Kardiyoloji",
+      "priority": "high"
+    },
+    "rationale_brief": "Göğüs ağrısı şikayeti nedeniyle ESI-2 olarak sınıflandırılmıştır. Red-flag kriterleri karşılanmaktadır.",
+    "evidence_ids": [
+      "Göğüs Ağrısı - Erişkin"
+    ],
+    "model_meta": {
+      "model": "gemini-1.5-flash",
+      "prompt_version": "triage-prompt-v1",
+      "corpus_hint": "memory-cards"
+    }
+  },
+  "input_context": {
+    "patient_id": null,
+    "age": 30,
+    "sex": "male",
+    "complaint_text": "göğüs ağrısı",
+    "vitals": null,
+    "pregnancy": "any",
+    "chief": null,
+    "k": 3,
+    "age_group": "adult",
+    "case_id": "510b0605"
+  },
+  "rag_cards": [
+    {
+      "id": "chest_pain_adult_v1",
+      "title": "Göğüs Ağrısı - Erişkin",
+      "content": "Göğüs Ağrısı - Erişkin\nESI ipucu: Red-flag varsa ESI-2; instabil vitallerde ESI-1.\nRed flags:\n- 20+ dk süren baskı tarzı ağrı\n- Dispne/soğuk terleme/senkop\n- Kola/çeneye/arkaya yayılım\n- SpO2 < 92 veya sistolik TA < 90\nİlk eylemler:\n- 12 derivasyon EKG ≤10 dk\n- O2 satürasyon ölçümü\n- Vital takibi\nSorulacak ek sorular:\n- Ağrı eforla artıyor mu?\n- Ailede erken yaş KAH var mı?\n- Sigara/DM/HT öyküsü var mı?",
+      "score": 0.8425079584121704,
+      "evidence": [
+        {
+          "source": "AHA Chest Pain Guideline 2021",
+          "url": "https://..."
+        }
+      ]
+    },
+    {
+      "id": "abdominal_pain_adult_v1",
+      "title": "Karın Ağrısı - Erişkin",
+      "content": "Karın Ağrısı - Erişkin\nESI ipucu: Şiddetli karın ağrısı + instabilite → ESI-2, aksi halde çoğunlukla ESI-3–4.\nRed flags:\n- Şiddetli ani başlayan ağrı\n- Defans / rebound hassasiyet\n- Ateş + hipotansiyon\n- Kanlı kusma veya kanlı dışkı\n- Gebelik şüphesi + alt karın ağrısı\nİlk eylemler:\n- Vital bulgular\n- Ateş ölçümü\n- Ağrı skoru\nSorulacak ek sorular:\n- Ağrı yayılıyor mu?\n- Kusma/ishal var mı?\n- Gebelik şüphesi var mı?",
+      "score": 0.8365826606750488,
+      "evidence": [
+        {
+          "source": "Tintinalli Emergency Medicine - Abdominal Pain",
+          "url": "https://..."
+        }
+      ]
+    },
+    {
+      "id": "anal_pain_adult_v1",
+      "title": "Anal Ağrı - Erişkin",
+      "content": "Anal Ağrı - Erişkin\nESI ipucu: Şiddetli ağrı + kanama → ESI-3, basit hemoroid → ESI-4–5.\nRed flags:\n- Şiddetli rektal kanama\n- Ateş + anal ağrı\n- İdrar yapamama\n- Şiddetli konstipasyon\n- Anal kitle\nİlk eylemler:\n- Rektal muayene\n- Kanama değerlendirmesi\n- Ateş ölçümü\n- Vital bulgular\nSorulacak ek sorular:\n- Kanama var mı?\n- Konstipasyon var mı?\n- Daha önce hemoroid tanısı aldınız mı?\n- İdrar yapmada zorluk var mı?",
+      "score": 0.832673966884613,
+      "evidence": [
+        {
+          "source": "ASCRS Guidelines - Anal Pain",
+          "url": "https://..."
+        }
+      ]
+    }
+  ]
+}
