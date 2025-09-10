@@ -3,9 +3,9 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import requests, os, uuid
-from typing import Dict, List
+from typing import Dict, List, Optional
 from schemas import TriageOutput
-from llm_client_gemini import call_llm_triage_gemini
+from llm_client_openai import call_llm_triage_openai
 from utils_output import save_triage_to_output, append_ndjson
 
 RAG_URL = os.getenv("RAG_URL", "http://localhost:8000/rag/topk")
@@ -14,13 +14,13 @@ MAX_QA = 3  # Maksimum soru sayısı
 
 app = FastAPI()
 
-# CORS middleware ekle
+# CORS middleware ekle (gerekirse domain bazlı kısıtlayabilirsin)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Tüm originlere izin ver
+    allow_origins=["*"],
     allow_credentials=True,
-    allow_methods=["*"],  # Tüm HTTP metodlarına izin ver
-    allow_headers=["*"],  # Tüm headerlara izin ver
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 # -----------------------
@@ -28,37 +28,36 @@ app.add_middleware(
 # -----------------------
 class CaseState(BaseModel):
     case_id: str
-    patient_id: str | None
+    patient_id: Optional[str]
     age: int
     sex: str
     complaint_text: str
     vitals: dict
-    pregnancy: str | None
-    chief: str | None
+    pregnancy: Optional[str]
+    chief: Optional[str]
     rag_cards: List[Dict]
     qa: List[Dict[str, str]] = []
     done: bool = False
-    cached_triage: TriageOutput | None = None
+    cached_triage: Optional[TriageOutput] = None
 
 CASES: Dict[str, CaseState] = {}
-
 
 # -----------------------
 # Input / Output Schemas
 # -----------------------
 class TriageInput(BaseModel):
-    patient_id: str | None = None
+    patient_id: Optional[str] = None
     age: int
     sex: str
     complaint_text: str
-    vitals: dict | None = None
-    pregnancy: str | None = "any"
-    chief: str | None = None
+    vitals: Optional[dict] = None
+    pregnancy: Optional[str] = "any"
+    chief: Optional[str] = None
     k: int = 3
 
 class AnswerBody(BaseModel):
-    answers: Dict[str, str] | None = None
-    done: bool | None = False
+    answers: Optional[Dict[str, str]] = None
+    done: Optional[bool] = False
 
 class TriageStartResp(BaseModel):
     case_id: str
@@ -71,7 +70,6 @@ class TriageFollowResp(BaseModel):
     triage: TriageOutput
     questions_to_ask_next: List[str]
     file_path: str
-
 
 # -----------------------
 # Routes
@@ -86,7 +84,15 @@ def triage_start(inp: TriageInput):
         "pregnancy": inp.pregnancy,
         "k": inp.k,
     }
-    cards = requests.post(RAG_URL, json=rag_body, timeout=10).json()
+
+    try:
+        r = requests.post(RAG_URL, json=rag_body, timeout=15)
+        r.raise_for_status()
+        cards = r.json()
+        if not isinstance(cards, list):
+            raise ValueError("RAG response is not a list")
+    except Exception as e:
+        raise HTTPException(status_code=502, detail=f"RAG upstream error: {e}")
 
     case_id = str(uuid.uuid4())[:8]
     cs = CaseState(
@@ -102,7 +108,7 @@ def triage_start(inp: TriageInput):
     )
     CASES[case_id] = cs
 
-    out = call_llm_triage_gemini(
+    out = call_llm_triage_openai(
         age=cs.age,
         sex=cs.sex,
         complaint_text=cs.complaint_text,
@@ -136,7 +142,6 @@ def triage_start(inp: TriageInput):
         file_path=file_path,
     )
 
-
 @app.patch("/triage/{case_id}/answer", response_model=TriageFollowResp)
 def triage_answer(case_id: str, body: AnswerBody):
     cs = CASES.get(case_id)
@@ -152,7 +157,7 @@ def triage_answer(case_id: str, body: AnswerBody):
 
     # Eğer hasta bitirdiyse veya max soruya ulaştıysa final triage yap
     if cs.done or len(cs.qa) >= MAX_QA:
-        out = call_llm_triage_gemini(
+        out = call_llm_triage_openai(
             age=cs.age,
             sex=cs.sex,
             complaint_text=cs.complaint_text,
@@ -160,24 +165,20 @@ def triage_answer(case_id: str, body: AnswerBody):
             cards=cs.rag_cards,
             qa_list=cs.qa,
         )
-        out.questions_to_ask_next = []  # artık soru yok
+        out.questions_to_ask_next = []
     else:
-        # Henüz bitmedi - cached triage sonucunu kullan, LLM çağrısı yapma
-        # İlk triage sonucunu sakla (cache) - sadece ilk kez
+        # Henüz bitmedi - cached triage sonucunu kullan, LLM çağrısı yok
         if cs.cached_triage is None:
-            cs.cached_triage = call_llm_triage_gemini(
+            cs.cached_triage = call_llm_triage_openai(
                 age=cs.age,
                 sex=cs.sex,
                 complaint_text=cs.complaint_text,
                 vitals=cs.vitals,
                 cards=cs.rag_cards,
-                qa_list=[],  # İlk çağrıda QA yok
+                qa_list=[],
             )
-        
-        # Cached triage'ı kullan - LLM çağrısı YOK!
-        out = cs.cached_triage.model_copy()  # Copy yaparak orijinali koruyoruz
-        
-        # Kalan soru sayısına göre soruları filtrele
+        out = cs.cached_triage.model_copy()
+
         remaining_questions = MAX_QA - len(cs.qa)
         if remaining_questions > 0 and out.questions_to_ask_next:
             out.questions_to_ask_next = out.questions_to_ask_next[:remaining_questions]

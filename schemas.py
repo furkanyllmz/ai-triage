@@ -7,10 +7,10 @@ class Routing(BaseModel):
 
 class TriageOutput(BaseModel):
     triage_level: Literal["ESI-1","ESI-2","ESI-3","ESI-4","ESI-5"]
-    red_flags: List[str] = []
-    immediate_actions: List[str] = []
-    questions_to_ask_next: List[str] = []
+    red_flags: List[str] = Field(default_factory=list)
+    immediate_actions: List[str] = Field(default_factory=list)
+    questions_to_ask_next: List[str] = Field(default_factory=list)
     routing: Routing = Routing()
     rationale_brief: str = ""
-    evidence_ids: List[str] = []
-    model_meta: Dict[str, str] = {}
+    evidence_ids: List[str] = Field(default_factory=list)
+    model_meta: Dict[str, str] = Field(default_factory=dict)

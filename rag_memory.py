@@ -11,9 +11,9 @@ cards = []
 paths = sorted(glob.glob("corpus/triage/*.json"))
 for p in paths:
     c = json.load(open(p, "r", encoding="utf-8"))
-    rf  = "\n- " + "\n- ".join(c.get("red_flags", []))
-    acts= "\n- " + "\n- ".join(c.get("immediate_actions", []))
-    nxt = "\n- " + "\n- ".join(c.get("questions_to_ask_next", []))
+    rf  = "\n- " + "\n- ".join(c.get("red_flags", [])) if c.get("red_flags") else ""
+    acts= "\n- " + "\n- ".join(c.get("immediate_actions", [])) if c.get("immediate_actions") else ""
+    nxt = "\n- " + "\n- ".join(c.get("questions_to_ask_next", [])) if c.get("questions_to_ask_next") else ""
     content = f"""{c['title']}
 ESI ipucu: {c.get('esi_hint','-')}
 Red flags:{rf}
@@ -41,7 +41,7 @@ def topk(q: Query):
     qvec = model.encode([q.text])[0]
     mask = np.ones(len(cards), dtype=bool)
 
-    # Hafif filtre (isteğe bağlı)
+    # Hafif filtre (opsiyonel)
     if q.chief:
         mask &= np.array([q.chief in c["meta"].get("complaints", []) for c in cards])
     if q.age_group:
@@ -50,8 +50,8 @@ def topk(q: Query):
         mask &= np.array([q.pregnancy in c["meta"].get("pregnancy", []) for c in cards])
 
     idx = np.where(mask)[0]
-    sims = cosine_sim(qvec, emb_matrix[idx])
-    order = idx[np.argsort(-sims)[:q.k]]
+    sims = cosine_sim(qvec, emb_matrix[idx]) if len(idx) else np.array([])
+    order = idx[np.argsort(-sims)[:q.k]] if len(idx) else np.array([], dtype=int)
 
     return [{
         "id": cards[i]["id"],
