@@ -5,52 +5,326 @@
   <title>Hızlı Değerlendirme (E-Triyaj)</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
-    :root{
-      --bg:#0b1020; --card:#121a33; --muted:#9aa4c7; --text:#e7ecff;
-      --green:#19c37d; --yellow:#ffd166; --red:#ff4d4f; --line:#223058;
-      --btn:#2b3b72; --btnh:#344895;
+    :root {
+      --primary: #3b82f6;
+      --primary-dark: #2563eb;
+      --secondary: #64748b;
+      --success: #10b981;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      --bg-primary: #0f172a;
+      --bg-secondary: #1e293b;
+      --bg-card: #334155;
+      --text-primary: #f8fafc;
+      --text-secondary: #cbd5e1;
+      --text-muted: #94a3b8;
+      --border: #475569;
+      --border-light: #64748b;
+      --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      --shadow-lg: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
     }
-    *{box-sizing:border-box}
-    body{margin:0; font-family:system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial; color:var(--text); background:radial-gradient(1200px 700px at 20% -10%, #1a2454 0%, #0b1020 60%);}
-    header{padding:24px 20px 10px; border-bottom:1px solid var(--line)}
-    header h1{margin:0; font-size:22px}
-    header p{margin:6px 0 0; color:var(--muted); font-size:13px}
-    main{max-width:980px; margin:22px auto; padding:0 16px 48px; display:grid; grid-template-columns: 1.1fr 0.9fr; gap:16px}
-    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border:1px solid var(--line); border-radius:14px; padding:16px}
-    .card h2{margin:0 0 10px; font-size:18px}
-    label{display:block; font-size:13px; color:var(--muted); margin:10px 0 6px}
-    input, select, textarea{width:100%; padding:10px 12px; border-radius:10px; border:1px solid #2a3869; background:#0d1430; color:var(--text); outline:none}
-    textarea{min-height:72px; resize:vertical}
-    .row{display:grid; grid-template-columns: repeat(2, 1fr); gap:10px}
-    .btn{background:var(--btn); border:1px solid #3a4a86; color:#fff; padding:10px 14px; border-radius:10px; cursor:pointer}
-    .btn:hover{background:var(--btnh)}
-    .btn.secondary{background:transparent}
-    .muted{color:var(--muted); font-size:13px}
-    .status{display:flex; gap:8px; align-items:center; flex-wrap:wrap}
-    .badge{display:inline-flex; align-items:center; gap:8px; padding:6px 10px; border-radius:999px; border:1px solid var(--line); font-weight:600}
-    .dot{width:10px; height:10px; border-radius:50%}
-    .green{background:var(--green)}
-    .yellow{background:var(--yellow)}
-    .red{background:var(--red)}
-    .mono{font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size:12px}
-    .qa{background:#0c1430; border:1px dashed #2b3a73; border-radius:10px; padding:10px}
-    .split{display:flex; gap:8px}
-    .split > *{flex:1}
-    ul{margin:8px 0 0 18px}
-    .small{font-size:12px; color:var(--muted)}
-    .hr{height:1px; background:var(--line); margin:12px 0}
-    .success{color:var(--green)}
-    .warn{color:var(--yellow)}
-    .err{color:#ff8484}
-    .link{color:#8ab4ff; text-decoration:none}
-    .pill{padding:4px 8px; border:1px solid var(--line); border-radius:999px; font-size:12px}
-    .grid2{display:grid; grid-template-columns: 1fr 1fr; gap:10px}
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, var(--bg-primary) 0%, #1a202c 100%);
+      color: var(--text-primary);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    header {
+      background: rgba(30, 41, 59, 0.8);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      padding: 2rem 1rem;
+      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    header h1 {
+      font-size: clamp(1.5rem, 4vw, 2.5rem);
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--primary), #8b5cf6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.5rem;
+    }
+
+    header p {
+      color: var(--text-secondary);
+      font-size: 1rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    main {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 1rem 3rem;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    @media (min-width: 768px) {
+      main {
+        grid-template-columns: 1.2fr 1fr;
+        gap: 2.5rem;
+      }
+    }
+
+    .card {
+      background: rgba(51, 65, 85, 0.6);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--border);
+      border-radius: 1rem;
+      padding: 1.5rem;
+      box-shadow: var(--shadow);
+      transition: all 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--border-light);
+    }
+
+    .card h2 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .card h2::before {
+      content: '';
+      width: 4px;
+      height: 1.5rem;
+      background: linear-gradient(135deg, var(--primary), #8b5cf6);
+      border-radius: 2px;
+    }
+
+    label {
+      display: block;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      margin: 1rem 0 0.5rem;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: 0.5rem;
+      background: rgba(30, 41, 59, 0.8);
+      color: var(--text-primary);
+      font-size: 0.875rem;
+      transition: all 0.2s ease;
+      outline: none;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    }
+
+    textarea {
+      min-height: 80px;
+      resize: vertical;
+      font-family: inherit;
+    }
+
+    .row, .grid2 {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    @media (min-width: 640px) {
+      .row, .grid2 {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .btn {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.5rem;
+      font-size: 0.875rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .btn:hover {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+    }
+
+    .btn.secondary {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text-secondary);
+    }
+
+    .btn.secondary:hover {
+      background: rgba(100, 116, 139, 0.1);
+      border-color: var(--border-light);
+      transform: translateY(-1px);
+      box-shadow: none;
+    }
+
+    .split {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .split > * {
+      flex: 1;
+    }
+
+    .status {
+      display: flex;
+      gap: 0.75rem;
+      align-items: center;
+      flex-wrap: wrap;
+      margin: 1rem 0;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 0.75rem;
+      border-radius: 9999px;
+      border: 1px solid var(--border);
+      font-weight: 500;
+      font-size: 0.75rem;
+      background: rgba(30, 41, 59, 0.6);
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .green { background: var(--success); }
+    .yellow { background: var(--warning); }
+    .red { background: var(--danger); }
+
+    .qa {
+      background: rgba(30, 41, 59, 0.4);
+      border: 1px dashed var(--border);
+      border-radius: 0.75rem;
+      padding: 1rem;
+      margin: 1rem 0;
+    }
+
+    .hr {
+      height: 1px;
+      background: var(--border);
+      margin: 1.5rem 0;
+      border: none;
+    }
+
+    .small {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .muted {
+      color: var(--text-muted);
+    }
+
+    .success { color: var(--success); }
+    .warn { color: var(--warning); }
+    .err { color: var(--danger); }
+
+    .link {
+      color: var(--primary);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .link:hover {
+      color: var(--primary-dark);
+      text-decoration: underline;
+    }
+
+    .mono {
+      font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+      font-size: 0.75rem;
+    }
+
+    ul {
+      margin: 0.5rem 0 0 1.25rem;
+      padding: 0;
+    }
+
+    li {
+      margin: 0.25rem 0;
+      color: var(--text-secondary);
+    }
+
+    /* Responsive improvements */
+    @media (max-width: 640px) {
+      header {
+        padding: 1.5rem 1rem;
+      }
+      
+      main {
+        margin: 1rem auto;
+        padding: 0 0.75rem 2rem;
+      }
+      
+      .card {
+        padding: 1rem;
+      }
+      
+      .split {
+        flex-direction: column;
+      }
+    }
+
+    /* Loading animation */
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    .loading {
+      animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
   </style>
 </head>
 <body>
   <header>
     <h1>Hızlı Değerlendirme (E-Triyaj)</h1>
     <p>Şikâyeti gir → ilk değerlendirme → sistemin sorduğu soruları aynı sayfada yanıtla.</p>
+    <p style="font-size: 0.875rem; color: var(--text-muted); margin-top: 0.5rem;">Güncellenmiş format: Yapılandırılmış kategoriler, detaylı ESI kriterleri ve öncelikli soru sistemi</p>
   </header>
 
   <main>
@@ -184,8 +458,8 @@
     setRouting(data.triage?.routing);
     $("rationale").textContent = data.triage?.rationale_brief || "-";
     renderList("redFlags", data.triage?.red_flags || []);
-    renderList("actions", data.triage?.immediate_actions || []);
-    renderList("qList", data.triage?.questions_to_ask_next || []);
+        renderList("actions", data.triage?.immediate_actions || []);
+        renderQuestions("qList", data.triage?.questions_to_ask_next || []);
     setFilePath(data.file_path);
 
     state.remainingQuestions = [];
@@ -199,23 +473,116 @@
       $("esiBadge").textContent = "ESI: " + (esi||"-");
       const dot = $("colorDot");
       if(!esi){ dot.className = "dot green"; return; }
-      const n = Number((esi+"").split("-")[1]);
-      if(n<=2){ dot.className = "dot red"; }
-      else if(n===3){ dot.className = "dot yellow"; }
+      
+      // Yeni format: level_1, level_2, vb. veya eski format: esi-1, esi-2, vb.
+      let level;
+      if(esi.startsWith("level_")){
+        level = Number(esi.split("_")[1]);
+      } else {
+        level = Number((esi+"").split("-")[1]);
+      }
+      
+      if(level<=2){ dot.className = "dot red"; }
+      else if(level===3){ dot.className = "dot yellow"; }
       else { dot.className = "dot green"; }
     }
     function setRouting(routing){
       $("priorityBadge").textContent = "Öncelik: " + (routing?.priority || "-");
       $("specBadge").textContent = "Bölüm: " + (routing?.specialty || "-");
     }
-    function renderList(id, arr){
+    function renderList(id, data){
       const ul = $(id); ul.innerHTML = "";
-      (arr||[]).forEach(x=>{
-        const li = document.createElement("li");
-        li.textContent = x;
-        ul.appendChild(li);
-      });
+      
+      // Yeni format: {primary: [], secondary: []} veya eski format: []
+      if(Array.isArray(data)){
+        // Eski format - direkt array
+        data.forEach(x=>{
+          const li = document.createElement("li");
+          li.textContent = x;
+          ul.appendChild(li);
+        });
+      } else if(data && typeof data === 'object'){
+        // Yeni format - primary/secondary yapısı
+        if(data.primary && data.primary.length > 0){
+          const primaryHeader = document.createElement("li");
+          primaryHeader.innerHTML = "<strong>Birincil:</strong>";
+          primaryHeader.style.color = "var(--danger)";
+          ul.appendChild(primaryHeader);
+          
+          data.primary.forEach(x=>{
+            const li = document.createElement("li");
+            li.textContent = "• " + x;
+            li.style.marginLeft = "1rem";
+            li.style.color = "var(--danger)";
+            ul.appendChild(li);
+          });
+        }
+        
+        if(data.secondary && data.secondary.length > 0){
+          const secondaryHeader = document.createElement("li");
+          secondaryHeader.innerHTML = "<strong>İkincil:</strong>";
+          secondaryHeader.style.color = "var(--warning)";
+          ul.appendChild(secondaryHeader);
+          
+          data.secondary.forEach(x=>{
+            const li = document.createElement("li");
+            li.textContent = "• " + x;
+            li.style.marginLeft = "1rem";
+            li.style.color = "var(--warning)";
+            ul.appendChild(li);
+          });
+        }
+        
+        if(data.vital_instability && data.vital_instability.length > 0){
+          const vitalHeader = document.createElement("li");
+          vitalHeader.innerHTML = "<strong>Vital İnstabilite:</strong>";
+          vitalHeader.style.color = "var(--danger)";
+          ul.appendChild(vitalHeader);
+          
+          data.vital_instability.forEach(x=>{
+            const li = document.createElement("li");
+            li.textContent = "• " + x;
+            li.style.marginLeft = "1rem";
+            li.style.color = "var(--danger)";
+            ul.appendChild(li);
+          });
+        }
+      }
     }
+    
+    function renderQuestions(id, data){
+      const ul = $(id); ul.innerHTML = "";
+      
+      // Yeni format: {primary: [], secondary: []} veya eski format: []
+      if(Array.isArray(data)){
+        // Eski format - direkt array
+        data.forEach(x=>{
+          const li = document.createElement("li");
+          li.textContent = x;
+          ul.appendChild(li);
+        });
+      } else if(data && typeof data === 'object'){
+        // Yeni format - primary/secondary yapısı - sadece soruları göster, başlıkları değil
+        if(data.primary && data.primary.length > 0){
+          data.primary.forEach(x=>{
+            const li = document.createElement("li");
+            li.textContent = x;
+            li.style.color = "var(--primary)";
+            ul.appendChild(li);
+          });
+        }
+        
+        if(data.secondary && data.secondary.length > 0){
+          data.secondary.forEach(x=>{
+            const li = document.createElement("li");
+            li.textContent = x;
+            li.style.color = "var(--text-secondary)";
+            ul.appendChild(li);
+          });
+        }
+      }
+    }
+    
     function setFilePath(path){
       const el = $("filePath");
       if(!path){ el.textContent = "-"; return; }
@@ -260,7 +627,20 @@
 
         // state
         state.caseId = data.case_id;
-        state.remainingQuestions = [...(data.questions_to_ask_next || [])];
+        
+        // Questions formatını kontrol et
+        const initialQuestions = data.questions_to_ask_next || [];
+        let questions = [];
+        
+        if(Array.isArray(initialQuestions)){
+          questions = initialQuestions;
+        } else if(initialQuestions && typeof initialQuestions === 'object'){
+          // Primary soruları önce, secondary soruları sonra ekle
+          if(initialQuestions.primary) questions.push(...initialQuestions.primary);
+          if(initialQuestions.secondary) questions.push(...initialQuestions.secondary);
+        }
+        
+        state.remainingQuestions = [...questions];
         $("caseId").textContent = state.caseId;
         setFilePath(data.file_path);
 
@@ -270,7 +650,7 @@
         $("rationale").textContent = data.triage?.rationale_brief || "-";
         renderList("redFlags", data.triage?.red_flags || []);
         renderList("actions", data.triage?.immediate_actions || []);
-        renderList("qList", data.triage?.questions_to_ask_next || []);
+        renderQuestions("qList", data.triage?.questions_to_ask_next || []);
 
         // ilk soruyu aç
         nextQuestionUI();
@@ -330,11 +710,22 @@
         $("rationale").textContent = data.triage?.rationale_brief || "-";
         renderList("redFlags", data.triage?.red_flags || []);
         renderList("actions", data.triage?.immediate_actions || []);
-        renderList("qList", data.triage?.questions_to_ask_next || []);
+        renderQuestions("qList", data.triage?.questions_to_ask_next || []);
         setFilePath(data.file_path);
 
         // yeni sorular: sistemin döndürdükleri + elimizde kalanlar
-        const fresh = data.questions_to_ask_next || [];
+        const freshQuestions = data.questions_to_ask_next || [];
+        let fresh = [];
+        
+        // Yeni format kontrolü
+        if(Array.isArray(freshQuestions)){
+          fresh = freshQuestions;
+        } else if(freshQuestions && typeof freshQuestions === 'object'){
+          // Primary soruları önce, secondary soruları sonra ekle
+          if(freshQuestions.primary) fresh.push(...freshQuestions.primary);
+          if(freshQuestions.secondary) fresh.push(...freshQuestions.secondary);
+        }
+        
         // Yeni gelen soruları kuyruğun SONUNA ekleyelim; tekrarları filtreleyelim
         const setQ = new Set([...state.remainingQuestions, ...fresh]);
         state.remainingQuestions = Array.from(setQ);

@@ -1,26 +1,23 @@
 {
-  "saved_at": "2025-09-10T00:35:08",
+  "saved_at": "2025-09-10T16:38:07",
   "triage": {
-    "triage_level": "ESI-1",
-    "red_flags": [
-      "Solunum sıkıntısı",
-      "Boğazda şişme"
-    ],
+    "triage_level": "ESI-4",
+    "red_flags": [],
     "immediate_actions": [
       "Vital bulguların alınması",
-      "O2 satürasyonu kontrolü",
-      "Acil servise yönlendirme"
+      "Ateş ölçümü",
+      "O2 satürasyonu kontrolü"
     ],
     "questions_to_ask_next": [
-      "Nefes almakta ne kadar güçlük çekiyorsunuz?",
-      "Boynunda şişlik veya ses değişikliği var mı?",
-      "Yutkunmada zorlanma var mı?"
+      "Yutkunmada zorlanma var mı?",
+      "Nefes almakta güçlük var mı?",
+      "Boyunda şişlik veya ses değişikliği var mı?"
     ],
     "routing": {
-      "specialty": "Acil Tıp",
-      "priority": "high"
+      "specialty": "ENT",
+      "priority": "low"
     },
-    "rationale_brief": "Hasta arı sokması sonrası solunum sıkıntısı ve boğaz şişmesi şikayetiyle başvurdu. Bu bulgular anafilaksiyi düşündürdüğü için acil müdahale gerektirir.",
+    "rationale_brief": "Hasta 30 yaşında bir kadın ve boğaz ağrısından şikayetçi. Red flag belirtisi yok. ESI-4 olarak sınıflandırıldı.",
     "evidence_ids": [
       "Boğaz Ağrısı - Erişkin"
     ],
@@ -34,19 +31,20 @@
     "patient_id": null,
     "age": 30,
     "sex": "F",
-    "complaint_text": "Arı soktu, boğazım şişiyor, nefesim kesiliyor",
+    "complaint_text": "boğazım ağrıyor",
     "vitals": {},
     "pregnancy": "any",
     "chief": null,
     "k": 3,
-    "age_group": "adult"
+    "age_group": "adult",
+    "case_id": "033c9714"
   },
   "rag_cards": [
     {
       "id": "sore_throat_adult_v1",
       "title": "Boğaz Ağrısı - Erişkin",
       "content": "Boğaz Ağrısı - Erişkin\nESI ipucu: Red-flag yoksa genelde ESI-4.\nRed flags:\n- Solunum sıkıntısı/stridor\n- Ağız açmada güçlük (trismus)\n- Tükürük yutamama/salya akması\n- Boyunda hızla artan şişlik\n- Yüksek ateş + ense sertliği\nİlk eylemler:\n- Vital bulguların alınması\n- Ateş ölçümü\n- O2 satürasyonu kontrolü\nSorulacak ek sorular:\n- Yutkunmada zorlanma var mı?\n- Nefes almakta güçlük var mı?\n- Boyunda şişlik veya ses değişikliği var mı?",
-      "score": 0.8516719937324524,
+      "score": 0.8398124575614929,
       "evidence": [
         {
           "source": "NICE Sore Throat Guideline",
@@ -58,7 +56,7 @@
       "id": "anal_pain_adult_v1",
       "title": "Anal Ağrı - Erişkin",
       "content": "Anal Ağrı - Erişkin\nESI ipucu: Şiddetli ağrı + kanama → ESI-3, basit hemoroid → ESI-4–5.\nRed flags:\n- Şiddetli rektal kanama\n- Ateş + anal ağrı\n- İdrar yapamama\n- Şiddetli konstipasyon\n- Anal kitle\nİlk eylemler:\n- Rektal muayene\n- Kanama değerlendirmesi\n- Ateş ölçümü\n- Vital bulgular\nSorulacak ek sorular:\n- Kanama var mı?\n- Konstipasyon var mı?\n- Daha önce hemoroid tanısı aldınız mı?\n- İdrar yapmada zorluk var mı?",
-      "score": 0.8425133228302002,
+      "score": 0.8279151320457458,
       "evidence": [
         {
           "source": "ASCRS Guidelines - Anal Pain",
@@ -67,13 +65,13 @@
       ]
     },
     {
-      "id": "grip_adult_v1",
-      "title": "Grip (İnfluenza) - Erişkin",
-      "content": "Grip (İnfluenza) - Erişkin\nESI ipucu: Komplikasyonsuz grip → ESI-4/5, pnömoni şüphesi → ESI-2/3.\nRed flags:\n- Nefes darlığı\n- Göğüs ağrısı\n- Yüksek ateş (>39°C)\n- Şiddetli baş ağrısı\n- Bilinç bozukluğu\n- Dehidratasyon\nİlk eylemler:\n- Vital bulgular\n- Ateş ölçümü\n- Akciğer dinleme\n- Boğaz muayenesi\n- Genel durum değerlendirmesi\nSorulacak ek sorular:\n- Şikayetler ne zaman başladı?\n- Ateş kaç gündür var?\n- Öksürük var mı?\n- Nefes almada güçlük var mı?\n- Grip aşısı oldunuz mu?",
-      "score": 0.84162437915802,
+      "id": "abdominal_pain_adult_v1",
+      "title": "Karın Ağrısı - Erişkin",
+      "content": "Karın Ağrısı - Erişkin\nESI ipucu: Şiddetli karın ağrısı + instabilite → ESI-2, aksi halde çoğunlukla ESI-3–4.\nRed flags:\n- Şiddetli ani başlayan ağrı\n- Defans / rebound hassasiyet\n- Ateş + hipotansiyon\n- Kanlı kusma veya kanlı dışkı\n- Gebelik şüphesi + alt karın ağrısı\nİlk eylemler:\n- Vital bulgular\n- Ateş ölçümü\n- Ağrı skoru\nSorulacak ek sorular:\n- Ağrı yayılıyor mu?\n- Kusma/ishal var mı?\n- Gebelik şüphesi var mı?",
+      "score": 0.8261421322822571,
       "evidence": [
         {
-          "source": "Internal Medicine Guidelines - Influenza",
+          "source": "Tintinalli Emergency Medicine - Abdominal Pain",
           "url": "https://..."
         }
       ]

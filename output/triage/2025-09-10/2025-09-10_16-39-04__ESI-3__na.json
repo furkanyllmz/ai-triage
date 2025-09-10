@@ -1,25 +1,24 @@
 {
-  "saved_at": "2025-09-10T00:08:15",
+  "saved_at": "2025-09-10T16:39:04",
   "triage": {
-    "triage_level": "ESI-4",
+    "triage_level": "ESI-3",
     "red_flags": [],
     "immediate_actions": [
-      "Görme keskinliği testi",
-      "Göz muayenesi"
+      "Vital bulguların alınması",
+      "Ateş ölçümü",
+      "O2 satürasyonu kontrolü"
     ],
     "questions_to_ask_next": [
-      "Görme bulanıklığı var mı?",
-      "Işığa hassasiyet var mı?",
-      "Göze yabancı cisim kaçtı mı?",
-      "Daha önce glokom tanısı aldınız mı?"
+      "Nefes almakta güçlük var mı?",
+      "Boyunda şişlik veya ses değişikliği var mı?"
     ],
     "routing": {
-      "specialty": "Oftalmoloj",
-      "priority": "low"
+      "specialty": "ENT",
+      "priority": "medium"
     },
-    "rationale_brief": "Hasta göz ağrısı ve batma hissi şikayeti ile başvurdu. Ani görme kaybı, şiddetli ağrı, ışık hassasiyeti gibi acil bulgular yok. Bu nedenle ESI-4 olarak sınıflandırıldı.",
+    "rationale_brief": "Yutkunmada güçlük ve boğaz ağrısı nedeniyle ESI-3 olarak değerlendirildi. Red flag yok.",
     "evidence_ids": [
-      "Göz Ağrısı - Erişkin"
+      "Boğaz Ağrısı - Erişkin"
     ],
     "model_meta": {
       "model": "gemini-1.5-flash",
@@ -28,25 +27,23 @@
     }
   },
   "input_context": {
-    "patient_id": null,
-    "age": 30,
-    "sex": "F",
-    "complaint_text": "gözüm ağrıyor, batma hissi var",
-    "vitals": {},
-    "pregnancy": "any",
-    "chief": null,
-    "k": 3,
-    "age_group": "adult"
+    "case_id": "033c9714",
+    "qa": [
+      {
+        "q": "Yutkunmada zorlanma var mı?",
+        "a": "var çok acıyor"
+      }
+    ]
   },
   "rag_cards": [
     {
-      "id": "eye_pain_adult_v1",
-      "title": "Göz Ağrısı - Erişkin",
-      "content": "Göz Ağrısı - Erişkin\nESI ipucu: Ani görme kaybı + ağrı → ESI-2, yüzeyel irritasyon → ESI-4.\nRed flags:\n- Ani görme kaybı\n- Şiddetli ağrı + bulantı\n- Işık hassasiyeti\n- Göz içi basınç artışı\n- Travma sonrası ağrı\nİlk eylemler:\n- Görme keskinliği testi\n- Göz muayenesi\n- Işık refleksi kontrolü\n- Göz içi basınç ölçümü\nSorulacak ek sorular:\n- Görme bulanıklığı var mı?\n- Işığa hassasiyet var mı?\n- Göze yabancı cisim kaçtı mı?\n- Daha önce glokom tanısı aldınız mı?",
-      "score": 0.8418591022491455,
+      "id": "sore_throat_adult_v1",
+      "title": "Boğaz Ağrısı - Erişkin",
+      "content": "Boğaz Ağrısı - Erişkin\nESI ipucu: Red-flag yoksa genelde ESI-4.\nRed flags:\n- Solunum sıkıntısı/stridor\n- Ağız açmada güçlük (trismus)\n- Tükürük yutamama/salya akması\n- Boyunda hızla artan şişlik\n- Yüksek ateş + ense sertliği\nİlk eylemler:\n- Vital bulguların alınması\n- Ateş ölçümü\n- O2 satürasyonu kontrolü\nSorulacak ek sorular:\n- Yutkunmada zorlanma var mı?\n- Nefes almakta güçlük var mı?\n- Boyunda şişlik veya ses değişikliği var mı?",
+      "score": 0.8398124575614929,
       "evidence": [
         {
-          "source": "AAO Guidelines - Eye Pain",
+          "source": "NICE Sore Throat Guideline",
           "url": "https://..."
         }
       ]
@@ -55,7 +52,7 @@
       "id": "anal_pain_adult_v1",
       "title": "Anal Ağrı - Erişkin",
       "content": "Anal Ağrı - Erişkin\nESI ipucu: Şiddetli ağrı + kanama → ESI-3, basit hemoroid → ESI-4–5.\nRed flags:\n- Şiddetli rektal kanama\n- Ateş + anal ağrı\n- İdrar yapamama\n- Şiddetli konstipasyon\n- Anal kitle\nİlk eylemler:\n- Rektal muayene\n- Kanama değerlendirmesi\n- Ateş ölçümü\n- Vital bulgular\nSorulacak ek sorular:\n- Kanama var mı?\n- Konstipasyon var mı?\n- Daha önce hemoroid tanısı aldınız mı?\n- İdrar yapmada zorluk var mı?",
-      "score": 0.8243687748908997,
+      "score": 0.8279151320457458,
       "evidence": [
         {
           "source": "ASCRS Guidelines - Anal Pain",
@@ -67,7 +64,7 @@
       "id": "abdominal_pain_adult_v1",
       "title": "Karın Ağrısı - Erişkin",
       "content": "Karın Ağrısı - Erişkin\nESI ipucu: Şiddetli karın ağrısı + instabilite → ESI-2, aksi halde çoğunlukla ESI-3–4.\nRed flags:\n- Şiddetli ani başlayan ağrı\n- Defans / rebound hassasiyet\n- Ateş + hipotansiyon\n- Kanlı kusma veya kanlı dışkı\n- Gebelik şüphesi + alt karın ağrısı\nİlk eylemler:\n- Vital bulgular\n- Ateş ölçümü\n- Ağrı skoru\nSorulacak ek sorular:\n- Ağrı yayılıyor mu?\n- Kusma/ishal var mı?\n- Gebelik şüphesi var mı?",
-      "score": 0.8223235607147217,
+      "score": 0.8261421322822571,
       "evidence": [
         {
           "source": "Tintinalli Emergency Medicine - Abdominal Pain",

@@ -1,0 +1,38 @@
+{
+  "saved_at": "2025-09-10T16:42:48",
+  "triage": {
+    "triage_level": "ESI-2",
+    "red_flags": [],
+    "immediate_actions": [],
+    "questions_to_ask_next": [],
+    "routing": {
+      "specialty": "Acil Tıp",
+      "priority": "high"
+    },
+    "rationale_brief": "Hasta 2 gündür orta şiddette boğaz ağrısı ve ateş şikayeti ile başvurdu.  ESI-2 olarak sınıflandırılmıştır çünkü vital bulgular mevcut değil ve acil bir durum belirtisi yoktur. Ancak, ateş ve boğaz ağrısı kombinasyonu daha fazla değerlendirmeyi gerektirir.",
+    "evidence_ids": [],
+    "model_meta": {
+      "model": "gemini-1.5-flash",
+      "prompt_version": "triage-prompt-v1",
+      "corpus_hint": "memory-cards"
+    }
+  },
+  "input_context": {
+    "case_id": "15334c1a",
+    "qa": [
+      {
+        "q": "Boğaz ağrınız ne zamandan beri var?",
+        "a": "2 gündür"
+      },
+      {
+        "q": "Boğaz ağrınızla birlikte başka belirtileriniz var mı (örneğin, ateş, öksürük, nefes darlığı)?",
+        "a": "ateşim çıkıyor"
+      },
+      {
+        "q": "Boğaz ağrınız şiddetli mi?",
+        "a": "orta şiddetli"
+      }
+    ]
+  },
+  "rag_cards": []
+}

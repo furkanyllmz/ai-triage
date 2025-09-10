@@ -1,0 +1,37 @@
+{
+  "saved_at": "2025-09-10T16:42:16",
+  "triage": {
+    "triage_level": "ESI-3",
+    "red_flags": [],
+    "immediate_actions": [],
+    "questions_to_ask_next": [
+      "Boğaz ağrınız ne zamandan beri var?",
+      "Boğaz ağrınızla birlikte başka belirtileriniz var mı (örneğin, ateş, öksürük, nefes darlığı)?",
+      "Boğaz ağrınız şiddetli mi?"
+    ],
+    "routing": {
+      "specialty": "Acil Tıp",
+      "priority": "medium"
+    },
+    "rationale_brief": "Boğaz ağrısı yaygın bir şikayettir ve genellikle ciddi değildir. Ancak, bazı durumlarda ciddi bir altta yatan durumun belirtisi olabilir. Bu nedenle, daha fazla değerlendirme için acil servise yönlendirme yapılmıştır.",
+    "evidence_ids": [],
+    "model_meta": {
+      "model": "gemini-1.5-flash",
+      "prompt_version": "triage-prompt-v1",
+      "corpus_hint": "memory-cards"
+    }
+  },
+  "input_context": {
+    "patient_id": null,
+    "age": 30,
+    "sex": "F",
+    "complaint_text": "boğazım ağrıyor",
+    "vitals": {},
+    "pregnancy": "negative",
+    "chief": null,
+    "k": 3,
+    "age_group": "adult",
+    "case_id": "15334c1a"
+  },
+  "rag_cards": []
+}

@@ -1,0 +1,36 @@
+{
+  "saved_at": "2025-09-10T16:42:40",
+  "triage": {
+    "triage_level": "ESI-3",
+    "red_flags": [],
+    "immediate_actions": [],
+    "questions_to_ask_next": [
+      "Boğaz ağrınız ne zamandan beri var?"
+    ],
+    "routing": {
+      "specialty": "Acil Tıp",
+      "priority": "medium"
+    },
+    "rationale_brief": "Boğaz ağrısı yaygın bir şikayettir ve genellikle ciddi değildir. Ancak, ateş, öksürük veya nefes darlığı gibi eşlik eden belirtiler varsa veya ağrı şiddetliyse, daha yüksek bir öncelik seviyesi gerekebilir.",
+    "evidence_ids": [],
+    "model_meta": {
+      "model": "gemini-1.5-flash",
+      "prompt_version": "triage-prompt-v1",
+      "corpus_hint": "memory-cards"
+    }
+  },
+  "input_context": {
+    "case_id": "15334c1a",
+    "qa": [
+      {
+        "q": "Boğaz ağrınız ne zamandan beri var?",
+        "a": "2 gündür"
+      },
+      {
+        "q": "Boğaz ağrınızla birlikte başka belirtileriniz var mı (örneğin, ateş, öksürük, nefes darlığı)?",
+        "a": "ateşim çıkıyor"
+      }
+    ]
+  },
+  "rag_cards": []
+}

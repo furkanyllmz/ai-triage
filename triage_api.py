@@ -38,6 +38,7 @@ class CaseState(BaseModel):
     rag_cards: List[Dict]
     qa: List[Dict[str, str]] = []
     done: bool = False
+    cached_triage: TriageOutput | None = None
 
 CASES: Dict[str, CaseState] = {}
 
@@ -149,7 +150,7 @@ def triage_answer(case_id: str, body: AnswerBody):
         for q, a in body.answers.items():
             cs.qa.append({"q": q, "a": a})
 
-    # Eğer hasta bitirdiyse veya max soruya ulaştıysa yeni soru yok
+    # Eğer hasta bitirdiyse veya max soruya ulaştıysa final triage yap
     if cs.done or len(cs.qa) >= MAX_QA:
         out = call_llm_triage_gemini(
             age=cs.age,
@@ -161,17 +162,27 @@ def triage_answer(case_id: str, body: AnswerBody):
         )
         out.questions_to_ask_next = []  # artık soru yok
     else:
-        out = call_llm_triage_gemini(
-            age=cs.age,
-            sex=cs.sex,
-            complaint_text=cs.complaint_text,
-            vitals=cs.vitals,
-            cards=cs.rag_cards,
-            qa_list=cs.qa,
-        )
-        # guardrail
-        if len(out.questions_to_ask_next) > MAX_QA:
-            out.questions_to_ask_next = out.questions_to_ask_next[:MAX_QA]
+        # Henüz bitmedi - cached triage sonucunu kullan, LLM çağrısı yapma
+        # İlk triage sonucunu sakla (cache) - sadece ilk kez
+        if cs.cached_triage is None:
+            cs.cached_triage = call_llm_triage_gemini(
+                age=cs.age,
+                sex=cs.sex,
+                complaint_text=cs.complaint_text,
+                vitals=cs.vitals,
+                cards=cs.rag_cards,
+                qa_list=[],  # İlk çağrıda QA yok
+            )
+        
+        # Cached triage'ı kullan - LLM çağrısı YOK!
+        out = cs.cached_triage.model_copy()  # Copy yaparak orijinali koruyoruz
+        
+        # Kalan soru sayısına göre soruları filtrele
+        remaining_questions = MAX_QA - len(cs.qa)
+        if remaining_questions > 0 and out.questions_to_ask_next:
+            out.questions_to_ask_next = out.questions_to_ask_next[:remaining_questions]
+        else:
+            out.questions_to_ask_next = []
 
     file_path = save_triage_to_output(
         triage=out.model_dump(mode="json"),
