@@ -3,7 +3,7 @@ import os, json, time
 from typing import List, Dict
 from dotenv import load_dotenv
 import google.generativeai as genai
-from google.generativeai.protos import Schema, Type  # <-- Önemli: Gemini'nin Schema tipini kullan
+from google.generativeai.protos import Schema, Type
 from schemas import TriageOutput
 
 # .env dosyasını yükle
@@ -25,6 +25,8 @@ USER_TEMPLATE = """HASTA BİLGİSİ:
 - Şikâyet metni: {complaint}
 - Vitaller: {vitals}
 
+{followups}
+
 GÖREV:
 - Aşağıdaki KAPSAM PARÇALARINI (CONTEXT_SNIPPETS) referans al.
 - Sadece JSON döndür (triage_level, red_flags, immediate_actions, questions_to_ask_next, routing, rationale_brief, evidence_ids).
@@ -34,7 +36,7 @@ CONTEXT_SNIPPETS:
 {snippets}
 """
 
-# ---- BURASI YENİ: Gemini'ye uygun yalın şema ----
+# ---- Şema tanımları ----
 ROUTING_SCHEMA = Schema(
     type=Type.OBJECT,
     properties={
@@ -74,19 +76,35 @@ TRIAGE_SCHEMA = Schema(
     ],
 )
 
+# ---- Yardımcı: Önceki Q/A'ları yazdır ----
+def render_followups(qa_list: List[Dict[str, str]] | None) -> str:
+    if not qa_list:
+        return ""
+    lines = "\n".join([f"- Soru: {x['q']}\n  Cevap: {x['a']}" for x in qa_list])
+    return f"ÖNCEKİ TAKİP SORULARI VE CEVAPLAR:\n{lines}\n"
+
+# ---- Ana çağrı ----
 def call_llm_triage_gemini(
     age: int,
     sex: str,
     complaint_text: str,
     vitals: Dict,
     cards: List[Dict],
+    qa_list: List[Dict[str, str]] | None = None,
     max_retries: int = 2
 ) -> TriageOutput:
     snippets = "\n\n---\n\n".join(c["content"] for c in cards)
     evidence_ids = [c["id"] for c in cards]
 
+    followup_text = render_followups(qa_list or [])
+
     user_prompt = USER_TEMPLATE.format(
-        age=age, sex=sex, complaint=complaint_text, vitals=vitals or {}, snippets=snippets
+        age=age,
+        sex=sex,
+        complaint=complaint_text,
+        vitals=vitals or {},
+        snippets=snippets,
+        followups=followup_text
     )
 
     model = genai.GenerativeModel(
@@ -95,7 +113,6 @@ def call_llm_triage_gemini(
         generation_config={
             "temperature": 0.2,
             "max_output_tokens": 700,
-            # JSON'u zorla + Gemini Schema kullan
             "response_mime_type": "application/json",
             "response_schema": TRIAGE_SCHEMA,
         },
@@ -105,11 +122,10 @@ def call_llm_triage_gemini(
     for _ in range(max_retries + 1):
         try:
             resp = model.generate_content(user_prompt)
-            # Gemini JSON döndürecek; .text genelde JSON string olur
             raw = resp.text or "{}"
             data = json.loads(raw)
 
-            # evidence_ids boş geldiyse RAG kartlarını doldur
+            # evidence_ids boş gelirse RAG’den doldur
             data.setdefault("evidence_ids", evidence_ids)
 
             out = TriageOutput(**data)

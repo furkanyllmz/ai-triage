@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Hızlı Değerlendirme (E-Triyaj)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root{
+      --bg:#0b1020; --card:#121a33; --muted:#9aa4c7; --text:#e7ecff;
+      --green:#19c37d; --yellow:#ffd166; --red:#ff4d4f; --line:#223058;
+      --btn:#2b3b72; --btnh:#344895;
+    }
+    *{box-sizing:border-box}
+    body{margin:0; font-family:system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial; color:var(--text); background:radial-gradient(1200px 700px at 20% -10%, #1a2454 0%, #0b1020 60%);}
+    header{padding:24px 20px 10px; border-bottom:1px solid var(--line)}
+    header h1{margin:0; font-size:22px}
+    header p{margin:6px 0 0; color:var(--muted); font-size:13px}
+    main{max-width:980px; margin:22px auto; padding:0 16px 48px; display:grid; grid-template-columns: 1.1fr 0.9fr; gap:16px}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border:1px solid var(--line); border-radius:14px; padding:16px}
+    .card h2{margin:0 0 10px; font-size:18px}
+    label{display:block; font-size:13px; color:var(--muted); margin:10px 0 6px}
+    input, select, textarea{width:100%; padding:10px 12px; border-radius:10px; border:1px solid #2a3869; background:#0d1430; color:var(--text); outline:none}
+    textarea{min-height:72px; resize:vertical}
+    .row{display:grid; grid-template-columns: repeat(2, 1fr); gap:10px}
+    .btn{background:var(--btn); border:1px solid #3a4a86; color:#fff; padding:10px 14px; border-radius:10px; cursor:pointer}
+    .btn:hover{background:var(--btnh)}
+    .btn.secondary{background:transparent}
+    .muted{color:var(--muted); font-size:13px}
+    .status{display:flex; gap:8px; align-items:center; flex-wrap:wrap}
+    .badge{display:inline-flex; align-items:center; gap:8px; padding:6px 10px; border-radius:999px; border:1px solid var(--line); font-weight:600}
+    .dot{width:10px; height:10px; border-radius:50%}
+    .green{background:var(--green)}
+    .yellow{background:var(--yellow)}
+    .red{background:var(--red)}
+    .mono{font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size:12px}
+    .qa{background:#0c1430; border:1px dashed #2b3a73; border-radius:10px; padding:10px}
+    .split{display:flex; gap:8px}
+    .split > *{flex:1}
+    ul{margin:8px 0 0 18px}
+    .small{font-size:12px; color:var(--muted)}
+    .hr{height:1px; background:var(--line); margin:12px 0}
+    .success{color:var(--green)}
+    .warn{color:var(--yellow)}
+    .err{color:#ff8484}
+    .link{color:#8ab4ff; text-decoration:none}
+    .pill{padding:4px 8px; border:1px solid var(--line); border-radius:999px; font-size:12px}
+    .grid2{display:grid; grid-template-columns: 1fr 1fr; gap:10px}
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Hızlı Değerlendirme (E-Triyaj)</h1>
+    <p>Şikâyeti gir → ilk değerlendirme → sistemin sorduğu soruları aynı sayfada yanıtla.</p>
+  </header>
+
+  <main>
+    <!-- SOL: Giriş & Soru Akışı -->
+    <section class="card">
+      <h2>1) Hasta Bilgisi</h2>
+
+      <div class="row">
+        <div>
+          <label>Yaş</label>
+          <input id="age" type="number" min="0" value="30" />
+        </div>
+        <div>
+          <label>Cinsiyet</label>
+          <select id="sex">
+            <option value="F">F</option>
+            <option value="M">M</option>
+          </select>
+        </div>
+      </div>
+
+      <label>Şikâyet metni</label>
+      <textarea id="complaint" placeholder="örn. göğsümde baskı var, nefes almakta zorlanıyorum"></textarea>
+
+      <div class="grid2">
+        <div>
+          <label>Gebelik</label>
+          <select id="pregnancy">
+            <option value="any" selected>any</option>
+            <option value="positive">positive</option>
+            <option value="negative">negative</option>
+          </select>
+        </div>
+        <div>
+          <label>Chief (opsiyonel)</label>
+          <input id="chief" placeholder="örn. chest pain / göğüs ağrısı" />
+        </div>
+      </div>
+
+      <label>Vitaller (JSON, opsiyonel)</label>
+      <textarea id="vitals" class="mono" placeholder='örn. {"HR": 110, "RR": 24, "SpO2": 93, "SBP": 118, "Temp": 37.8}'></textarea>
+
+      <div class="hr"></div>
+      <div class="split">
+        <button class="btn" id="startBtn">İlk gönder</button>
+        <button class="btn secondary" id="resetBtn">Sıfırla</button>
+      </div>
+
+      <div id="startMsg" class="small muted" style="margin-top:8px;"></div>
+
+      <div class="hr"></div>
+
+      <h2>2) Takip Soruları</h2>
+      <div id="qaBox" class="qa" style="display:none;">
+        <div id="questionText" style="margin-bottom:8px;"></div>
+        <textarea id="answerInput" placeholder="Cevabınızı yazın..."></textarea>
+        <div class="split" style="margin-top:8px;">
+  <button class="btn" id="sendAnswerBtn">Yanıtla (sonraki soru)</button>
+  <button class="btn secondary" id="skipBtn">Bu soruyu atla</button>
+  <button class="btn secondary" id="doneBtn">Bitir</button>
+</div>
+
+        <div id="qaInfo" class="small muted" style="margin-top:6px;"></div>
+      </div>
+
+      <div id="noQuestions" class="small muted" style="display:none;">Şu an sorulacak başka soru yok.</div>
+
+      <div class="hr"></div>
+      <div>
+        <h2>3) Oturum Bilgisi</h2>
+        <div class="small">Case ID: <span id="caseId" class="pill">-</span></div>
+        <div class="small">Son kayıt: <span id="filePath">-</span></div>
+      </div>
+    </section>
+
+    <!-- SAĞ: Canlı Sonuç Paneli -->
+    <aside class="card">
+      <h2>Sonuç Paneli</h2>
+      <div class="status" style="margin-bottom:8px;">
+        <span id="colorDot" class="dot green"></span>
+        <span id="esiBadge" class="badge">ESI: -</span>
+        <span id="priorityBadge" class="badge">Öncelik: -</span>
+        <span id="specBadge" class="badge">Bölüm: -</span>
+      </div>
+      <div class="small muted" id="rationale">Henüz değerlendirme yapılmadı.</div>
+
+      <div class="hr"></div>
+      <div>
+        <strong>Red flags</strong>
+        <ul id="redFlags"></ul>
+      </div>
+
+      <div class="hr"></div>
+      <div>
+        <strong>İlk eylemler</strong>
+        <ul id="actions"></ul>
+      </div>
+
+      <div class="hr"></div>
+      <div>
+        <strong>Sorulacak ek sorular (güncel)</strong>
+        <ul id="qList"></ul>
+      </div>
+    </aside>
+  </main>
+
+  <script>
+    // ------- Ayarlar -------
+    const BASE_URL = (localStorage.getItem("TRIAGE_API") || "http://localhost:9000").replace(/\/$/,'');
+    // -----------------------
+
+    // UI helpers
+    const $ = (id)=>document.getElementById(id);
+
+    let state = {
+      caseId: null,
+      remainingQuestions: [],
+      lastQuestion: null
+    };
+    $("doneBtn").addEventListener("click", async ()=>{
+  if(!state.caseId) return;
+  try{
+    const res = await fetch(`${BASE_URL}/triage/${state.caseId}/answer`,{
+      method:"PATCH",
+      headers:{"Content-Type":"application/json"},
+      body: JSON.stringify({ done:true })
+    });
+    const data = await res.json();
+
+    setESI(data.triage?.triage_level);
+    setRouting(data.triage?.routing);
+    $("rationale").textContent = data.triage?.rationale_brief || "-";
+    renderList("redFlags", data.triage?.red_flags || []);
+    renderList("actions", data.triage?.immediate_actions || []);
+    renderList("qList", data.triage?.questions_to_ask_next || []);
+    setFilePath(data.file_path);
+
+    state.remainingQuestions = [];
+    $("qaBox").style.display = "none";
+    $("noQuestions").style.display = "block";
+  }catch(err){
+    alert("Bitirme hatası: " + err.message);
+  }
+});
+    function setESI(esi){
+      $("esiBadge").textContent = "ESI: " + (esi||"-");
+      const dot = $("colorDot");
+      if(!esi){ dot.className = "dot green"; return; }
+      const n = Number((esi+"").split("-")[1]);
+      if(n<=2){ dot.className = "dot red"; }
+      else if(n===3){ dot.className = "dot yellow"; }
+      else { dot.className = "dot green"; }
+    }
+    function setRouting(routing){
+      $("priorityBadge").textContent = "Öncelik: " + (routing?.priority || "-");
+      $("specBadge").textContent = "Bölüm: " + (routing?.specialty || "-");
+    }
+    function renderList(id, arr){
+      const ul = $(id); ul.innerHTML = "";
+      (arr||[]).forEach(x=>{
+        const li = document.createElement("li");
+        li.textContent = x;
+        ul.appendChild(li);
+      });
+    }
+    function setFilePath(path){
+      const el = $("filePath");
+      if(!path){ el.textContent = "-"; return; }
+      const isHttp = /^https?:\/\//i.test(path);
+      el.innerHTML = isHttp ? `<a class="link" href="${path}" target="_blank">${path}</a>` : `<span class="mono">${path}</span>`;
+    }
+    function showMessage(elId, text, cls="muted"){
+      const el = $(elId);
+      el.className = "small " + (cls==="err" ? "err" : cls==="success" ? "success" : "muted");
+      el.textContent = text;
+    }
+
+    async function startTriage(){
+      // girişleri topla
+      const age = Number($("age").value||0);
+      const sex = $("sex").value||"F";
+      const complaint_text = $("complaint").value.trim();
+      const pregnancy = $("pregnancy").value||"any";
+      const chief = $("chief").value.trim() || null;
+
+      // vitals JSON parse
+      let vitals = {};
+      const vt = $("vitals").value.trim();
+      if(vt){
+        try{ vitals = JSON.parse(vt); }
+        catch(e){ showMessage("startMsg","Vitaller geçerli JSON değil.","err"); return; }
+      }
+
+      if(!complaint_text){
+        showMessage("startMsg","Şikâyet metni boş olamaz.","err"); return;
+      }
+
+      showMessage("startMsg","Gönderiliyor...");
+      try{
+        const res = await fetch(`${BASE_URL}/triage/start`,{
+          method:"POST",
+          headers:{"Content-Type":"application/json"},
+          body: JSON.stringify({ age, sex, complaint_text, vitals, pregnancy, chief })
+        });
+        if(!res.ok){ throw new Error(await res.text()); }
+        const data = await res.json();
+
+        // state
+        state.caseId = data.case_id;
+        state.remainingQuestions = [...(data.questions_to_ask_next || [])];
+        $("caseId").textContent = state.caseId;
+        setFilePath(data.file_path);
+
+        // panel güncelle
+        setESI(data.triage?.triage_level);
+        setRouting(data.triage?.routing);
+        $("rationale").textContent = data.triage?.rationale_brief || "-";
+        renderList("redFlags", data.triage?.red_flags || []);
+        renderList("actions", data.triage?.immediate_actions || []);
+        renderList("qList", data.triage?.questions_to_ask_next || []);
+
+        // ilk soruyu aç
+        nextQuestionUI();
+
+        showMessage("startMsg","İlk değerlendirme alındı. Sorular sırayla yönlendirilecek.","success");
+      }catch(err){
+        console.error(err);
+        showMessage("startMsg","Hata: " + err.message, "err");
+      }
+    }
+    
+    function nextQuestionUI(){
+      const box = $("qaBox");
+      const none = $("noQuestions");
+      if(state.remainingQuestions.length === 0){
+        box.style.display = "none";
+        none.style.display = "block";
+        $("questionText").textContent = "";
+        $("answerInput").value = "";
+        $("qaInfo").textContent = "";
+        return;
+      }
+      const q = state.remainingQuestions.shift();
+      state.lastQuestion = q;
+      $("questionText").textContent = "Soru: " + q;
+      $("answerInput").value = "";
+      $("qaInfo").textContent = `${state.remainingQuestions.length} soru daha var`;
+      box.style.display = "block";
+      none.style.display = "none";
+      $("answerInput").focus();
+    }
+
+    async function sendAnswer(skip=false){
+      if(!state.caseId) return;
+      const q = state.lastQuestion;
+      const a = skip ? "" : $("answerInput").value.trim();
+
+      // hiçbir soru gösterilmiyorsa çık
+      if(!q){ nextQuestionUI(); return; }
+
+      // cevabı gönder
+      try{
+        $("sendAnswerBtn").disabled = true;
+        $("skipBtn").disabled = true;
+
+        const res = await fetch(`${BASE_URL}/triage/${state.caseId}/answer`,{
+          method:"PATCH",
+          headers:{"Content-Type":"application/json"},
+          body: JSON.stringify({ answers: { [q]: a } })
+        });
+        if(!res.ok){ throw new Error(await res.text()); }
+        const data = await res.json();
+
+        // paneli güncelle
+        setESI(data.triage?.triage_level);
+        setRouting(data.triage?.routing);
+        $("rationale").textContent = data.triage?.rationale_brief || "-";
+        renderList("redFlags", data.triage?.red_flags || []);
+        renderList("actions", data.triage?.immediate_actions || []);
+        renderList("qList", data.triage?.questions_to_ask_next || []);
+        setFilePath(data.file_path);
+
+        // yeni sorular: sistemin döndürdükleri + elimizde kalanlar
+        const fresh = data.questions_to_ask_next || [];
+        // Yeni gelen soruları kuyruğun SONUNA ekleyelim; tekrarları filtreleyelim
+        const setQ = new Set([...state.remainingQuestions, ...fresh]);
+        state.remainingQuestions = Array.from(setQ);
+
+        // sıradaki soruya geç
+        nextQuestionUI();
+      }catch(err){
+        console.error(err);
+        alert("Hata: " + err.message);
+      }finally{
+        $("sendAnswerBtn").disabled = false;
+        $("skipBtn").disabled = false;
+      }
+    }
+
+    function resetAll(){
+      state = { caseId:null, remainingQuestions:[], lastQuestion:null };
+      $("caseId").textContent = "-";
+      setFilePath("-");
+      setESI(null);
+      setRouting(null);
+      $("rationale").textContent = "Henüz değerlendirme yapılmadı.";
+      ["redFlags","actions","qList"].forEach(id=>$(id).innerHTML="");
+      $("qaBox").style.display = "none";
+      $("noQuestions").style.display = "none";
+      $("complaint").value = "";
+      $("vitals").value = "";
+      showMessage("startMsg", "");
+    }
+
+    // events
+    $("startBtn").addEventListener("click", startTriage);
+    $("sendAnswerBtn").addEventListener("click", ()=>sendAnswer(false));
+    $("skipBtn").addEventListener("click", ()=>sendAnswer(true));
+    $("resetBtn").addEventListener("click", resetAll);
+  </script>
+</body>
+</html>
