@@ -1,0 +1,39 @@
+{
+  "saved_at": "2025-09-11T00:00:25",
+  "triage": {
+    "triage_level": "ESI-3",
+    "red_flags": [],
+    "immediate_actions": [],
+    "questions_to_ask_next": [
+      "Baş ağrınız ne kadar süredir devam ediyor?",
+      "Baş ağrınızın şiddeti nasıl?",
+      "Baş ağrınızla birlikte başka şikayetleriniz var mı? (örneğin görme bozukluğu, bulantı, kusma, ışığa hassasiyet)"
+    ],
+    "routing": {
+      "specialty": "neurology",
+      "priority": "medium"
+    },
+    "rationale_brief": "Baş ağrısı yaygın bir semptom olup, ciddi bir durumun belirtisi olabileceği gibi benign de olabilir. Şikayetlerin detayları ve ek semptomlar göz önüne alınarak nöroloji uzmanlığına yönlendirilmesi uygun görülmüştür.",
+    "evidence_ids": [],
+    "model_meta": {
+      "model": "gpt-4.1-nano",
+      "prompt_version": "triage-prompt-v1",
+      "corpus_hint": "memory-cards"
+    }
+  },
+  "input_context": {
+    "patient_id": "string",
+    "age": 30,
+    "sex": "F",
+    "complaint_text": "başım ağrıyor",
+    "vitals": {
+      "additionalProp1": {}
+    },
+    "pregnancy": "any",
+    "chief": "string",
+    "k": 3,
+    "age_group": "adult",
+    "case_id": "46c666df"
+  },
+  "rag_cards": []
+}

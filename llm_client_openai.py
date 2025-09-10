@@ -86,6 +86,27 @@ def call_llm_triage_openai(
                 data["routing"] = {"specialty": data["routing"], "priority": "medium"}
             # routing eksikse doldur
             data.setdefault("routing", {"specialty": "", "priority": "medium"})
+            # Normalize triage_level
+            valid_levels = {"1": "ESI-1", "2": "ESI-2", "3": "ESI-3", "4": "ESI-4", "5": "ESI-5"}
+            priority_mapping = {
+                "critical": "ESI-1", "high": "ESI-2", "urgent": "ESI-2",
+                "medium": "ESI-3", "moderate": "ESI-3", "standard": "ESI-3",
+                "low": "ESI-4", "routine": "ESI-4", "non-urgent": "ESI-5"
+            }
+            if "triage_level" in data:
+                lvl_raw = str(data["triage_level"]).lower().strip()
+                # Önce sayısal değerleri kontrol et
+                lvl_num = lvl_raw.upper().replace("LEVEL_", "").replace("ESI-", "").replace("ESI", "").strip()
+                if lvl_num in valid_levels:
+                    data["triage_level"] = valid_levels[lvl_num]
+                # Sonra kelime bazlı mapping'i kontrol et
+                elif lvl_raw in priority_mapping:
+                    data["triage_level"] = priority_mapping[lvl_raw]
+                # Hiçbiri yoksa varsayılan değer
+                else:
+                    data["triage_level"] = "ESI-3"
+
+            
             # evidence boşsa RAG'den doldur
             data.setdefault("evidence_ids", evidence_ids)
             # listeler eksikse boş liste ata
