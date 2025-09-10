@@ -40,19 +40,43 @@
       color: var(--text-primary);
       line-height: 1.6;
       min-height: 100vh;
-      padding-top: 60px;
     }
 
     header {
       background: var(--bg-primary);
       border-bottom: 1px solid var(--border);
-      padding: 0.75rem 1rem;
+      padding: 0.5rem 1rem;
       box-shadow: var(--shadow);
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 1000;
+      position: static;
+    }
+
+    @media (max-width: 768px) {
+      header {
+        padding: 0.375rem 0.75rem;
+      }
+      
+      .logo {
+        width: 24px;
+        height: 24px;
+      }
+      
+      .header-title {
+        font-size: 0.875rem;
+      }
+      
+      .header-subtitle {
+        font-size: 0.625rem;
+      }
+      
+      .user-info {
+        font-size: 0.625rem;
+      }
+      
+      .user-avatar {
+        width: 20px;
+        height: 20px;
+        font-size: 0.625rem;
+      }
     }
 
     .header-container {
@@ -754,7 +778,7 @@
 
       <!-- Değerlendirme Açıklaması -->
       <div class="rationale-section">
-        <h3>📋 Değerlendirme Açıklaması</h3>
+        <h3>Değerlendirme Açıklaması</h3>
         <div class="rationale-content" id="rationale">Henüz değerlendirme yapılmadı. Hasta bilgilerini girin ve değerlendirmeyi başlatın.</div>
       </div>
 
@@ -784,8 +808,7 @@
 
   <script>
     // ------- Ayarlar -------
-    const BASE_URL = (localStorage.getItem("TRIAGE_API") || "http://45.87.120.218:9000").replace(/\/$/,'');
-    // -----------------------
+const BASE_URL = (localStorage.getItem("TRIAGE_API") || window.location.origin + "/api9000").replace(/\/$/,'');    // -----------------------
 
     // UI helpers
     const $ = (id)=>document.getElementById(id);
