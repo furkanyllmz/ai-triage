@@ -14,6 +14,7 @@ Bu sistem, acil servis hastalarının şikayetlerini analiz ederek ESI (Emergenc
 ### Gereksinimler
 
 - Python 3.8+
+- Node.js 16+ (React frontend için)
 - Google API Key (Gemini için)
 
 ### Kurulum
@@ -24,7 +25,7 @@ git clone <repo-url>
 cd e-triage
 ```
 
-2. **Virtual environment oluşturun:**
+2. **Backend için Virtual environment oluşturun:**
 ```bash
 python -m venv .venv
 source .venv/bin/activate  # Linux/Mac
@@ -32,12 +33,19 @@ source .venv/bin/activate  # Linux/Mac
 .venv\Scripts\activate     # Windows
 ```
 
-3. **Bağımlılıkları yükleyin:**
+3. **Backend bağımlılıklarını yükleyin:**
 ```bash
 pip install fastapi uvicorn sentence-transformers google-generativeai numpy requests pydantic
 ```
 
-4. **Environment değişkenlerini ayarlayın:**
+4. **Frontend bağımlılıklarını yükleyin:**
+```bash
+cd triage-frontend
+npm install
+cd ..
+```
+
+5. **Environment değişkenlerini ayarlayın:**
 ```bash
 export GOOGLE_API_KEY="your-gemini-api-key"
 export RAG_URL="http://localhost:8000/rag/topk"
@@ -46,7 +54,7 @@ export OUTPUT_DIR="output"
 
 ### Çalıştırma
 
-**İki terminal açın ve sırasıyla çalıştırın:**
+**Üç terminal açın ve sırasıyla çalıştırın:**
 
 **Terminal 1 - RAG Memory Service:**
 ```bash
@@ -57,6 +65,14 @@ uvicorn rag_memory:app --reload --port 8000
 ```bash
 uvicorn triage_api:app --reload --port 9000
 ```
+
+**Terminal 3 - React Frontend:**
+```bash
+cd triage-frontend
+npm start
+```
+
+Frontend http://localhost:3000 adresinde çalışacaktır.
 
 ## 📊 API Kullanımı
 
@@ -122,11 +138,20 @@ e-triage/
 ├── samples/               # Hastalık örnekleri (15 adet)
 ├── sides/                 # Vücut bölgesi ağrıları (15 adet)
 ├── output/                # Triyaj sonuçları
+├── triage-frontend/       # React frontend uygulaması
+│   ├── src/
+│   │   ├── components/    # React componentleri
+│   │   ├── services/      # API servisleri
+│   │   ├── types/         # TypeScript tipleri
+│   │   └── App.tsx        # Ana React componenti
+│   ├── public/            # Statik dosyalar
+│   └── package.json       # Frontend bağımlılıkları
 ├── rag_memory.py          # RAG servisi
 ├── triage_api.py          # Ana triyaj API'si
-├── llm_client_gemini.py   # Gemini LLM entegrasyonu
+├── llm_client_openai.py   # OpenAI LLM entegrasyonu
 ├── schemas.py             # Pydantic modelleri
 ├── utils_output.py        # Dosya kaydetme utilities
+├── index.html             # Eski HTML frontend (deprecated)
 └── README.md
 ```
 
@@ -162,12 +187,15 @@ curl -X POST "http://localhost:9000/triage" \
 
 ## 📈 Özellikler
 
+- ✅ **Modern React Frontend**: TypeScript ile geliştirilmiş, responsive tasarım
 - ✅ **Multilingual RAG**: Türkçe optimized embedding (multilingual-e5-large)
-- ✅ **Structured Output**: Gemini ile doğrulanmış JSON çıktı
+- ✅ **Structured Output**: OpenAI ile doğrulanmış JSON çıktı
 - ✅ **ESI Compliance**: Standart acil servis önceliklendirme
 - ✅ **Atomic File Operations**: Güvenli dosya kaydetme
 - ✅ **Comprehensive Coverage**: 45 farklı tıbbi senaryo
 - ✅ **Filtering & Ranking**: Yaş, cinsiyet, gebelik filtresi
+- ✅ **Real-time Updates**: Canlı triyaj sonuçları ve soru akışı
+- ✅ **Mobile Responsive**: Mobil cihazlarda optimize edilmiş arayüz
 
 ## 🔍 Veri Kaynakları
 
