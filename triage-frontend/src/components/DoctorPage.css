@@ -1,0 +1,327 @@
+/* Doctor Page Styles */
+.doctor-page {
+  min-height: 100vh;
+  background: var(--bg-secondary);
+  padding: 2rem 1rem;
+}
+
+.doctor-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.doctor-title {
+  font-size: 2rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 2rem;
+  color: var(--text-primary);
+}
+
+.doctor-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.doctor-section {
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  padding: 1.5rem;
+  border: 1px solid var(--border);
+}
+
+.section-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.section-title::before {
+  content: '';
+  width: 0.25rem;
+  height: 1.25rem;
+  background: var(--primary);
+  border-radius: 2px;
+}
+
+/* Patient Info Card */
+.patient-info-card {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem;
+  background: var(--bg-secondary);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+}
+
+.info-label {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.info-value {
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+/* Triage Result Card */
+.triage-result-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.triage-priority {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.priority-label {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.priority-badge {
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-lg);
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.priority-high {
+  background: var(--secondary);
+  color: white;
+}
+
+.priority-medium {
+  background: var(--warning);
+  color: white;
+}
+
+.priority-low {
+  background: var(--accent);
+  color: white;
+}
+
+.priority-unknown {
+  background: var(--text-muted);
+  color: white;
+}
+
+.triage-recommendation {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.recommendation-label {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.recommendation-text {
+  color: var(--text-secondary);
+  line-height: 1.6;
+  padding: 1rem;
+  background: var(--bg-secondary);
+  border-radius: var(--radius-md);
+  border-left: 4px solid var(--primary);
+}
+
+/* Nurse Notes Card */
+.nurse-notes-card {
+  padding: 1.5rem;
+  background: var(--bg-secondary);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+}
+
+.nurse-notes-text {
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin: 0;
+  font-style: italic;
+}
+
+/* Doctor Evaluation Card */
+.doctor-evaluation-card {
+  padding: 1.5rem;
+  background: var(--bg-secondary);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+}
+
+.evaluation-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-label {
+  font-weight: 600;
+  color: var(--text-primary);
+  font-size: 0.875rem;
+}
+
+.form-input,
+.form-textarea,
+.form-select {
+  padding: 0.75rem 1rem;
+  border: 2px solid var(--border);
+  border-radius: var(--radius-md);
+  font-family: inherit;
+  font-size: 0.875rem;
+  transition: all 0.2s ease;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+.form-input:focus,
+.form-textarea:focus,
+.form-select:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(27, 38, 59, 0.1);
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+/* QR Label Section */
+.qr-label-section {
+  text-align: center;
+  padding: 1.5rem;
+  background: var(--bg-secondary);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+}
+
+.qr-description {
+  color: var(--text-secondary);
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+
+.qr-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+/* Doctor Actions */
+.doctor-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.btn-large {
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+/* Dark mode specific styles */
+[data-theme="dark"] .doctor-page {
+  background: var(--bg-secondary);
+}
+
+[data-theme="dark"] .doctor-section {
+  background: var(--bg-card);
+  border-color: var(--border);
+}
+
+[data-theme="dark"] .info-row,
+[data-theme="dark"] .nurse-notes-card,
+[data-theme="dark"] .doctor-evaluation-card,
+[data-theme="dark"] .qr-label-section {
+  background: var(--bg-secondary);
+  border-color: var(--border);
+}
+
+[data-theme="dark"] .recommendation-text {
+  background: var(--bg-secondary);
+  border-left-color: var(--primary);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .doctor-page {
+    padding: 1rem 0.5rem;
+  }
+  
+  .doctor-title {
+    font-size: 1.5rem;
+  }
+  
+  .doctor-section {
+    padding: 1rem;
+  }
+  
+  .patient-info-card {
+    grid-template-columns: 1fr;
+  }
+  
+  .triage-priority {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  
+  .qr-actions {
+    flex-direction: column;
+  }
+  
+  .btn-large {
+    padding: 0.875rem 1.5rem;
+    font-size: 0.875rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .doctor-page {
+    padding: 0.5rem;
+  }
+  
+  .doctor-title {
+    font-size: 1.25rem;
+  }
+  
+  .doctor-section {
+    padding: 0.75rem;
+  }
+  
+  .section-title {
+    font-size: 1.125rem;
+  }
+  
+  .form-input,
+  .form-textarea,
+  .form-select {
+    padding: 0.625rem 0.75rem;
+  }
+}
