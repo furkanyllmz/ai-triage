@@ -1,11 +1,11 @@
 import React, { useState, useCallback } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import './App.css';
 import Header from './components/Header';
-import Footer from './components/Footer';
 import PatientEntry from './components/PatientEntry';
 import NurseApproval from './components/NurseApproval';
 import DoctorPage from './components/DoctorPage';
+import QrCodeTestPage from './components/QrCodeTestPage';
 import { TriageProvider, useTriageContext } from './contexts/TriageContext';
 import { TriageState, TriageInput } from './types/TriageTypes';
 import { triageApi } from './services/triageApi';
@@ -193,34 +193,34 @@ function AppContent() {
       <Router>
         <Header />
         <main className="main-content">
-          <Routes>
-            <Route path="/" element={<PatientEntry onStartAssessment={handlePatientStart} />} />
-            <Route 
-              path="/nurse" 
-              element={
-                <NurseApproval
-                  patientData={patientData}
-                  triageResult={triageResult}
-                  onApprove={handleNurseApprove}
-                  onReject={handleNurseReject}
-                />
-              } 
-            />
-            <Route 
-              path="/doctor" 
-              element={
-                <DoctorPage
-                  patientData={patientData}
-                  triageResult={triageResult}
-                  nurseNotes={nurseNotes}
-                  onComplete={handleDoctorComplete}
-                />
-              } 
-            />
-            <Route path="*" element={<Navigate to="/" replace />} />
-          </Routes>
+          <Switch>
+            <Route path="/" exact>
+              <PatientEntry onStartAssessment={handlePatientStart} />
+            </Route>
+            <Route path="/nurse">
+              <NurseApproval
+                patientData={patientData}
+                triageResult={triageResult}
+                onApprove={handleNurseApprove}
+                onReject={handleNurseReject}
+              />
+            </Route>
+            <Route path="/doctor">
+              <DoctorPage
+                patientData={patientData}
+                triageResult={triageResult}
+                nurseNotes={nurseNotes}
+                onComplete={handleDoctorComplete}
+              />
+            </Route>
+            <Route path="/qr-test">
+              <QrCodeTestPage />
+            </Route>
+            <Route path="*">
+              <Redirect to="/" />
+            </Route>
+          </Switch>
         </main>
-        <Footer />
       </Router>
     </div>
   );

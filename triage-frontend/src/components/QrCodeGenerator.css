@@ -1,0 +1,191 @@
+/* QR Code Generator Styles */
+.qr-label {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  padding: 1.5rem;
+  max-width: 400px;
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.qr-label:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-2px);
+}
+
+.qr-label-header {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid var(--primary);
+}
+
+.qr-label-title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.qr-label-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.qr-case-id {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  font-family: 'Courier New', monospace;
+}
+
+.qr-code-container {
+  width: 64px;
+  height: 64px;
+  background: white;
+  border-radius: var(--radius-sm);
+  padding: 4px;
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.qr-status {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: var(--bg-secondary);
+  border-radius: var(--radius-md);
+  border-left: 4px solid var(--primary);
+}
+
+.qr-label-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.qr-area-badge {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+  font-weight: 500;
+  border: 1px solid var(--border);
+  flex: 1;
+  text-align: center;
+}
+
+.qr-department {
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--primary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Dark mode specific styles */
+[data-theme="dark"] .qr-label {
+  background: var(--bg-card);
+  border-color: var(--border);
+}
+
+[data-theme="dark"] .qr-label-title {
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .qr-case-id {
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .qr-code-container {
+  background: white;
+  border-color: var(--border);
+}
+
+[data-theme="dark"] .qr-status {
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+  border-left-color: var(--primary);
+}
+
+[data-theme="dark"] .qr-area-badge {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  border-color: var(--border);
+}
+
+[data-theme="dark"] .qr-department {
+  color: var(--primary);
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+  .qr-label {
+    max-width: 100%;
+    padding: 1rem;
+  }
+  
+  .qr-label-title {
+    font-size: 1rem;
+  }
+  
+  .qr-case-id {
+    font-size: 1rem;
+  }
+  
+  .qr-code-container {
+    width: 48px;
+    height: 48px;
+  }
+  
+  .qr-status {
+    font-size: 0.8125rem;
+    padding: 0.75rem;
+  }
+  
+  .qr-label-footer {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  .qr-area-badge {
+    font-size: 0.8125rem;
+    padding: 0.375rem 0.75rem;
+  }
+  
+  .qr-department {
+    font-size: 0.875rem;
+  }
+}
+
+/* Print styles */
+@media print {
+  .qr-label {
+    box-shadow: none !important;
+    border: 2px solid #000 !important;
+    break-inside: avoid;
+    page-break-inside: avoid;
+    margin: 0 !important;
+    padding: 1rem !important;
+  }
+  
+  .qr-label:hover {
+    transform: none !important;
+  }
+  
+  .qr-code-container {
+    border: 1px solid #000 !important;
+  }
+}
