@@ -122,13 +122,41 @@ Frontend http://localhost:3000 adresinde çalışacaktır.
 
 ```json
 {
-  "text": "göğüs ağrısı nefes darlığı",
-  "chief": "göğüs ağrısı",
-  "age_group": "adult",
+  "patient_id": "P001",
+  "age": 45,
+  "sex": "erkek",
+  "complaint_text": "Göğsümde sıkışma hissi var, nefes almakta zorlanıyorum",
+  "vitals": {
+    "blood_pressure": "140/90",
+    "heart_rate": 95,
+    "temperature": 36.8
+  },
   "pregnancy": "any",
-  "k": 4
+  "chief": "göğüs ağrısı",
+  "k": 3
 }
 ```
+
+**Yanıt:**
+```json
+{
+  "triage": {
+    "triage_level": "ESI-2",
+    "red_flags": ["Göğüs sıkışması", "Nefes darlığı"],
+    "immediate_actions": ["EKG çekimi", "Oksijen saturasyonu"],
+    "questions_to_ask_next": ["Ağrı ne kadar süredir?", "Kola yayılıyor mu?"],
+    "routing": {
+      "specialty": "kardiyoloji",
+      "priority": "high"
+    },
+    "rationale_brief": "Kardiyak risk faktörleri mevcut...",
+    "evidence_ids": ["chest_pain_adult_v1"]
+  },
+  "file_path": "output/triage/2025-01-15/chest_pain_45_erkek_14-30-25.json"
+}
+```
+
+
 
 ## 📁 Proje Yapısı
 
