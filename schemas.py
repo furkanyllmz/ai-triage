@@ -19,7 +19,6 @@ class TriageOutput(BaseModel):
 class TriageRead(BaseModel):
     id: int
     case_id: str
-    name: str
     age: int
     sex: str
     complaint_text: str

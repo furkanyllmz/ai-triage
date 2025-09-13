@@ -1,0 +1,364 @@
+.patient-entry {
+  background: var(--bg-secondary);
+}
+
+.patient-entry main {
+  max-width: 1400px;
+  margin: 1.5rem auto;
+  padding: 0 1rem 2rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .patient-entry main {
+    grid-template-columns: 500px 1fr;
+    gap: 2rem;
+  }
+}
+
+.input-section {
+  max-width: 500px;
+}
+
+.results-section {
+  min-height: 600px;
+}
+
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
+  transition: all 0.2s ease;
+}
+
+.card:hover {
+  box-shadow: var(--shadow-lg);
+  border-color: var(--border-light);
+}
+
+.card h2 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin-bottom: 1.25rem;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.card h2::before {
+  content: '';
+  width: 0.25rem;
+  height: 1.25rem;
+  background: var(--primary);
+  border-radius: 2px;
+}
+
+.info-card {
+  background: linear-gradient(135deg, #1B263B, #2A3A52) !important;
+  color: white !important;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 4px 12px rgba(27, 38, 59, 0.2);
+}
+
+.info-card h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: white !important;
+}
+
+.info-card p {
+  margin: 0;
+  font-size: 0.875rem;
+  opacity: 0.9;
+  color: white !important;
+}
+
+/* Dark mode specific styles */
+[data-theme="dark"] .info-card {
+  background: linear-gradient(135deg, #2D3748, #4A5568) !important;
+  color: white !important;
+  box-shadow: 0 4px 12px rgba(45, 55, 72, 0.4);
+}
+
+[data-theme="dark"] .info-card h3 {
+  color: white !important;
+}
+
+[data-theme="dark"] .info-card p {
+  color: white !important;
+  opacity: 0.95;
+}
+
+label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 0.875rem;
+  background: var(--bg-card);
+  color: var(--text-primary);
+  transition: all 0.2s ease;
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(27, 38, 59, 0.1);
+}
+
+textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.grid2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.btn {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.btn:hover {
+  background: var(--primary-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(27, 38, 59, 0.2);
+}
+
+.btn:disabled {
+  background: var(--text-muted);
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.btn-secondary {
+  background: var(--bg-hover);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+}
+
+.btn-secondary:hover {
+  background: var(--border-light);
+}
+
+.btn-success {
+  background: var(--accent);
+}
+
+.btn-success:hover {
+  background: var(--accent-dark);
+}
+
+.split {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.split button {
+  flex: 1;
+  min-width: 120px;
+}
+
+.hr {
+  height: 1px;
+  background: var(--border);
+  margin: 1.5rem 0;
+}
+
+.small {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.muted {
+  color: var(--text-muted);
+}
+
+.pill {
+  background: var(--bg-hover);
+  color: var(--text-primary);
+  padding: 0.25rem 0.5rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-family: 'Courier New', monospace;
+}
+
+.mono {
+  font-family: 'Courier New', monospace;
+  font-size: 0.75rem;
+}
+
+.badges-container {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+}
+
+.badge:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.badge.primary {
+  background: var(--bg-card);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+}
+
+.badge.secondary {
+  background: var(--bg-card);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+}
+
+.badge.tertiary {
+  background: var(--bg-card);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+}
+
+/* Dark mode badges */
+[data-theme="dark"] .badge.primary {
+  background: var(--bg-card);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+}
+
+[data-theme="dark"] .badge.secondary {
+  background: var(--bg-card);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+}
+
+[data-theme="dark"] .badge.tertiary {
+  background: var(--bg-card);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+}
+
+.qa {
+  background: var(--bg-hover);
+  padding: 1rem;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .patient-entry main {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    padding: 0 0.5rem 1rem;
+  }
+  
+  .input-section {
+    max-width: none;
+  }
+  
+  .row, .grid2 {
+    grid-template-columns: 1fr;
+  }
+  
+  .split {
+    flex-direction: column;
+  }
+  
+  .split button {
+    min-width: auto;
+  }
+  
+  .card {
+    padding: 1rem;
+  }
+  
+  .card h2 {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .btn {
+    padding: 0.625rem 1rem;
+    font-size: 0.8125rem;
+  }
+  
+  input, select, textarea {
+    padding: 0.625rem;
+  }
+  
+  .info-card {
+    padding: 0.75rem;
+  }
+  
+  .info-card h3 {
+    font-size: 0.875rem;
+  }
+  
+  .info-card p {
+    font-size: 0.8125rem;
+  }
+  
+  .badges-container {
+    gap: 0.5rem;
+  }
+  
+  .badge {
+    padding: 0.375rem 0.75rem;
+    font-size: 0.75rem;
+  }
+}

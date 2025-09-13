@@ -4,15 +4,13 @@ import './DoctorPage.css';
 interface DoctorPageProps {
   patientData: any;
   triageResult: any;
-  nurseNotes: string;
   onComplete: () => void;
 }
 
-export default function DoctorPage({ 
-  patientData, 
-  triageResult, 
-  nurseNotes, 
-  onComplete 
+export default function DoctorPage({
+  patientData,
+  triageResult,
+  onComplete
 }: DoctorPageProps) {
   return (
     <div className="doctor-page">
@@ -62,15 +60,7 @@ export default function DoctorPage({
             </div>
           </div>
 
-          {/* Hemşire Notları */}
-          <div className="doctor-section">
-            <h2 className="section-title">Hemşire Notları</h2>
-            <div className="nurse-notes-card">
-              <p className="nurse-notes-text">
-                {nurseNotes || 'Henüz hemşire notu eklenmemiş.'}
-              </p>
-            </div>
-          </div>
+
 
           {/* Doktor Değerlendirmesi */}
           <div className="doctor-section">

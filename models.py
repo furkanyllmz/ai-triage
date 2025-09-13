@@ -9,8 +9,7 @@ class Triage(Base):
     id = Column(Integer, primary_key=True, index=True)
     case_id = Column(String(20), index=True, nullable=False)
 
-    # Hasta bilgileri
-    name = Column(String(100), nullable=False)
+   
     age = Column(Integer, nullable=False)
     sex = Column(String(10), nullable=False)
 

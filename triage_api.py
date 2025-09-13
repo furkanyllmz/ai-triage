@@ -33,7 +33,6 @@ app.add_middleware(
 # In-memory case state
 class CaseState(BaseModel):
     case_id: str
-    name: str
     age: int
     sex: str
     complaint_text: str
@@ -50,7 +49,6 @@ CASES: Dict[str, CaseState] = {}
 # ---- Input / Output ----
 class TriageInput(BaseModel):
     # TC YOK
-    name: str
     age: int
     sex: str
 
@@ -113,7 +111,6 @@ def triage_start(inp: TriageInput):
     # State
     cs = CaseState(
         case_id=case_id,
-        name=inp.name,
         age=inp.age,
         sex=inp.sex,
         complaint_text=inp.complaint_text,
@@ -142,7 +139,6 @@ def triage_start(inp: TriageInput):
     try:
         tri = Triage(
             case_id=case_id,
-            name=cs.name,
             age=cs.age,
             sex=cs.sex,
             complaint_text=cs.complaint_text,
@@ -187,7 +183,7 @@ def triage_answer(case_id: str, body: AnswerBody):
 
         cs = CaseState(
             case_id=case_id,
-            name=first_row.name,
+    
             age=first_row.age,
             sex=first_row.sex,
             complaint_text=first_row.complaint_text,
@@ -229,7 +225,6 @@ def triage_answer(case_id: str, body: AnswerBody):
     try:
         tri = Triage(
             case_id=case_id,
-            name=cs.name,
             age=cs.age,
             sex=cs.sex,
             complaint_text=cs.complaint_text,

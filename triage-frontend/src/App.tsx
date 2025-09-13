@@ -1,9 +1,8 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import './App.css';
 import Header from './components/Header';
 import PatientEntry from './components/PatientEntry';
-import NurseApproval from './components/NurseApproval';
 import DoctorPage from './components/DoctorPage';
 import QrCodeTestPage from './components/QrCodeTestPage';
 import { TriageProvider, useTriageContext } from './contexts/TriageContext';
@@ -11,17 +10,24 @@ import { TriageState, TriageInput } from './types/TriageTypes';
 import { triageApi } from './services/triageApi';
 
 function AppContent() {
-  const { patientData, setPatientData, triageResult, setTriageResult, nurseNotes, setNurseNotes, clearData } = useTriageContext();
+  const { patientData, setPatientData, triageResult, setTriageResult, clearData } = useTriageContext();
   
   const [triageState, setTriageState] = useState<TriageState>({
     caseId: null,
     currentQuestion: null,
     remainingQuestions: 0,
     triage: null,
-    filePath: null,
     isLoading: false,
     error: null,
   });
+
+  // Clear data only on initial page load (not on component re-renders)
+  useEffect(() => {
+    // Only clear if there's no active session (no current patient data being processed)
+    if (!patientData && !triageResult) {
+      clearData();
+    }
+  }, []); // Empty dependency array means this runs only once on mount
 
   const processQuestions = useCallback((questions: any) => {
     if (Array.isArray(questions)) {
@@ -49,7 +55,6 @@ function AppContent() {
         currentQuestion: questions[0] || null,
         remainingQuestions: questions.length - 1,
         triage: response.triage,
-        filePath: response.file_path,
         isLoading: false,
         error: null,
       }));
@@ -85,7 +90,6 @@ function AppContent() {
         currentQuestion: questions[0] || null,
         remainingQuestions: questions.length - 1,
         triage: response.triage,
-        filePath: response.file_path,
         isLoading: false,
         error: null,
       }));
@@ -112,7 +116,6 @@ function AppContent() {
         currentQuestion: null,
         remainingQuestions: 0,
         triage: response.triage,
-        filePath: response.file_path,
         isLoading: false,
         error: null,
       }));
@@ -132,7 +135,6 @@ function AppContent() {
       currentQuestion: null,
       remainingQuestions: 0,
       triage: null,
-      filePath: null,
       isLoading: false,
       error: null,
     });
@@ -155,8 +157,11 @@ function AppContent() {
 
       const response = await handleStartTriage(triageInput);
       
-      // API'den gelen sonucu kullan
-      setTriageResult(response.triage);
+      // API'den gelen sonucu kullan ve case_id'yi ekle
+      setTriageResult({
+        ...response.triage,
+        case_id: response.case_id
+      });
       setTriageState(prev => ({
         ...prev,
         triage: response.triage,
@@ -164,23 +169,13 @@ function AppContent() {
         isLoading: false,
         error: null
       }));
-      
-      // Navigate to nurse page
-      window.location.href = '/nurse';
     } catch (error) {
       console.error('Error starting triage:', error);
       // Stay on patient page if there's an error
     }
   }, [handleStartTriage]);
 
-  const handleNurseApprove = useCallback((notes: string) => {
-    setNurseNotes(notes);
-    window.location.href = '/doctor';
-  }, []);
 
-  const handleNurseReject = useCallback(() => {
-    window.location.href = '/';
-  }, []);
 
   const handleDoctorComplete = useCallback(() => {
     // Reset to start new assessment
@@ -197,19 +192,11 @@ function AppContent() {
             <Route path="/" exact>
               <PatientEntry onStartAssessment={handlePatientStart} />
             </Route>
-            <Route path="/nurse">
-              <NurseApproval
-                patientData={patientData}
-                triageResult={triageResult}
-                onApprove={handleNurseApprove}
-                onReject={handleNurseReject}
-              />
-            </Route>
+
             <Route path="/doctor">
               <DoctorPage
                 patientData={patientData}
                 triageResult={triageResult}
-                nurseNotes={nurseNotes}
                 onComplete={handleDoctorComplete}
               />
             </Route>

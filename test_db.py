@@ -5,7 +5,6 @@ db = SessionLocal()
 try:
     tri = Triage(
         case_id='test123',
-        name='Test',
         age=30,
         sex='erkek',
         complaint_text='test',

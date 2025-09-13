@@ -27,8 +27,7 @@ const Header: React.FC = () => {
     switch (location.pathname) {
       case '/':
         return 'Hasta Girişi';
-      case '/nurse':
-        return 'Hemşire Onay Paneli';
+
       case '/doctor':
         return 'Doktor Değerlendirme Paneli';
       case '/qr-test':
