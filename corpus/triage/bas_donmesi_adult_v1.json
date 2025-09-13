@@ -27,6 +27,7 @@
     "İşitme kaybı var mı?",
     "Kulak çınlaması var mı?",
     "Baş ağrısı var mı?"
+    
   ],
   "routing_hint": { "specialty": "kulak burun boğaz", "priority": "low" },
   "evidence": [{ "source": "ENT Guidelines - Vertigo Management", "url": "https://..." }],

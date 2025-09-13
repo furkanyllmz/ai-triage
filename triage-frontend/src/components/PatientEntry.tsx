@@ -393,6 +393,16 @@ const PatientEntry: React.FC<PatientEntryProps> = ({ onStartAssessment }) => {
                 <li className="no-items">Henüz ek soru önerisi yok</li>
               )}
             </ul>
+            <div className="split" style={{marginTop: '12px'}}>
+              <button 
+                className="btn secondary" 
+                onClick={handleViewLabel}
+                disabled={!caseId}
+                style={{width: '100%'}}
+              >
+                📋 Etiketi Görüntüle
+              </button>
+            </div>
           </div>
         </aside>
       </main>

@@ -24,6 +24,7 @@ class TriageApiService {
   }
 
   async startTriage(input: TriageInput): Promise<TriageStartResponse> {
+    console.log('Frontend gönderilen veri:', JSON.stringify(input, null, 2));
     return this.makeRequest<TriageStartResponse>('/triage/start', {
       method: 'POST',
       body: JSON.stringify(input),

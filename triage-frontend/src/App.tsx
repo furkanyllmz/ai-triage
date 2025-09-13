@@ -151,8 +151,8 @@ function AppContent() {
         sex: data.sex,
         complaint_text: data.complaint,
         pregnancy: data.pregnancy,
-        chief: data.chief,
-        vitals: data.vitals ? JSON.parse(data.vitals) : undefined
+        chief: data.chief || 'string',
+        vitals: data.vitals ? JSON.parse(data.vitals) : {}
       };
 
       const response = await handleStartTriage(triageInput);

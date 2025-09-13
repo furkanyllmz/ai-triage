@@ -86,6 +86,7 @@ def _db() -> Session:
 # ---- Routes ----
 @app.post("/triage/start", response_model=TriageStartResp)
 def triage_start(inp: TriageInput):
+    print(f"Backend aldığı veri: {inp.model_dump()}")
     age_group = "adult" if 18 <= inp.age < 65 else ("pediatric" if inp.age < 18 else "geriatric")
     rag_body = {
         "text": f"{inp.complaint_text}\nYaş:{inp.age} Cins:{inp.sex} Preg:{inp.pregnancy}",
