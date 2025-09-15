@@ -1,8 +1,8 @@
 /* Doctor Page Styles */
 .doctor-page {
-  min-height: 100vh;
-  background: var(--bg-secondary);
+  background: var(--bg);
   padding: 2rem 1rem;
+  margin-top: 0;
 }
 
 .doctor-container {
@@ -10,13 +10,6 @@
   margin: 0 auto;
 }
 
-.doctor-title {
-  font-size: 2rem;
-  font-weight: 700;
-  text-align: center;
-  margin-bottom: 2rem;
-  color: var(--text-primary);
-}
 
 .doctor-content {
   display: flex;
@@ -25,8 +18,8 @@
 }
 
 .doctor-section {
-  background: var(--bg-card);
-  border-radius: var(--radius-lg);
+  background: var(--card);
+  border-radius: var(--radius);
   box-shadow: var(--shadow);
   padding: 1.5rem;
   border: 1px solid var(--border);
@@ -36,7 +29,7 @@
   font-size: 1.25rem;
   font-weight: 600;
   margin-bottom: 1.5rem;
-  color: var(--text-primary);
+  color: var(--text);
   display: flex;
   align-items: center;
   gap: 0.75rem;
@@ -61,19 +54,27 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.75rem;
-  background: var(--bg-secondary);
-  border-radius: var(--radius-md);
+  padding: 1rem;
+  background: var(--card);
+  border-radius: var(--radius);
   border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  transition: all 0.2s ease;
+}
+
+.info-row:hover {
+  box-shadow: var(--shadow-lg);
+  border-color: var(--primary);
+  transform: translateY(-1px);
 }
 
 .info-label {
   font-weight: 600;
-  color: var(--text-primary);
+  color: var(--text);
 }
 
 .info-value {
-  color: var(--text-secondary);
+  color: var(--muted);
   font-weight: 500;
 }
 
@@ -92,7 +93,7 @@
 
 .priority-label {
   font-weight: 600;
-  color: var(--text-primary);
+  color: var(--text);
 }
 
 .priority-badge {
@@ -105,23 +106,75 @@
 }
 
 .priority-high {
-  background: var(--secondary);
+  background: var(--danger);
   color: white;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-lg);
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: var(--shadow);
+  transition: all 0.2s ease;
+}
+
+.priority-high:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-1px);
 }
 
 .priority-medium {
   background: var(--warning);
   color: white;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-lg);
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: var(--shadow);
+  transition: all 0.2s ease;
+}
+
+.priority-medium:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-1px);
 }
 
 .priority-low {
-  background: var(--accent);
+  background: var(--success);
   color: white;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-lg);
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: var(--shadow);
+  transition: all 0.2s ease;
+}
+
+.priority-low:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-1px);
 }
 
 .priority-unknown {
-  background: var(--text-muted);
+  background: var(--muted);
   color: white;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-lg);
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: var(--shadow);
+  transition: all 0.2s ease;
+}
+
+.priority-unknown:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-1px);
 }
 
 .triage-recommendation {
@@ -132,28 +185,35 @@
 
 .recommendation-label {
   font-weight: 600;
-  color: var(--text-primary);
+  color: var(--text);
 }
 
 .recommendation-text {
-  color: var(--text-secondary);
+  color: var(--muted);
   line-height: 1.6;
-  padding: 1rem;
-  background: var(--bg-secondary);
-  border-radius: var(--radius-md);
+  padding: 1.25rem;
+  background: var(--card);
+  border-radius: var(--radius);
   border-left: 4px solid var(--primary);
+  box-shadow: var(--shadow);
+  transition: all 0.2s ease;
+}
+
+.recommendation-text:hover {
+  box-shadow: var(--shadow-lg);
+  border-left-color: var(--primary);
 }
 
 /* Nurse Notes Card */
 .nurse-notes-card {
   padding: 1.5rem;
-  background: var(--bg-secondary);
-  border-radius: var(--radius-md);
+  background: var(--card);
+  border-radius: var(--radius);
   border: 1px solid var(--border);
 }
 
 .nurse-notes-text {
-  color: var(--text-secondary);
+  color: var(--muted);
   line-height: 1.6;
   margin: 0;
   font-style: italic;
@@ -162,8 +222,8 @@
 /* Doctor Evaluation Card */
 .doctor-evaluation-card {
   padding: 1.5rem;
-  background: var(--bg-secondary);
-  border-radius: var(--radius-md);
+  background: var(--card);
+  border-radius: var(--radius);
   border: 1px solid var(--border);
 }
 
@@ -181,7 +241,7 @@
 
 .form-label {
   font-weight: 600;
-  color: var(--text-primary);
+  color: var(--text);
   font-size: 0.875rem;
 }
 
@@ -189,13 +249,14 @@
 .form-textarea,
 .form-select {
   padding: 0.75rem 1rem;
-  border: 2px solid var(--border);
-  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
   font-family: inherit;
   font-size: 0.875rem;
   transition: all 0.2s ease;
-  background: var(--bg-primary);
-  color: var(--text-primary);
+  background: var(--card);
+  color: var(--text);
+  box-shadow: var(--shadow);
 }
 
 .form-input:focus,
@@ -203,7 +264,15 @@
 .form-select:focus {
   outline: none;
   border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(27, 38, 59, 0.1);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1), var(--shadow-lg);
+  transform: translateY(-1px);
+}
+
+.form-input:hover,
+.form-textarea:hover,
+.form-select:hover {
+  border-color: var(--primary);
+  box-shadow: var(--shadow-lg);
 }
 
 .form-textarea {
@@ -215,13 +284,13 @@
 .qr-label-section {
   text-align: center;
   padding: 1.5rem;
-  background: var(--bg-secondary);
-  border-radius: var(--radius-md);
+  background: var(--card);
+  border-radius: var(--radius);
   border: 1px solid var(--border);
 }
 
 .qr-description {
-  color: var(--text-secondary);
+  color: var(--muted);
   margin-bottom: 1.5rem;
   line-height: 1.6;
 }
@@ -243,15 +312,23 @@
   padding: 1rem 2rem;
   font-size: 1rem;
   font-weight: 600;
+  border-radius: var(--radius);
+  transition: all 0.2s ease;
+  box-shadow: var(--shadow);
+}
+
+.btn-large:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
 }
 
 /* Dark mode specific styles */
 [data-theme="dark"] .doctor-page {
-  background: var(--bg-secondary);
+  background: var(--bg);
 }
 
 [data-theme="dark"] .doctor-section {
-  background: var(--bg-card);
+  background: var(--card);
   border-color: var(--border);
 }
 
@@ -259,31 +336,96 @@
 [data-theme="dark"] .nurse-notes-card,
 [data-theme="dark"] .doctor-evaluation-card,
 [data-theme="dark"] .qr-label-section {
-  background: var(--bg-secondary);
+  background: var(--card);
   border-color: var(--border);
 }
 
 [data-theme="dark"] .recommendation-text {
-  background: var(--bg-secondary);
+  background: var(--card);
   border-left-color: var(--primary);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .recommendation-text:hover {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .form-input,
+[data-theme="dark"] .form-textarea,
+[data-theme="dark"] .form-select {
+  background: var(--card);
+  border-color: var(--border);
+  color: var(--text);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="dark"] .form-input:focus,
+[data-theme="dark"] .form-textarea:focus,
+[data-theme="dark"] .form-select:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2), 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .info-row {
+  background: var(--card);
+  border-color: var(--border);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="dark"] .info-row:hover {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  border-color: var(--primary);
+}
+
+[data-theme="dark"] .priority-high,
+[data-theme="dark"] .priority-medium,
+[data-theme="dark"] .priority-low,
+[data-theme="dark"] .priority-unknown {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .priority-high:hover,
+[data-theme="dark"] .priority-medium:hover,
+[data-theme="dark"] .priority-low:hover,
+[data-theme="dark"] .priority-unknown:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
   .doctor-page {
-    padding: 1rem 0.5rem;
+    padding: 1rem 0.75rem;
+    margin-top: 0;
   }
   
-  .doctor-title {
-    font-size: 1.5rem;
+  .doctor-content {
+    gap: 1.25rem;
   }
   
   .doctor-section {
-    padding: 1rem;
+    padding: 0.75rem;
+  }
+  
+  .section-title {
+    font-size: 1rem;
+    margin-bottom: 1rem;
   }
   
   .patient-info-card {
     grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+  
+  .info-row {
+    padding: 0.75rem;
+  }
+  
+  .info-label {
+    font-size: 0.8125rem;
+  }
+  
+  .info-value {
+    font-size: 0.8125rem;
   }
   
   .triage-priority {
@@ -292,36 +434,139 @@
     gap: 0.5rem;
   }
   
-  .qr-actions {
-    flex-direction: column;
+  .priority-badge {
+    padding: 0.375rem 0.75rem;
+    font-size: 0.8125rem;
   }
   
-  .btn-large {
-    padding: 0.875rem 1.5rem;
-    font-size: 0.875rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .doctor-page {
-    padding: 0.5rem;
+  .recommendation-text {
+    padding: 0.75rem;
+    font-size: 0.8125rem;
   }
   
-  .doctor-title {
-    font-size: 1.25rem;
-  }
-  
-  .doctor-section {
+  .nurse-notes-card,
+  .doctor-evaluation-card {
     padding: 0.75rem;
   }
   
-  .section-title {
-    font-size: 1.125rem;
+  .nurse-notes-text {
+    font-size: 0.8125rem;
+  }
+  
+  .form-label {
+    font-size: 0.8125rem;
   }
   
   .form-input,
   .form-textarea,
   .form-select {
     padding: 0.625rem 0.75rem;
+    font-size: 0.8125rem;
+  }
+  
+  .form-textarea {
+    min-height: 80px;
+  }
+  
+  .qr-label-section {
+    padding: 0.75rem;
+  }
+  
+  .qr-description {
+    font-size: 0.8125rem;
+    margin-bottom: 1rem;
+  }
+  
+  .qr-actions {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  .btn-large {
+    padding: 0.75rem 1.25rem;
+    font-size: 0.8125rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .doctor-page {
+    padding: 0.5rem 0.375rem;
+  }
+  
+  .doctor-content {
+    gap: 1rem;
+  }
+  
+  .doctor-section {
+    padding: 0.5rem;
+  }
+  
+  .section-title {
+    font-size: 0.875rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  .patient-info-card {
+    gap: 0.5rem;
+  }
+  
+  .info-row {
+    padding: 0.5rem;
+  }
+  
+  .info-label {
+    font-size: 0.75rem;
+  }
+  
+  .info-value {
+    font-size: 0.75rem;
+  }
+  
+  .priority-badge {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.75rem;
+  }
+  
+  .recommendation-text {
+    padding: 0.5rem;
+    font-size: 0.75rem;
+  }
+  
+  .nurse-notes-card,
+  .doctor-evaluation-card {
+    padding: 0.5rem;
+  }
+  
+  .nurse-notes-text {
+    font-size: 0.75rem;
+  }
+  
+  .form-label {
+    font-size: 0.75rem;
+  }
+  
+  .form-input,
+  .form-textarea,
+  .form-select {
+    padding: 0.5rem 0.625rem;
+    font-size: 0.75rem;
+  }
+  
+  .form-textarea {
+    min-height: 70px;
+  }
+  
+  .qr-label-section {
+    padding: 0.5rem;
+  }
+  
+  .qr-description {
+    font-size: 0.75rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  .btn-large {
+    padding: 0.625rem 1rem;
+    font-size: 0.75rem;
   }
 }

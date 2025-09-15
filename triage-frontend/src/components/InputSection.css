@@ -34,13 +34,13 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: var(--bg-secondary);
+  background: var(--card);
   border: 2px solid var(--border);
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: 600;
-  color: var(--text-muted);
+  color: var(--muted);
   cursor: pointer;
   transition: all 0.3s ease;
   margin-bottom: 0.5rem;
@@ -53,8 +53,8 @@
 }
 
 .step.completed .step-number {
-  background: var(--accent);
-  border-color: var(--accent);
+  background: var(--success);
+  border-color: var(--success);
   color: white;
 }
 
@@ -65,13 +65,13 @@
 .step-title {
   font-size: 0.875rem;
   font-weight: 600;
-  color: var(--text-primary);
+  color: var(--text);
   margin-bottom: 0.25rem;
 }
 
 .step-description {
   font-size: 0.75rem;
-  color: var(--text-muted);
+  color: var(--muted);
 }
 
 /* Step Content */
@@ -83,13 +83,13 @@
   display: block;
   margin-top: 0.5rem;
   font-size: 0.75rem;
-  color: var(--text-muted);
+  color: var(--muted);
 }
 
 /* Review Section */
 .review-section {
-  background: var(--bg-secondary);
-  border-radius: var(--radius-md);
+  background: var(--card);
+  border-radius: var(--radius);
   padding: 1.5rem;
 }
 
@@ -97,7 +97,7 @@
   margin: 0 0 1rem 0;
   font-size: 1.125rem;
   font-weight: 600;
-  color: var(--text-primary);
+  color: var(--text);
 }
 
 .review-item {
@@ -114,12 +114,12 @@
 
 .review-label {
   font-weight: 500;
-  color: var(--text-secondary);
+  color: var(--muted);
 }
 
 .review-value {
   font-weight: 600;
-  color: var(--text-primary);
+  color: var(--text);
 }
 
 /* Step Actions */
@@ -145,20 +145,20 @@
 }
 
 .message-success {
-  background: rgba(6, 214, 160, 0.1);
-  color: var(--accent-dark);
-  border: 1px solid rgba(6, 214, 160, 0.2);
+  background: rgba(5, 150, 105, 0.1);
+  color: var(--success);
+  border: 1px solid rgba(5, 150, 105, 0.2);
 }
 
 .message-err {
-  background: rgba(230, 57, 70, 0.1);
-  color: var(--secondary-dark);
-  border: 1px solid rgba(230, 57, 70, 0.2);
+  background: rgba(220, 38, 38, 0.1);
+  color: var(--danger);
+  border: 1px solid rgba(220, 38, 38, 0.2);
 }
 
 .message-muted {
-  background: var(--bg-secondary);
-  color: var(--text-secondary);
+  background: var(--card);
+  color: var(--muted);
   border: 1px solid var(--border);
 }
 
@@ -175,19 +175,19 @@
 }
 
 .question-card {
-  background: var(--bg-secondary);
-  border-radius: var(--radius-md);
+  background: var(--card);
+  border-radius: var(--radius);
   padding: 1.5rem;
 }
 
 .question-text {
   font-size: 1rem;
   font-weight: 500;
-  color: var(--text-primary);
+  color: var(--text);
   margin-bottom: 1rem;
   padding: 1rem;
-  background: var(--bg-primary);
-  border-radius: var(--radius-md);
+  background: var(--bg);
+  border-radius: var(--radius);
   border-left: 4px solid var(--primary);
 }
 
@@ -200,7 +200,7 @@
 
 .question-progress {
   font-size: 0.875rem;
-  color: var(--text-muted);
+  color: var(--muted);
   text-align: center;
   margin-top: 1rem;
 }
@@ -212,8 +212,8 @@
 }
 
 .session-details {
-  background: var(--bg-secondary);
-  border-radius: var(--radius-md);
+  background: var(--card);
+  border-radius: var(--radius);
   padding: 1rem;
 }
 
@@ -226,12 +226,12 @@
 
 .session-label {
   font-weight: 500;
-  color: var(--text-secondary);
+  color: var(--muted);
 }
 
 .session-value {
   font-weight: 600;
-  color: var(--text-primary);
+  color: var(--text);
   font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
   font-size: 0.875rem;
 }
@@ -240,7 +240,7 @@
   font-size: 1.125rem;
   font-weight: 600;
   margin-bottom: 1.25rem;
-  color: var(--text-primary);
+  color: var(--text);
   display: flex;
   align-items: center;
   gap: 0.75rem;
@@ -278,7 +278,7 @@ label {
   display: block;
   font-size: 0.875rem;
   font-weight: 500;
-  color: var(--text-primary);
+  color: var(--text);
   margin: 1rem 0 0.5rem;
 }
 
@@ -287,8 +287,8 @@ input, select, textarea {
   padding: 0.75rem 1rem;
   border: 1px solid var(--border);
   border-radius: 8px;
-  background: var(--bg-primary);
-  color: var(--text-primary);
+  background: var(--card);
+  color: var(--text);
   font-size: 0.875rem;
   transition: all 0.2s ease;
   outline: none;
@@ -318,65 +318,9 @@ textarea {
   }
 }
 
-.btn {
-  background: var(--primary);
-  color: white;
-  border: none;
-  padding: 0.75rem 1.5rem;
-  border-radius: 8px;
-  font-size: 0.875rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  min-height: 44px;
-}
+/* Button styles are now in theme.css */
 
-.btn:hover {
-  background: var(--primary-dark);
-  box-shadow: var(--shadow-lg);
-}
-
-.btn.secondary {
-  background: var(--bg-primary);
-  border: 1px solid var(--border);
-  color: var(--text-secondary);
-}
-
-.btn.secondary:hover {
-  background: var(--bg-secondary);
-  border-color: var(--border-light);
-}
-
-.btn.success {
-  background: var(--success);
-  color: white;
-}
-
-.btn.success:hover {
-  background: #059669;
-}
-
-.btn.warning {
-  background: var(--warning);
-  color: white;
-}
-
-.btn.warning:hover {
-  background: #d97706;
-}
-
-.btn.danger {
-  background: var(--danger);
-  color: white;
-}
-
-.btn.danger:hover {
-  background: #dc2626;
-}
+/* All button styles are now in theme.css */
 
 .split {
   display: flex;
@@ -389,7 +333,7 @@ textarea {
 }
 
 .qa {
-  background: var(--bg-secondary);
+  background: var(--card);
   border: 1px solid var(--border);
   border-radius: 8px;
   padding: 1.25rem;
@@ -405,11 +349,11 @@ textarea {
 
 .small {
   font-size: 0.75rem;
-  color: var(--text-muted);
+  color: var(--muted);
 }
 
 .muted {
-  color: var(--text-muted);
+  color: var(--muted);
 }
 
 .success {
@@ -427,14 +371,14 @@ textarea {
 .mono {
   font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
   font-size: 0.75rem;
-  background: var(--bg-secondary);
+  background: var(--card);
   padding: 0.5rem;
   border-radius: 4px;
   border: 1px solid var(--border);
 }
 
 .pill {
-  background: var(--bg-secondary);
+  background: var(--card);
   padding: 0.25rem 0.5rem;
   border-radius: 4px;
   border: 1px solid var(--border);
@@ -515,29 +459,29 @@ textarea {
 
 /* Dark mode specific styles */
 [data-theme="dark"] .input-section {
-  background: var(--bg-secondary);
+  background: var(--bg);
 }
 
 [data-theme="dark"] .card {
-  background: linear-gradient(135deg, #1A1F35, #2A2F42);
-  border: 1px solid #3A3F52;
+  background: var(--card);
+  border: 1px solid var(--border);
 }
 
-[data-theme="dark"] .step.active .step-circle {
-  background: linear-gradient(135deg, #4A5568, #718096);
+[data-theme="dark"] .step.active .step-number {
+  background: var(--primary);
   color: white;
 }
 
-[data-theme="dark"] .step.completed .step-circle {
-  background: linear-gradient(135deg, #4ECDC4, #6ED5CE);
-  color: #0A0E1A;
+[data-theme="dark"] .step.completed .step-number {
+  background: var(--success);
+  color: white;
 }
 
-[data-theme="dark"] .btn-primary {
-  background: linear-gradient(135deg, #4A5568, #718096);
-  border: 1px solid #2D3748;
+[data-theme="dark"] .btn {
+  background: var(--primary);
+  border: 1px solid var(--border);
 }
 
-[data-theme="dark"] .btn-primary:hover {
-  background: linear-gradient(135deg, #718096, #A0AEC0);
+[data-theme="dark"] .btn:hover {
+  background: var(--primary);
 }
