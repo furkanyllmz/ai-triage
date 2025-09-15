@@ -1,41 +1,50 @@
-import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import React, { useState, useEffect, useRef } from 'react';
+import { useLocation, Link } from 'react-router-dom';
 import './Header.css';
 
 const Header: React.FC = () => {
   const location = useLocation();
-  const [isDarkMode, setIsDarkMode] = useState(false);
-
-  useEffect(() => {
-    // Check for saved theme preference or default to light mode
-    const savedTheme = localStorage.getItem('theme');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const shouldBeDark = savedTheme === 'dark' || (!savedTheme && prefersDark);
-    
-    setIsDarkMode(shouldBeDark);
-    document.documentElement.setAttribute('data-theme', shouldBeDark ? 'dark' : 'light');
-  }, []);
-
-  const toggleTheme = () => {
-    const newTheme = !isDarkMode;
-    setIsDarkMode(newTheme);
-    document.documentElement.setAttribute('data-theme', newTheme ? 'dark' : 'light');
-    localStorage.setItem('theme', newTheme ? 'dark' : 'light');
-  };
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const mobileMenuRef = useRef<HTMLDivElement>(null);
   
   const getPageTitle = () => {
     switch (location.pathname) {
       case '/':
+        return 'Ana Sayfa';
+      case '/patient-entry':
         return 'Hasta Girişi';
-
       case '/doctor':
         return 'Doktor Değerlendirme Paneli';
+      case '/dashboard':
+        return 'Dashboard';
       case '/qr-test':
         return 'QR Kod Test Sayfası';
       default:
         return 'E-Triaj Sistemi';
     }
   };
+
+  // Close mobile menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (mobileMenuRef.current && !mobileMenuRef.current.contains(event.target as Node)) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+
+    if (isMobileMenuOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isMobileMenuOpen]);
+
+  // Close mobile menu when route changes
+  useEffect(() => {
+    setIsMobileMenuOpen(false);
+  }, [location.pathname]);
   return (
     <header className="header">
       <div className="header-container">
@@ -45,7 +54,10 @@ const Header: React.FC = () => {
               <img src="/logo.png" alt="E-Triaj Logo" />
             </div>
             <div>
-              <h1 className="header-title">Hızlı Değerlendirme (E-Triaj) Sistemi</h1>
+              <h1 className="header-title">
+                <span className="header-title-full">Hızlı Değerlendirme (E-Triaj) Sistemi</span>
+                <span className="header-title-short">E-Triaj</span>
+              </h1>
               <p className="header-subtitle">Kişisel Sağlık Bilgilerinizi Yönetebileceğiniz Türkiye'nin Güvenilir Kişisel Sağlık Kayıt Sistemidir.</p>
               <div className="page-indicator">
                 <span className="page-title">{getPageTitle()}</span>
@@ -55,18 +67,69 @@ const Header: React.FC = () => {
         </div>
         
         <div className="header-actions">
+          <nav className="header-nav">
+            <Link to="/" className={`nav-link ${location.pathname === '/' ? 'active' : ''}`}>
+              Ana Sayfa
+            </Link>
+            <Link to="/patient-entry" className={`nav-link ${location.pathname === '/patient-entry' ? 'active' : ''}`}>
+              Hasta Girişi
+            </Link>
+            <Link to="/doctor" className={`nav-link ${location.pathname === '/doctor' ? 'active' : ''}`}>
+              Doktor Paneli
+            </Link>
+            <Link to="/dashboard" className={`nav-link ${location.pathname === '/dashboard' ? 'active' : ''}`}>
+              Dashboard
+            </Link>
+          </nav>
+          
+          {/* Mobile menu button */}
           <button 
-            className="theme-toggle"
-            onClick={toggleTheme}
-            title={isDarkMode ? 'Gündüz moduna geç' : 'Gece moduna geç'}
+            className="mobile-menu-toggle"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            title="Menü"
+            aria-label="Menüyü aç/kapat"
           >
-            {isDarkMode ? '☀️' : '🌙'}
+            <span className={`hamburger-icon ${isMobileMenuOpen ? 'open' : ''}`}>
+              <span></span>
+              <span></span>
+              <span></span>
+            </span>
           </button>
-          <div className="user-info">
-            <span>Aile Hekimi Girişi</span>
-            <div className="user-avatar">AH</div>
-          </div>
         </div>
+        
+        {/* Mobile menu */}
+        {isMobileMenuOpen && (
+          <div className="mobile-menu" ref={mobileMenuRef}>
+            <Link 
+              to="/" 
+              className={`mobile-nav-link ${location.pathname === '/' ? 'active' : ''}`}
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              Ana Sayfa
+            </Link>
+            <Link 
+              to="/patient-entry" 
+              className={`mobile-nav-link ${location.pathname === '/patient-entry' ? 'active' : ''}`}
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              Hasta Girişi
+            </Link>
+            <Link 
+              to="/doctor" 
+              className={`mobile-nav-link ${location.pathname === '/doctor' ? 'active' : ''}`}
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              Doktor Paneli
+            </Link>
+            <Link 
+              to="/dashboard" 
+              className={`mobile-nav-link ${location.pathname === '/dashboard' ? 'active' : ''}`}
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              Dashboard
+            </Link>
+          </div>
+        )}
       </div>
     </header>
   );

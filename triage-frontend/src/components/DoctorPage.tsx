@@ -15,8 +15,6 @@ export default function DoctorPage({
   return (
     <div className="doctor-page">
       <div className="doctor-container">
-        <h1 className="doctor-title">Doktor Değerlendirme Paneli</h1>
-        
         <div className="doctor-content">
           {/* Hasta Bilgileri */}
           <div className="doctor-section">

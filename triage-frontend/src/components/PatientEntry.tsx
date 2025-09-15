@@ -39,7 +39,29 @@ const PatientEntry: React.FC<PatientEntryProps> = ({ onStartAssessment }) => {
   const handleSubmit = async () => {
     setIsLoading(true);
     try {
-      await onStartAssessment(formData);
+      // Vitals string'ini JSON'a çevir
+      let vitalsJson = null;
+      if (formData.vitals.trim()) {
+        try {
+          vitalsJson = JSON.parse(formData.vitals);
+        } catch (error) {
+          alert('Vitaller JSON formatında olmalıdır. Örnek: {"HR": 110, "RR": 24, "SpO2": 93}');
+          setIsLoading(false);
+          return;
+        }
+      }
+
+      // FormData'yı backend'e uygun formata çevir
+      const backendData = {
+        age: parseInt(formData.age),
+        sex: formData.sex,
+        complaint_text: formData.complaint,
+        vitals: vitalsJson,
+        pregnancy: formData.pregnancy === 'any' ? null : formData.pregnancy,
+        chief: formData.chief || null
+      };
+
+      await onStartAssessment(backendData);
       setIsLoading(false);
     } catch (error) {
       console.error('Error submitting assessment:', error);
@@ -186,6 +208,14 @@ const PatientEntry: React.FC<PatientEntryProps> = ({ onStartAssessment }) => {
     return 'dot green';
   };
 
+  const getPriorityClass = () => {
+    if (!triageResult?.triage_level) return '';
+    const level = parseInt(triageResult.triage_level.split('-')[1]);
+    if (level <= 2) return 'priority-red';
+    if (level === 3) return 'priority-yellow';
+    return 'priority-green';
+  };
+
   return (
     <div className="patient-entry">
       <main>
@@ -250,13 +280,20 @@ const PatientEntry: React.FC<PatientEntryProps> = ({ onStartAssessment }) => {
             </div>
           </div>
 
-          <label>Vitaller (JSON, opsiyonel)</label>
+          <label>Hasta Vitalleri (İsteğe bağlı)</label>
           <textarea 
             className="mono" 
-            placeholder='örn. {"HR": 110, "RR": 24, "SpO2": 93, "SBP": 118, "Temp": 37.8}'
+            placeholder='{"KalpAtisi": 110, "Solunum": 24, "Oksijen": 93, "Tansiyon": 118, "Ates": 37.8}'
             value={formData.vitals}
             onChange={(e) => handleInputChange('vitals', e.target.value)}
           ></textarea>
+          <div className="vitals-description">
+            <strong>KalpAtisi:</strong> Kalp atış hızı <span className="unit">(dakikada)</span>, 
+            <strong>Solunum:</strong> Solunum hızı <span className="unit">(dakikada)</span>, 
+            <strong>Oksijen:</strong> Oksijen satürasyonu <span className="unit">(%)</span>, 
+            <strong>Tansiyon:</strong> Sistolik kan basıncı <span className="unit">(mmHg)</span>, 
+            <strong>Ates:</strong> Vücut sıcaklığı <span className="unit">(°C)</span>
+          </div>
 
           <div className="hr"></div>
           <div className="split">
@@ -277,15 +314,14 @@ const PatientEntry: React.FC<PatientEntryProps> = ({ onStartAssessment }) => {
           <h2>Takip Soruları</h2>
           <div className="qa" style={{display: showQuestions ? 'block' : 'none'}}>
             {currentQuestions.map((question, index) => (
-              <div key={index} style={{marginBottom: '16px', padding: '12px', border: '1px solid #ddd', borderRadius: '4px'}}>
-                <div style={{marginBottom: '8px', fontWeight: '500'}}>
+              <div key={index} className="question-item">
+                <div className="question-text">
                   {index + 1}. {question}
                 </div>
                 <textarea 
                   placeholder="Cevabınızı yazın..."
                   value={questionAnswers[question] || ''}
                   onChange={(e) => handleAnswerChange(question, e.target.value)}
-                  style={{width: '100%', minHeight: '60px'}}
                 ></textarea>
               </div>
             ))}
@@ -333,13 +369,13 @@ const PatientEntry: React.FC<PatientEntryProps> = ({ onStartAssessment }) => {
           
           {/* Durum Özeti */}
           <div className={`result-summary ${getESIClass()}`}>
-            <div className="status-indicator">
+            <div className={`status-indicator ${getESIClass()}`}>
               <span className={getDotClass()}></span>
               <span className="status-text">Değerlendirme Durumu</span>
             </div>
             <div className="badges-container">
-              <span className={`badge primary ${getESIClass()}`}>ESI: {renderTriageLevel()}</span>
-              <span className="badge secondary">Öncelik: {renderPriority()}</span>
+              <span className="badge primary">ESI: {renderTriageLevel()}</span>
+              <span className={`badge secondary ${getPriorityClass()}`}>Öncelik: {renderPriority()}</span>
               <span className="badge tertiary">Bölüm: {renderSpecialty()}</span>
             </div>
           </div>
@@ -383,7 +419,7 @@ const PatientEntry: React.FC<PatientEntryProps> = ({ onStartAssessment }) => {
           </div>
 
           <div className="hr"></div>
-          <div>
+          <div className="questions-section">
             <strong>Sorulacak ek sorular (güncel)</strong>
             <ul>
               {renderQuestionsToAsk().map((question: string, index: number) => (

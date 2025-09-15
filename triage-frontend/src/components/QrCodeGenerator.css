@@ -1,8 +1,8 @@
 /* QR Code Generator Styles */
 .qr-label {
-  background: var(--bg-card);
+  background: var(--card);
   border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius);
   box-shadow: var(--shadow);
   padding: 1.5rem;
   max-width: 400px;
@@ -25,7 +25,7 @@
 .qr-label-title {
   font-size: 1.125rem;
   font-weight: 700;
-  color: var(--text-primary);
+  color: var(--text);
   margin: 0;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -41,15 +41,15 @@
 .qr-case-id {
   font-size: 1.25rem;
   font-weight: 600;
-  color: var(--text-primary);
+  color: var(--text);
   font-family: 'Courier New', monospace;
 }
 
 .qr-code-container {
   width: 64px;
   height: 64px;
-  background: white;
-  border-radius: var(--radius-sm);
+  background: var(--card);
+  border-radius: var(--radius);
   padding: 4px;
   border: 1px solid var(--border);
   display: flex;
@@ -59,12 +59,12 @@
 
 .qr-status {
   font-size: 0.875rem;
-  color: var(--text-secondary);
+  color: var(--muted);
   line-height: 1.5;
   margin-bottom: 1.5rem;
   padding: 1rem;
-  background: var(--bg-secondary);
-  border-radius: var(--radius-md);
+  background: var(--card);
+  border-radius: var(--radius);
   border-left: 4px solid var(--primary);
 }
 
@@ -76,10 +76,10 @@
 }
 
 .qr-area-badge {
-  background: var(--bg-secondary);
-  color: var(--text-primary);
+  background: var(--card);
+  color: var(--text);
   padding: 0.5rem 1rem;
-  border-radius: var(--radius-md);
+  border-radius: var(--radius);
   font-size: 0.875rem;
   font-weight: 500;
   border: 1px solid var(--border);
@@ -97,32 +97,32 @@
 
 /* Dark mode specific styles */
 [data-theme="dark"] .qr-label {
-  background: var(--bg-card);
+  background: var(--card);
   border-color: var(--border);
 }
 
 [data-theme="dark"] .qr-label-title {
-  color: var(--text-primary);
+  color: var(--text);
 }
 
 [data-theme="dark"] .qr-case-id {
-  color: var(--text-primary);
+  color: var(--text);
 }
 
 [data-theme="dark"] .qr-code-container {
-  background: white;
+  background: var(--card);
   border-color: var(--border);
 }
 
 [data-theme="dark"] .qr-status {
-  background: var(--bg-secondary);
-  color: var(--text-secondary);
+  background: var(--card);
+  color: var(--muted);
   border-left-color: var(--primary);
 }
 
 [data-theme="dark"] .qr-area-badge {
-  background: var(--bg-secondary);
-  color: var(--text-primary);
+  background: var(--card);
+  color: var(--text);
   border-color: var(--border);
 }
 

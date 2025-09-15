@@ -1,7 +1,6 @@
 /* QR Code Test Page Styles - Simplified */
 .qr-test-page {
-  min-height: 100vh;
-  background: var(--bg-secondary);
+  background: var(--bg);
   padding: 2rem 1rem;
 }
 
@@ -19,7 +18,7 @@
   font-weight: 700;
   text-align: center;
   margin-bottom: 1rem;
-  color: var(--text-primary);
+  color: var(--text);
 }
 
 .qr-label-container {
@@ -55,25 +54,25 @@
 }
 
 .qr-action-btn-primary:hover {
-  background: var(--primary-dark);
+  background: var(--primary);
   transform: translateY(-1px);
   box-shadow: var(--shadow-lg);
 }
 
 .qr-action-btn-secondary {
-  background: var(--accent);
+  background: var(--success);
   color: white;
 }
 
 .qr-action-btn-secondary:hover {
-  background: var(--accent-dark);
+  background: var(--success);
   transform: translateY(-1px);
   box-shadow: var(--shadow-lg);
 }
 
 .qr-info {
-  background: var(--bg-card);
-  border-radius: var(--radius-lg);
+  background: var(--card);
+  border-radius: var(--radius);
   box-shadow: var(--shadow);
   padding: 1.5rem;
   border: 1px solid var(--border);
@@ -85,7 +84,7 @@
   font-size: 1.125rem;
   font-weight: 600;
   margin-bottom: 1rem;
-  color: var(--text-primary);
+  color: var(--text);
 }
 
 .qr-info-list {
@@ -96,7 +95,7 @@
 
 .qr-info-item {
   font-size: 0.875rem;
-  color: var(--text-secondary);
+  color: var(--muted);
   padding: 0.5rem 0;
   border-bottom: 1px solid var(--border);
 }
@@ -106,7 +105,7 @@
 }
 
 .qr-info-item strong {
-  color: var(--text-primary);
+  color: var(--text);
   font-weight: 600;
 }
 
@@ -149,11 +148,11 @@
 
 /* Dark mode specific styles */
 [data-theme="dark"] .qr-test-page {
-  background: var(--bg-secondary);
+  background: var(--bg);
 }
 
 [data-theme="dark"] .qr-info {
-  background: var(--bg-card);
+  background: var(--card);
   border-color: var(--border);
 }
 

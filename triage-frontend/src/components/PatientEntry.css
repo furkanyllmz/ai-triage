@@ -1,5 +1,5 @@
 .patient-entry {
-  background: var(--bg-secondary);
+  background: var(--bg);
 }
 
 .patient-entry main {
@@ -27,9 +27,9 @@
 }
 
 .card {
-  background: var(--bg-card);
+  background: var(--card);
   border: 1px solid var(--border);
-  border-radius: 12px;
+  border-radius: var(--radius);
   padding: 1.5rem;
   box-shadow: var(--shadow);
   transition: all 0.2s ease;
@@ -37,14 +37,14 @@
 
 .card:hover {
   box-shadow: var(--shadow-lg);
-  border-color: var(--border-light);
+  border-color: var(--border);
 }
 
 .card h2 {
   font-size: 1.125rem;
   font-weight: 600;
   margin-bottom: 1.25rem;
-  color: var(--text-primary);
+  color: var(--text);
   display: flex;
   align-items: center;
   gap: 0.75rem;
@@ -59,12 +59,12 @@
 }
 
 .info-card {
-  background: linear-gradient(135deg, #1B263B, #2A3A52) !important;
+  background: var(--primary) !important;
   color: white !important;
   padding: 1rem;
   border-radius: 8px;
   margin-bottom: 1.5rem;
-  box-shadow: 0 4px 12px rgba(27, 38, 59, 0.2);
+  box-shadow: var(--shadow-lg);
 }
 
 .info-card h3 {
@@ -83,9 +83,9 @@
 
 /* Dark mode specific styles */
 [data-theme="dark"] .info-card {
-  background: linear-gradient(135deg, #2D3748, #4A5568) !important;
+  background: var(--primary) !important;
   color: white !important;
-  box-shadow: 0 4px 12px rgba(45, 55, 72, 0.4);
+  box-shadow: var(--shadow-lg);
 }
 
 [data-theme="dark"] .info-card h3 {
@@ -101,7 +101,7 @@ label {
   display: block;
   font-size: 0.875rem;
   font-weight: 500;
-  color: var(--text-primary);
+  color: var(--text);
   margin-bottom: 0.5rem;
 }
 
@@ -111,15 +111,15 @@ input, select, textarea {
   border: 1px solid var(--border);
   border-radius: 8px;
   font-size: 0.875rem;
-  background: var(--bg-card);
-  color: var(--text-primary);
+  background: var(--card);
+  color: var(--text);
   transition: all 0.2s ease;
 }
 
 input:focus, select:focus, textarea:focus {
   outline: none;
   border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(27, 38, 59, 0.1);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
 }
 
 textarea {
@@ -141,51 +141,9 @@ textarea {
   margin-bottom: 1rem;
 }
 
-.btn {
-  background: var(--primary);
-  color: white;
-  border: none;
-  padding: 0.75rem 1.5rem;
-  border-radius: 8px;
-  font-size: 0.875rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-}
+/* Button styles are now in theme.css */
 
-.btn:hover {
-  background: var(--primary-dark);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(27, 38, 59, 0.2);
-}
-
-.btn:disabled {
-  background: var(--text-muted);
-  cursor: not-allowed;
-  transform: none;
-  box-shadow: none;
-}
-
-.btn-secondary {
-  background: var(--bg-hover);
-  color: var(--text-primary);
-  border: 1px solid var(--border);
-}
-
-.btn-secondary:hover {
-  background: var(--border-light);
-}
-
-.btn-success {
-  background: var(--accent);
-}
-
-.btn-success:hover {
-  background: var(--accent-dark);
-}
+/* All button styles are now in theme.css */
 
 .split {
   display: flex;
@@ -206,16 +164,45 @@ textarea {
 
 .small {
   font-size: 0.75rem;
-  color: var(--text-muted);
+  color: var(--muted);
+}
+
+/* Vitaller açıklama metni için özel stiller */
+.vitals-description {
+  font-size: 0.75rem;
+  color: var(--muted);
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0.75rem;
+  margin-top: 0.5rem;
+  line-height: 1.5;
+  box-shadow: var(--shadow);
+  transition: all 0.2s ease;
+}
+
+.vitals-description:hover {
+  border-color: var(--primary);
+  box-shadow: var(--shadow-lg);
+}
+
+.vitals-description strong {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.vitals-description .unit {
+  color: var(--muted);
+  font-weight: 400;
 }
 
 .muted {
-  color: var(--text-muted);
+  color: var(--muted);
 }
 
 .pill {
-  background: var(--bg-hover);
-  color: var(--text-primary);
+  background: var(--card);
+  color: var(--text);
   padding: 0.25rem 0.5rem;
   border-radius: 12px;
   font-size: 0.75rem;
@@ -235,75 +222,281 @@ textarea {
   margin-bottom: 1.5rem;
 }
 
-.badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
-  font-size: 0.875rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  transition: all 0.2s ease;
-}
-
-.badge:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
+/* Badge styles are now in theme.css - only custom overrides here */
 .badge.primary {
-  background: var(--bg-card);
-  color: var(--text-primary);
-  border: 1px solid var(--border);
+  background: var(--muted);
+  color: white;
+  border-color: var(--muted);
 }
 
 .badge.secondary {
-  background: var(--bg-card);
-  color: var(--text-primary);
-  border: 1px solid var(--border);
+  background: var(--muted);
+  color: white;
+  border-color: var(--muted);
 }
 
 .badge.tertiary {
-  background: var(--bg-card);
-  color: var(--text-primary);
-  border: 1px solid var(--border);
+  background: var(--muted);
+  color: white;
+  border-color: var(--muted);
 }
 
-/* Dark mode badges */
-[data-theme="dark"] .badge.primary {
-  background: var(--bg-card);
-  color: var(--text-primary);
-  border: 1px solid var(--border);
+/* Priority Colors */
+.badge.priority-red {
+  background: var(--danger) !important;
+  color: white !important;
+  border-color: var(--danger) !important;
 }
 
-[data-theme="dark"] .badge.secondary {
-  background: var(--bg-card);
-  color: var(--text-primary);
-  border: 1px solid var(--border);
+.badge.priority-yellow {
+  background: var(--warning) !important;
+  color: #111827 !important;
+  border-color: var(--warning) !important;
 }
 
-[data-theme="dark"] .badge.tertiary {
-  background: var(--bg-card);
-  color: var(--text-primary);
-  border: 1px solid var(--border);
+.badge.priority-green {
+  background: var(--success) !important;
+  color: white !important;
+  border-color: var(--success) !important;
+}
+
+/* Status Indicator ESI Colors */
+.status-indicator.esi-1,
+.status-indicator.esi-2 {
+  background: linear-gradient(135deg, rgba(220, 38, 38, 0.1), rgba(220, 38, 38, 0.05));
+  border: 1px solid rgba(220, 38, 38, 0.2);
+}
+
+.status-indicator.esi-3 {
+  background: linear-gradient(135deg, rgba(234, 179, 8, 0.1), rgba(234, 179, 8, 0.05));
+  border: 1px solid rgba(234, 179, 8, 0.2);
+}
+
+.status-indicator.esi-4,
+.status-indicator.esi-5 {
+  background: linear-gradient(135deg, rgba(5, 150, 105, 0.1), rgba(5, 150, 105, 0.05));
+  border: 1px solid rgba(5, 150, 105, 0.2);
 }
 
 .qa {
-  background: var(--bg-hover);
+  background: var(--card);
   padding: 1rem;
-  border-radius: 8px;
+  border-radius: var(--radius);
   border: 1px solid var(--border);
+}
+
+/* Question Styles */
+.question-item {
+  margin-bottom: 1rem;
+  padding: 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--card);
+}
+
+.question-item .question-text {
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: var(--text);
+}
+
+.question-item textarea {
+  width: 100%;
+  min-height: 60px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0.5rem;
+  background: var(--card);
+  color: var(--text);
+  font-size: 0.875rem;
+}
+
+.question-item textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+/* Status Dot Styles */
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 0.5rem;
+}
+
+.dot.red {
+  background: var(--danger);
+}
+
+.dot.yellow {
+  background: var(--warning);
+}
+
+.dot.green {
+  background: var(--success);
+}
+
+/* Result Summary Styles */
+.result-summary {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.result-summary.esi-1,
+.result-summary.esi-2 {
+  border-left: 4px solid var(--danger);
+  background: linear-gradient(135deg, rgba(220, 38, 38, 0.05) 0%, rgba(220, 38, 38, 0.02) 100%);
+}
+
+.result-summary.esi-3 {
+  border-left: 4px solid var(--warning);
+  background: linear-gradient(135deg, rgba(234, 179, 8, 0.05) 0%, rgba(234, 179, 8, 0.02) 100%);
+}
+
+.result-summary.esi-4,
+.result-summary.esi-5 {
+  border-left: 4px solid var(--success);
+  background: linear-gradient(135deg, rgba(5, 150, 105, 0.05) 0%, rgba(5, 150, 105, 0.02) 100%);
+}
+
+/* Rationale Section */
+.rationale-section {
+  margin-bottom: 1.5rem;
+}
+
+.rationale-section h3 {
+  margin: 0 0 0.75rem 0;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.rationale-content {
+  background: var(--card);
+  padding: 0.75rem;
+  border-radius: var(--radius);
+  font-size: 0.875rem;
+  line-height: 1.5;
+  border-left: 3px solid var(--primary);
+}
+
+/* Section Block */
+.section-block {
+  margin-bottom: 1.5rem;
+}
+
+.section-block h3 {
+  margin: 0 0 0.75rem 0;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.findings-list {
+  margin: 0;
+  padding-left: 1.25rem;
+}
+
+.findings-list li {
+  margin-bottom: 0.5rem;
+  font-size: 0.875rem;
+  line-height: 1.4;
+}
+
+.findings-list li.no-items {
+  color: var(--muted);
+  font-style: italic;
+}
+
+/* Immediate Actions List */
+.section-block ul {
+  margin: 0;
+  padding-left: 1.25rem;
+}
+
+.section-block ul li {
+  margin-bottom: 0.5rem;
+  font-size: 0.875rem;
+  line-height: 1.4;
+  color: var(--text);
+}
+
+.section-block ul li.no-items {
+  color: var(--muted);
+  font-style: italic;
+}
+
+/* Questions Section */
+.questions-section {
+  margin-bottom: 1.5rem;
+}
+
+.questions-section strong {
+  display: block;
+  margin-bottom: 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.questions-section ul {
+  margin: 0;
+  padding-left: 1.25rem;
+}
+
+.questions-section ul li {
+  margin-bottom: 0.5rem;
+  font-size: 0.875rem;
+  line-height: 1.4;
+  color: var(--text);
+}
+
+.questions-section ul li.no-items {
+  color: var(--muted);
+  font-style: italic;
+}
+
+/* Empty State Improvements */
+.section-block ul li.no-items,
+.questions-section ul li.no-items {
+  padding: 0.5rem;
+  background: var(--card);
+  border: 1px dashed var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 0.75rem;
+  text-align: center;
+  font-style: italic;
+  color: var(--muted);
+}
+
+/* List Item Improvements */
+.section-block ul li:not(.no-items),
+.questions-section ul li:not(.no-items) {
+  padding: 0.5rem 0.75rem;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 0.5rem;
+  transition: all 0.2s ease;
+}
+
+.section-block ul li:not(.no-items):hover,
+.questions-section ul li:not(.no-items):hover {
+  border-color: var(--primary);
+  box-shadow: var(--shadow);
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
   .patient-entry main {
     grid-template-columns: 1fr;
-    gap: 1rem;
-    padding: 0 0.5rem 1rem;
+    gap: 0.75rem;
+    padding: 0 0.5rem 0.75rem;
   }
   
   .input-section {
@@ -312,10 +505,12 @@ textarea {
   
   .row, .grid2 {
     grid-template-columns: 1fr;
+    gap: 0.75rem;
   }
   
   .split {
     flex-direction: column;
+    gap: 0.5rem;
   }
   
   .split button {
@@ -323,26 +518,52 @@ textarea {
   }
   
   .card {
-    padding: 1rem;
+    padding: 0.75rem;
   }
   
   .card h2 {
-    font-size: 1rem;
+    font-size: 0.875rem;
+    margin-bottom: 1rem;
   }
-}
-
-@media (max-width: 480px) {
-  .btn {
-    padding: 0.625rem 1rem;
+  
+  .question-item {
+    padding: 0.5rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  .question-item textarea {
+    min-height: 45px;
     font-size: 0.8125rem;
   }
   
-  input, select, textarea {
-    padding: 0.625rem;
+  .badges-container {
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+    margin-bottom: 1rem;
+  }
+  
+  .badge {
+    width: 100%;
+    text-align: center;
+    padding: 0.375rem 0.75rem;
+    font-size: 0.75rem;
+  }
+  
+  .section-block ul,
+  .questions-section ul {
+    padding-left: 0.75rem;
+  }
+  
+  .section-block ul li,
+  .questions-section ul li {
+    font-size: 0.75rem;
+    margin-bottom: 0.375rem;
   }
   
   .info-card {
     padding: 0.75rem;
+    margin-bottom: 1rem;
   }
   
   .info-card h3 {
@@ -353,12 +574,206 @@ textarea {
     font-size: 0.8125rem;
   }
   
-  .badges-container {
+  .vitals-description {
+    font-size: 0.6875rem;
+    padding: 0.5rem;
+    line-height: 1.4;
+  }
+}
+
+@media (max-width: 480px) {
+  .patient-entry main {
     gap: 0.5rem;
+    padding: 0 0.375rem 0.5rem;
+  }
+  
+  .card {
+    padding: 0.5rem;
+  }
+  
+  .card h2 {
+    font-size: 0.75rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  .btn {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.75rem;
+  }
+  
+  input, select, textarea {
+    padding: 0.5rem;
+    font-size: 0.8125rem;
+  }
+  
+  .info-card {
+    padding: 0.5rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  .info-card h3 {
+    font-size: 0.75rem;
+  }
+  
+  .info-card p {
+    font-size: 0.75rem;
+  }
+  
+  .question-item {
+    padding: 0.375rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .question-item textarea {
+    min-height: 40px;
+    font-size: 0.75rem;
+  }
+  
+  .badges-container {
+    gap: 0.375rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.75rem;
   }
   
   .badge {
-    padding: 0.375rem 0.75rem;
-    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.6875rem;
   }
+  
+  .section-block ul,
+  .questions-section ul {
+    padding-left: 0.5rem;
+  }
+  
+  .section-block ul li,
+  .questions-section ul li {
+    font-size: 0.6875rem;
+    margin-bottom: 0.25rem;
+  }
+  
+  .vitals-description {
+    font-size: 0.625rem;
+    padding: 0.375rem;
+    line-height: 1.3;
+  }
+}
+
+/* Dark Mode Support */
+[data-theme="dark"] .patient-entry {
+  background: var(--bg);
+}
+
+[data-theme="dark"] .card {
+  background: var(--card);
+  border-color: var(--border);
+}
+
+[data-theme="dark"] .question-item {
+  background: var(--card);
+  border-color: var(--border);
+}
+
+[data-theme="dark"] .question-item textarea {
+  background: var(--card);
+  color: var(--text);
+  border-color: var(--border);
+}
+
+[data-theme="dark"] .question-item textarea:focus {
+  border-color: var(--primary);
+}
+
+[data-theme="dark"] .result-summary {
+  background: var(--card);
+  border-color: var(--border);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .rationale-content {
+  background: var(--card);
+  border-left-color: var(--primary);
+}
+
+[data-theme="dark"] .qa {
+  background: var(--card);
+  border-color: var(--border);
+}
+
+[data-theme="dark"] .section-block ul li {
+  color: var(--text);
+}
+
+[data-theme="dark"] .section-block ul li.no-items {
+  color: var(--muted);
+}
+
+[data-theme="dark"] .questions-section strong {
+  color: var(--muted);
+}
+
+[data-theme="dark"] .questions-section ul li {
+  color: var(--text);
+}
+
+[data-theme="dark"] .questions-section ul li.no-items {
+  color: var(--muted);
+}
+
+[data-theme="dark"] .section-block ul li.no-items,
+[data-theme="dark"] .questions-section ul li.no-items {
+  background: var(--card);
+  border-color: var(--border);
+  color: var(--muted);
+}
+
+[data-theme="dark"] .section-block ul li:not(.no-items),
+[data-theme="dark"] .questions-section ul li:not(.no-items) {
+  background: var(--card);
+  border-color: var(--border);
+  color: var(--text);
+}
+
+[data-theme="dark"] .section-block ul li:not(.no-items):hover,
+[data-theme="dark"] .questions-section ul li:not(.no-items):hover {
+  border-color: var(--primary);
+}
+
+[data-theme="dark"] .badge.priority-yellow {
+  color: #111827 !important;
+}
+
+[data-theme="dark"] .status-indicator.esi-1,
+[data-theme="dark"] .status-indicator.esi-2 {
+  background: linear-gradient(135deg, rgba(220, 38, 38, 0.15), rgba(220, 38, 38, 0.08));
+  border-color: rgba(220, 38, 38, 0.3);
+}
+
+[data-theme="dark"] .status-indicator.esi-3 {
+  background: linear-gradient(135deg, rgba(234, 179, 8, 0.15), rgba(234, 179, 8, 0.08));
+  border-color: rgba(234, 179, 8, 0.3);
+}
+
+[data-theme="dark"] .status-indicator.esi-4,
+[data-theme="dark"] .status-indicator.esi-5 {
+  background: linear-gradient(135deg, rgba(5, 150, 105, 0.15), rgba(5, 150, 105, 0.08));
+  border-color: rgba(5, 150, 105, 0.3);
+}
+
+[data-theme="dark"] .vitals-description {
+  background: var(--card);
+  border-color: var(--border);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="dark"] .vitals-description:hover {
+  border-color: var(--primary);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .vitals-description strong {
+  color: var(--text);
+}
+
+[data-theme="dark"] .vitals-description .unit {
+  color: var(--muted);
 }
