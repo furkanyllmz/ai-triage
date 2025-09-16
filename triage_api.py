@@ -1,8 +1,8 @@
 # triage_api.py
-from fastapi import FastAPI, HTTPException,Depends,Query
+from fastapi import FastAPI, HTTPException, Depends, Query
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
-import requests, os, uuid
+import requests, uuid
 from typing import Dict, List, Optional
 try:
     from typing import Literal
@@ -10,21 +10,23 @@ except ImportError:
     from typing_extensions import Literal
 from sqlalchemy.orm import Session
 from datetime import datetime
-from schemas import TriageRead
-from database import SessionLocal
+from schemas import TriageRead, TriageOutput
+from database import SessionLocal, get_db
 from models import Triage
-from schemas import TriageOutput
 from llm_client_openai import call_llm_triage_openai
-from database import get_db
+from config import settings
 
-RAG_URL = os.getenv("RAG_URL", "http://localhost:8000/rag/topk")
 MAX_QA = 3
 
-app = FastAPI()
+app = FastAPI(
+    title="AI Triage API",
+    description="AI-powered medical triage system",
+    version="1.0.0"
+)
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=settings.ALLOWED_ORIGINS,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

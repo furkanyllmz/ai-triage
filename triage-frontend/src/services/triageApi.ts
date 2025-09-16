@@ -1,6 +1,6 @@
 import { TriageInput, TriageStartResponse, TriageFollowResponse, AnswerBody } from '../types/TriageTypes';
 
-const BASE_URL = 'http://localhost:9000';
+const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:9000';
 
 class TriageApiService {
   private async makeRequest<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
