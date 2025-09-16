@@ -53,33 +53,7 @@ function statusBadge(s: TriageStatus) {
   return <span className={cls}>{s}</span>;
 }
 
-// --- Mock data (backend gelene kadar) ---
-const MOCK: TriageQuery[] = Array.from({ length: 60 }).map((_, i) => {
-  const created = new Date();
-  created.setMinutes(created.getMinutes() - i * 13);
-  return {
-    id: 1000 + i,
-    case_id: `case-${String(1000 + i)}`,
-    age: 18 + (i % 60),
-    sex: ["M", "F"][i % 2],
-    complaint_text: [
-      "Göğüs ağrısı ve nefes darlığı",
-      "Şiddetli baş ağrısı",
-      "Kusma ve karın ağrısı",
-      "Bilek burkulması",
-      "Öksürük ve hafif ateş",
-    ][i % 5],
-    vitals: { blood_pressure: "120/80", heart_rate: 72, temperature: 36.5 },
-    triage_level: (["ESI-1", "ESI-2", "ESI-3", "ESI-4", "ESI-5"] as ESILevel[])[i % 5],
-    rationale: `Hasta ${18 + (i % 60)} yaşında ${fmtSex(["M", "F"][i % 2])} cinsiyetinde, ${["Göğüs ağrısı", "Baş ağrısı", "Karın ağrısı", "Bilek ağrısı", "Öksürük"][i % 5]} şikayeti ile başvurdu.`,
-    red_flags: ["Acil müdahale gerekli", "Kritik durum"],
-    immediate_actions: ["Vital bulguları kontrol et", "Acil servise yönlendir"],
-    questions_to_ask_next: ["Ağrının süresi?", "Şiddeti nasıl?"],
-    routing: { specialty: "Emergency", priority: "high" },
-    evidence_ids: ["evidence-1", "evidence-2"],
-    created_at: created.toISOString(),
-  };
-});
+// No mock data - using real API
 
 // --- API integration ---
 async function fetchQueries(params: {
@@ -94,16 +68,15 @@ async function fetchQueries(params: {
       sort: "desc"
     });
     
-    const res = await fetch(`http://localhost:8000/triage/alltriages?${queryParams}`);
+    // Triage API endpointi kullan
+    const res = await fetch(`http://localhost:9000/triage/alltriages?${queryParams}`);
     if (!res.ok) throw new Error(`API Error: ${res.status}`);
     
     const data = await res.json();
     return { total: data.length, items: data };
   } catch (error) {
-    console.warn("API hatası, mock data kullanılıyor:", error);
-    // Fallback to mock data
-    await new Promise(r => setTimeout(r, 200));
-    return { total: MOCK.length, items: MOCK };
+    console.error("API hatası:", error);
+    return { total: 0, items: [] }; // Hata durumunda boş liste dön
   }
 }
 
@@ -125,14 +98,14 @@ export default function Dashboard() {
   const [page, setPage] = useState(1);
   const pageSize = 20;
 
-  // initial fetch
+  // initial fetch and refresh on filter changes
   useEffect(() => {
     setLoading(true);
     fetchQueries({ page, pageSize, search, status, esi, source, from, to }).then((d) => {
       setRows(d.items);
       setLoading(false);
     });
-  }, []); // eslint-disable-line
+  }, [page, pageSize, search, status, esi, source, from, to]); // Re-fetch when filters change
 
   // filtered view
   const filtered = useMemo(() => {

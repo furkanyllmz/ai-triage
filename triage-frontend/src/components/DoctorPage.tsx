@@ -1,5 +1,45 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './DoctorPage.css';
+
+// Add TypeScript interfaces for better type safety
+interface PatientVitals {
+  blood_pressure?: string;
+  heart_rate?: number;
+  temperature?: number;
+  oxygen_saturation?: number;
+}
+
+interface PatientData {
+  age?: number | string;
+  sex?: string;
+  complaint?: string;
+  pregnancy?: boolean;
+  chief?: string;
+  vitals?: PatientVitals | string;
+}
+
+interface TriageRouting {
+  priority?: string;
+  specialty?: string;
+}
+
+interface TriageResult {
+  triage_level?: string;
+  routing?: TriageRouting;
+  rationale_brief?: string;
+  red_flags?: string[];
+  immediate_actions?: string[];
+  questions_to_ask_next?: string[];
+  rationale?: string;
+}
+
+interface SearchResult {
+  caseId: string;
+  patientData: PatientData;
+  triageResult: TriageResult;
+  timestamp: string;
+  status: string;
+}
 
 interface DoctorPageProps {
   patientData: any;
@@ -41,39 +81,46 @@ export default function DoctorPage({
 
     setIsSearching(true);
     setSearchError('');
+    setSearchResult(null); // Reset previous results
     
     try {
-      // Simulate API call - replace with actual API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      const response = await fetch(`http://localhost:9000/triage/alltriages/byCase/${searchCaseId}`);
       
-      // Mock search result - replace with actual API response
-      const mockResult = {
-        caseId: searchCaseId,
+      if (!response.ok) {
+        throw new Error('Case bulunamadı');
+      }
+      
+      const data = await response.json();
+      console.log('API Response:', data); // Debug log
+      
+      // API returns an array, get the first item
+      const caseData = Array.isArray(data) ? data[0] : data;
+      
+      // Transform API response to match our interface
+      const result = {
+        caseId: caseData.case_id,
         patientData: {
-          age: '35',
-          sex: 'F',
-          complaint: 'Göğüs ağrısı ve nefes darlığı',
-          pregnancy: 'negative',
-          chief: 'Göğüs ağrısı',
-          vitals: '{"blood_pressure": "140/90", "heart_rate": "95", "temperature": "37.2"}'
+          age: caseData.age,
+          sex: caseData.sex,
+          complaint: caseData.complaint_text,
+          vitals: caseData.vitals || {}
         },
         triageResult: {
-          triage_level: 'ESI-3',
-          routing: {
-            priority: 'Orta',
-            specialty: 'Kardiyoloji'
-          },
-          rationale_brief: 'Göğüs ağrısı ve yüksek tansiyon nedeniyle kardiyoloji konsültasyonu önerilir.',
-          red_flags: ['Yüksek tansiyon', 'Göğüs ağrısı'],
-          immediate_actions: ['EKG çekimi', 'Kardiyak enzimler'],
-          questions_to_ask_next: ['Ağrı ne zaman başladı?', 'Egzersizle ilişkisi var mı?']
+          triage_level: caseData.triage_level,
+          routing: caseData.routing,
+          rationale_brief: caseData.rationale,
+          red_flags: caseData.red_flags || [],
+          immediate_actions: caseData.immediate_actions || [],
+          questions_to_ask_next: caseData.questions_to_ask_next || []
         },
-        timestamp: new Date().toISOString(),
+        timestamp: caseData.created_at,
         status: 'pending_review'
       };
       
-      setSearchResult(mockResult);
+      console.log('Transformed Result:', result); // Debug log
+      setSearchResult(result);
     } catch (error) {
+      console.error('Search Error:', error); // Debug log
       setSearchError('Case ID bulunamadı veya bir hata oluştu');
       setSearchResult(null);
     } finally {
@@ -90,6 +137,11 @@ export default function DoctorPage({
   // Use search result data if available, otherwise use props
   const currentPatientData = searchResult?.patientData || patientData;
   const currentTriageResult = searchResult?.triageResult || triageResult;
+
+  useEffect(() => {
+    console.log('Current Patient Data:', currentPatientData);
+    console.log('Current Triage Result:', currentTriageResult);
+  }, [currentPatientData, currentTriageResult]);
 
   return (
     <div className="doctor-page">
@@ -187,7 +239,34 @@ export default function DoctorPage({
               {currentPatientData?.vitals && (
                 <div className="info-row">
                   <span className="info-label">Vitaller:</span>
-                  <span className="info-value">{currentPatientData.vitals}</span>
+                  <span className="info-value">
+                    {(() => {
+                      try {
+                        const vitals = typeof currentPatientData.vitals === 'string' 
+                          ? JSON.parse(currentPatientData.vitals)
+                          : currentPatientData.vitals;
+                        
+                        return (
+                          <div className="vitals-list">
+                            {vitals.blood_pressure && (
+                              <div className="vital-item">Tansiyon: {vitals.blood_pressure}</div>
+                            )}
+                            {vitals.heart_rate && (
+                              <div className="vital-item">Nabız: {vitals.heart_rate}</div>
+                            )}
+                            {vitals.temperature && (
+                              <div className="vital-item">Ateş: {vitals.temperature}°C</div>
+                            )}
+                            {vitals.oxygen_saturation && (
+                              <div className="vital-item">SpO2: {vitals.oxygen_saturation}%</div>
+                            )}
+                          </div>
+                        );
+                      } catch (e) {
+                        return String(currentPatientData.vitals);
+                      }
+                    })()}
+                  </span>
                 </div>
               )}
             </div>
@@ -306,7 +385,8 @@ export default function DoctorPage({
               <div className="qr-actions">
                 <button 
                   className="btn btn-primary"
-                  onClick={() => window.location.href = '/qr-test'}
+                  onClick={() => window.location.href = `/qr-test?caseId=${searchResult?.caseId || ''}`}
+                  disabled={!searchResult?.caseId}
                 >
                   Etiketi Görüntüle
                 </button>
