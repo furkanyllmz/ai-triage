@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import TriageLabel from "./QrCodeGenerator";
 import { triageApi } from '../services/triageApi';
 import "./QrCodeTestPage.css";
+const BASE_URL = process.env.REACT_APP_API_URL || "http://localhost:9000";
 
 export default function QrCodeTestPage() {
   const location = useLocation();
@@ -30,7 +31,7 @@ export default function QrCodeTestPage() {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await fetch(`http://localhost:9000/triage/alltriages/byCase/${caseId}`);
+      const response = await fetch(`${BASE_URL}/triage/alltriages/byCase/${caseId}`);
       if (!response.ok) {
         throw new Error('Veri alınamadı');
       }

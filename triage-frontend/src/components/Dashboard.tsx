@@ -3,6 +3,7 @@ import "./Dashboard.css";
 
 export type TriageStatus = "queued" | "processing" | "completed" | "failed";
 export type ESILevel = "ESI-1" | "ESI-2" | "ESI-3" | "ESI-4" | "ESI-5";
+const BASE_URL = process.env.REACT_APP_API_URL || "http://localhost:9000";
 
 export interface TriageQuery {
   id: number;
@@ -69,7 +70,7 @@ async function fetchQueries(params: {
     });
     
     // Triage API endpointi kullan
-    const res = await fetch(`http://localhost:9000/triage/alltriages?${queryParams}`);
+    const res = await fetch(`${BASE_URL}/triage/alltriages?${queryParams}`);
     if (!res.ok) throw new Error(`API Error: ${res.status}`);
     
     const data = await res.json();
