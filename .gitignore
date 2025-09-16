@@ -1,6 +1,5 @@
 # Environment variables
 .env
-node_modules/
 .triage-frontend/node_modules/
 
 # Python
