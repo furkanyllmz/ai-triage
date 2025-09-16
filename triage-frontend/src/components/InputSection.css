@@ -34,7 +34,7 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: var(--bg-secondary);
+  background: var(--bg-card);
   border: 2px solid var(--border);
   display: flex;
   align-items: center;
@@ -88,7 +88,7 @@
 
 /* Review Section */
 .review-section {
-  background: var(--bg-secondary);
+  background: var(--bg-card);
   border-radius: var(--radius-md);
   padding: 1.5rem;
 }
@@ -157,7 +157,7 @@
 }
 
 .message-muted {
-  background: var(--bg-secondary);
+  background: var(--bg-card);
   color: var(--text-secondary);
   border: 1px solid var(--border);
 }
@@ -175,7 +175,7 @@
 }
 
 .question-card {
-  background: var(--bg-secondary);
+  background: var(--bg-card);
   border-radius: var(--radius-md);
   padding: 1.5rem;
 }
@@ -212,7 +212,7 @@
 }
 
 .session-details {
-  background: var(--bg-secondary);
+  background: var(--bg-card);
   border-radius: var(--radius-md);
   padding: 1rem;
 }
@@ -347,7 +347,7 @@ textarea {
 }
 
 .btn.secondary:hover {
-  background: var(--bg-secondary);
+  background: var(--bg-card);
   border-color: var(--border-light);
 }
 
@@ -357,7 +357,7 @@ textarea {
 }
 
 .btn.success:hover {
-  background: #059669;
+  background: var(--accent-dark);
 }
 
 .btn.warning {
@@ -366,7 +366,7 @@ textarea {
 }
 
 .btn.warning:hover {
-  background: #d97706;
+  background: var(--warning);
 }
 
 .btn.danger {
@@ -375,7 +375,7 @@ textarea {
 }
 
 .btn.danger:hover {
-  background: #dc2626;
+  background: var(--danger);
 }
 
 .split {
@@ -389,7 +389,7 @@ textarea {
 }
 
 .qa {
-  background: var(--bg-secondary);
+  background: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: 8px;
   padding: 1.25rem;
@@ -427,14 +427,14 @@ textarea {
 .mono {
   font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
   font-size: 0.75rem;
-  background: var(--bg-secondary);
+  background: var(--bg-card);
   padding: 0.5rem;
   border-radius: 4px;
   border: 1px solid var(--border);
 }
 
 .pill {
-  background: var(--bg-secondary);
+  background: var(--bg-card);
   padding: 0.25rem 0.5rem;
   border-radius: 4px;
   border: 1px solid var(--border);
@@ -515,12 +515,12 @@ textarea {
 
 /* Dark mode specific styles */
 [data-theme="dark"] .input-section {
-  background: var(--bg-secondary);
+  background: var(--bg-card);
 }
 
 [data-theme="dark"] .card {
-  background: linear-gradient(135deg, #1A1F35, #2A2F42);
-  border: 1px solid #3A3F52;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
 }
 
 [data-theme="dark"] .step.active .step-circle {
@@ -529,8 +529,8 @@ textarea {
 }
 
 [data-theme="dark"] .step.completed .step-circle {
-  background: linear-gradient(135deg, #4ECDC4, #6ED5CE);
-  color: #0A0E1A;
+  background: linear-gradient(135deg, var(--success), var(--accent-light));
+  color: var(--text-primary);
 }
 
 [data-theme="dark"] .btn-primary {

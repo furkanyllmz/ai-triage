@@ -1,7 +1,7 @@
 /* QR Code Test Page Styles - Simplified */
 .qr-test-page {
   min-height: 100vh;
-  background: var(--bg-secondary);
+  background: var(--bg-card);
   padding: 2rem 1rem;
 }
 
@@ -61,12 +61,12 @@
 }
 
 .qr-action-btn-secondary {
-  background: var(--accent);
+  background: var(--bg-card);
   color: white;
 }
 
 .qr-action-btn-secondary:hover {
-  background: var(--accent-dark);
+  background: var(--secondary-dark);
   transform: translateY(-1px);
   box-shadow: var(--shadow-lg);
 }
@@ -149,7 +149,7 @@
 
 /* Dark mode specific styles */
 [data-theme="dark"] .qr-test-page {
-  background: var(--bg-secondary);
+  background: var(--bg-card);
 }
 
 [data-theme="dark"] .qr-info {

@@ -94,7 +94,7 @@ export default function QrCodeTestPage() {
             onClick={handlePrintDownload}
             className="qr-action-btn qr-action-btn-primary"
           >
-            🖨️ Yazdır
+            Yazdır
           </button>
         </div>
 

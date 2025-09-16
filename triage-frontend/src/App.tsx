@@ -2,8 +2,10 @@ import React, { useState, useCallback, useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import './App.css';
 import Header from './components/Header';
+import HomePage from './components/HomePage';
 import PatientEntry from './components/PatientEntry';
 import DoctorPage from './components/DoctorPage';
+import Dashboard from './components/Dashboard';
 import QrCodeTestPage from './components/QrCodeTestPage';
 import { TriageProvider, useTriageContext } from './contexts/TriageContext';
 import { TriageState, TriageInput } from './types/TriageTypes';
@@ -20,6 +22,25 @@ function AppContent() {
     isLoading: false,
     error: null,
   });
+
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  useEffect(() => {
+    // Check for saved theme preference or default to light mode
+    const savedTheme = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const shouldBeDark = savedTheme === 'dark' || (!savedTheme && prefersDark);
+    
+    setIsDarkMode(shouldBeDark);
+    document.documentElement.setAttribute('data-theme', shouldBeDark ? 'dark' : 'light');
+  }, []);
+
+  const toggleTheme = () => {
+    const newTheme = !isDarkMode;
+    setIsDarkMode(newTheme);
+    document.documentElement.setAttribute('data-theme', newTheme ? 'dark' : 'light');
+    localStorage.setItem('theme', newTheme ? 'dark' : 'light');
+  };
 
   // Clear data only on initial page load (not on component re-renders)
   useEffect(() => {
@@ -187,9 +208,22 @@ function AppContent() {
     <div className="App">
       <Router>
         <Header />
+        <div className="theme-toggle-container">
+          <button 
+            className="theme-toggle"
+            onClick={toggleTheme}
+            title={isDarkMode ? 'Gündüz moduna geç' : 'Gece moduna geç'}
+          >
+            {isDarkMode ? '☀️' : '🌙'}
+          </button>
+        </div>
         <main className="main-content">
           <Switch>
             <Route path="/" exact>
+              <HomePage />
+            </Route>
+
+            <Route path="/patient">
               <PatientEntry onStartAssessment={handlePatientStart} />
             </Route>
 
@@ -200,9 +234,13 @@ function AppContent() {
                 onComplete={handleDoctorComplete}
               />
             </Route>
+            <Route path="/dashboard">
+              <Dashboard />
+            </Route>
             <Route path="/qr-test">
               <QrCodeTestPage />
             </Route>
+            
             <Route path="*">
               <Redirect to="/" />
             </Route>

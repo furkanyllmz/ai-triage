@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import './PatientEntry.css';
+import '../styles/triage-page.css';
 import { useTriageContext } from '../contexts/TriageContext';
 import { triageApi } from '../services/triageApi';
 
@@ -187,162 +188,192 @@ const PatientEntry: React.FC<PatientEntryProps> = ({ onStartAssessment }) => {
   };
 
   return (
-    <div className="patient-entry">
-      <main>
+    <div className="app-shell">
+      <div className="grid">
         {/* SOL: Giriş & Soru Akışı */}
-        <section className="card input-section">
-          <div className="info-card">
-            <h3>Triaj Değerlendirme</h3>
-            <p>Hasta bilgilerini girin ve sistemin sorularını yanıtlayın</p>
-          </div>
-          
-          <h2>Hasta Bilgisi</h2>
-
-          {/* Form Content */}
-          <div className="row">
-            <div>
-              <label>Yaş</label>
-              <input 
-                type="number" 
-                min="0" 
-                value={formData.age}
-                onChange={(e) => handleInputChange('age', e.target.value)}
-              />
+        <section className="card form-card">
+          <div className="card__body">
+            {/* Header Section */}
+            <div className="form-header">
+              <h2 className="form-title">Triaj Değerlendirme</h2>
+              <p className="form-subtitle">Hasta bilgilerini girin ve sistemin sorularını yanıtlayın</p>
             </div>
-            <div>
-              <label>Cinsiyet</label>
-              <select 
-                value={formData.sex}
-                onChange={(e) => handleInputChange('sex', e.target.value)}
-              >
-                <option value="F">Kadın</option>
-                <option value="M">Erkek</option>
-              </select>
-            </div>
-          </div>
-
-          <label>Şikâyet metni</label>
-          <textarea 
-            placeholder="örn. göğsümde baskı var, nefes almakta zorlanıyorum"
-            value={formData.complaint}
-            onChange={(e) => handleInputChange('complaint', e.target.value)}
-          ></textarea>
-
-          <div className="grid2">
-            <div>
-              <label>Gebelik</label>
-              <select 
-                value={formData.pregnancy}
-                onChange={(e) => handleInputChange('pregnancy', e.target.value)}
-              >
-                <option value="any">Seçilmedi</option>
-                <option value="positive">Pozitif</option>
-                <option value="negative">Negatif</option>
-              </select>
-            </div>
-            <div>
-              <label>Hastalık Özeti</label>
-              <input 
-                placeholder="Göğüs ağrısı"
-                value={formData.chief}
-                onChange={(e) => handleInputChange('chief', e.target.value)}
-              />
-            </div>
-          </div>
-
-          <label>Vitaller (JSON, opsiyonel)</label>
-          <textarea 
-            className="mono" 
-            placeholder='örn. {"HR": 110, "RR": 24, "SpO2": 93, "SBP": 118, "Temp": 37.8}'
-            value={formData.vitals}
-            onChange={(e) => handleInputChange('vitals', e.target.value)}
-          ></textarea>
-
-          <div className="hr"></div>
-          <div className="split">
-            <button className="btn" onClick={handleSubmit} disabled={!isFormValid() || isLoading}>
-              {isLoading ? 'Değerlendiriliyor...' : 'Başla'}
-            </button>
-            <button className="btn secondary" onClick={() => window.location.reload()}>
-              Sıfırla
-            </button>
-          </div>
-
-          <div className="small muted" style={{marginTop: '8px'}}>
-            {isLoading && 'Değerlendirme başlatılıyor...'}
-          </div>
-
-          <div className="hr"></div>
-
-          <h2>Takip Soruları</h2>
-          <div className="qa" style={{display: showQuestions ? 'block' : 'none'}}>
-            {currentQuestions.map((question, index) => (
-              <div key={index} style={{marginBottom: '16px', padding: '12px', border: '1px solid #ddd', borderRadius: '4px'}}>
-                <div style={{marginBottom: '8px', fontWeight: '500'}}>
-                  {index + 1}. {question}
+            
+            {/* Hasta Bilgisi Section */}
+            <h3 className="section-title">Hasta Bilgisi</h3>
+            <div className="patient-info-section">
+              
+              <div className="form-row">
+                <div className="form-field">
+                  <label>Yaş</label>
+                  <input 
+                    type="number" 
+                    min="0" 
+                    value={formData.age}
+                    onChange={(e) => handleInputChange('age', e.target.value)}
+                  />
                 </div>
+                <div className="form-field">
+                  <label>Cinsiyet</label>
+                  <select 
+                    value={formData.sex}
+                    onChange={(e) => handleInputChange('sex', e.target.value)}
+                  >
+                    <option value="F">Kadın</option>
+                    <option value="M">Erkek</option>
+                  </select>
+                </div>
+              </div>
+
+              <div className="form-field">
+                <label>Şikâyet metni</label>
                 <textarea 
-                  placeholder="Cevabınızı yazın..."
-                  value={questionAnswers[question] || ''}
-                  onChange={(e) => handleAnswerChange(question, e.target.value)}
-                  style={{width: '100%', minHeight: '60px'}}
+                  placeholder="örn. göğsümde baskı var, nefes almakta zorlanıyorum"
+                  value={formData.complaint}
+                  onChange={(e) => handleInputChange('complaint', e.target.value)}
+                  rows={4}
                 ></textarea>
               </div>
-            ))}
-            <div className="split" style={{marginTop: '16px'}}>
-              <button className="btn" onClick={handleAnswerAllQuestions}>
-                Tüm Cevapları Gönder
-              </button>
-              <button className="btn secondary" onClick={handleSkipAllQuestions}>
-                Tümünü Atla
-              </button>
-              <button className="btn success" onClick={handleFinishQuestions}>
-                Bitir
-              </button>
-            </div>
-            <div className="split" style={{marginTop: '12px'}}>
-              <button 
-                className="btn secondary" 
-                onClick={handleViewLabel}
-                disabled={!caseId}
-                style={{width: '100%'}}
-              >
-                📋 Etiketi Görüntüle
-              </button>
-            </div>
-            <div className="small muted" style={{marginTop: '6px'}}>
-              Toplam soru sayısı: {currentQuestions.length}
-            </div>
-          </div>
 
-          <div className="small muted" style={{display: !showQuestions ? 'block' : 'none'}}>
-            Şu an sorulacak başka soru yok.
-          </div>
+              <div className="form-row">
+                <div className="form-field">
+                  <label>Gebelik</label>
+                  <select 
+                    value={formData.pregnancy}
+                    onChange={(e) => handleInputChange('pregnancy', e.target.value)}
+                  >
+                    <option value="any">Seçilmedi</option>
+                    <option value="positive">Pozitif</option>
+                    <option value="negative">Negatif</option>
+                  </select>
+                </div>
+                <div className="form-field">
+                  <label>Hastalık Özeti</label>
+                  <input 
+                    placeholder="Göğüs ağrısı"
+                    value={formData.chief}
+                    onChange={(e) => handleInputChange('chief', e.target.value)}
+                  />
+                </div>
+              </div>
 
-          <div className="hr"></div>
-          <div>
-            <h2>Oturum Bilgisi</h2>
-            <div className="small">Case ID: <span className="pill">{caseId || '-'}</span></div>
-            <div className="small">Son kayıt: <span>{caseId ? 'MOCK-' + Date.now() : '-'}</span></div>
+              <div className="form-field">
+                <label>Vitaller (opsiyonel)</label>
+                <textarea 
+                  placeholder='Örnek: Tansiyon 120/80, Nabız 90, Ateş 37.5°C, Oksijen 95%'
+                  value={formData.vitals}
+                  onChange={(e) => handleInputChange('vitals', e.target.value)}
+                  rows={3}
+                ></textarea>
+                <div className="vitals-help-box">
+                  <h4>Hangi bilgileri yazabilirsiniz?</h4>
+                  <ul>
+                    <li><strong>Tansiyon:</strong> 120/80, 140/90 gibi</li>
+                    <li><strong>Nabız:</strong> 90, 110 gibi</li>
+                    <li><strong>Ateş:</strong> 37.5°C, 38.2°C gibi</li>
+                    <li><strong>Oksijen saturasyonu:</strong> 95%, 98% gibi</li>
+                    <li><strong>Solunum sayısı:</strong> 20/dk, 24/dk gibi</li>
+                    <li><strong>Diğer:</strong> İstediğiniz vital bulguları serbest metin olarak yazabilirsiniz</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div className="action-buttons">
+                <button className="btn btn--primary" onClick={handleSubmit} disabled={!isFormValid() || isLoading}>
+                  {isLoading ? 'Değerlendiriliyor...' : 'Başla'}
+                </button>
+                <button className="btn btn--secondary" onClick={() => window.location.reload()}>
+                  Sıfırla
+                </button>
+              </div>
+            </div>
+
+            {/* Takip Soruları Section */}
+            <div className="follow-up-section">
+              <h3 className="section-title">Takip Soruları</h3>
+              <div className="qa" style={{display: showQuestions ? 'block' : 'none'}}>
+                {currentQuestions.map((question, index) => (
+                  <div key={index} className="question-item">
+                    <div className="question-text">
+                      {index + 1}. {question}
+                    </div>
+                    <textarea 
+                      placeholder="Cevabınızı yazın..."
+                      value={questionAnswers[question] || ''}
+                      onChange={(e) => handleAnswerChange(question, e.target.value)}
+                      className="answer-input"
+                    ></textarea>
+                  </div>
+                ))}
+                <div className="question-actions">
+                  <button className="btn btn--primary" onClick={handleAnswerAllQuestions}>
+                    Tüm Cevapları Gönder
+                  </button>
+                  <button className="btn btn--secondary" onClick={handleSkipAllQuestions}>
+                    Tümünü Atla
+                  </button>
+                  <button className="btn btn--success" onClick={handleFinishQuestions}>
+                    Bitir
+                  </button>
+                </div>
+                <div className="question-info">
+                  <button 
+                    className="btn btn--secondary" 
+                    onClick={handleViewLabel}
+                    disabled={!caseId}
+                  >
+                    Etiketi Görüntüle
+                  </button>
+                </div>
+                <div className="question-count">
+                  Toplam soru sayısı: {currentQuestions.length}
+                </div>
+              </div>
+              <div className="no-questions" style={{display: !showQuestions ? 'block' : 'none'}}>
+                Şu an sorulacak başka soru yok.
+              </div>
+            </div>
+
+            {/* Oturum Bilgisi Section */}
+            <div className="session-info-section">
+              <h3 className="section-title">Oturum Bilgisi</h3>
+              <div className="session-details">
+                <div className="session-item">
+                  <span className="session-label">Case ID:</span>
+                  <span className="session-value">{caseId || '-'}</span>
+                </div>
+                <div className="session-item">
+                  <span className="session-label">Son kayıt:</span>
+                  <span className="session-value">{caseId ? 'MOCK-' + Date.now() : '-'}</span>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
 
         {/* SAĞ: Canlı Sonuç Paneli */}
-        <aside className="card results-section">
-          <h2>Değerlendirme Sonuçları</h2>
-          
-          {/* Durum Özeti */}
-          <div className={`result-summary ${getESIClass()}`}>
-            <div className="status-indicator">
-              <span className={getDotClass()}></span>
-              <span className="status-text">Değerlendirme Durumu</span>
+        <aside className="card result-card">
+          <div className="card__body">
+            {/* Header Section */}
+            <h2 className="section-title">Değerlendirme Sonuçları</h2>
+            {/* Durum Özeti */}
+            <div className="status-bar">
+              <div className="status-bar__title">Değerlendirme Durumu</div>
+              <div className="status-bar__content">
+                <div className="status-bar__value">{renderTriageLevel()}</div>
+                <div className="status-pills">
+                  <span className="status-pill status-pill--inactive">
+                    ESI: {renderTriageLevel()}
+                  </span>
+                  <span className="status-pill status-pill--inactive">
+                    Öncelik: {renderPriority()}
+                  </span>
+                  <span className="status-pill status-pill--inactive">
+                    Bölüm: {renderSpecialty()}
+                  </span>
+                </div>
+              </div>
             </div>
-            <div className="badges-container">
-              <span className={`badge primary ${getESIClass()}`}>ESI: {renderTriageLevel()}</span>
-              <span className="badge secondary">Öncelik: {renderPriority()}</span>
-              <span className="badge tertiary">Bölüm: {renderSpecialty()}</span>
-            </div>
-          </div>
 
           {/* Değerlendirme Açıklaması */}
           <div className="rationale-section">
@@ -383,8 +414,8 @@ const PatientEntry: React.FC<PatientEntryProps> = ({ onStartAssessment }) => {
           </div>
 
           <div className="hr"></div>
-          <div>
-            <strong>Sorulacak ek sorular (güncel)</strong>
+          <div className="section-block">
+            <h3>Sorulacak ek sorular (güncel)</h3>
             <ul>
               {renderQuestionsToAsk().map((question: string, index: number) => (
                 <li key={index}>{question}</li>
@@ -404,8 +435,9 @@ const PatientEntry: React.FC<PatientEntryProps> = ({ onStartAssessment }) => {
               </button>
             </div>
           </div>
+          </div>
         </aside>
-      </main>
+      </div>
     </div>
   );
 };
