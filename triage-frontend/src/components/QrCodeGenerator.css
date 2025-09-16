@@ -63,7 +63,7 @@
   line-height: 1.5;
   margin-bottom: 1.5rem;
   padding: 1rem;
-  background: var(--bg-secondary);
+  background: var(--bg-card);
   border-radius: var(--radius-md);
   border-left: 4px solid var(--primary);
 }
@@ -76,7 +76,7 @@
 }
 
 .qr-area-badge {
-  background: var(--bg-secondary);
+  background: var(--bg-card);
   color: var(--text-primary);
   padding: 0.5rem 1rem;
   border-radius: var(--radius-md);
@@ -115,13 +115,13 @@
 }
 
 [data-theme="dark"] .qr-status {
-  background: var(--bg-secondary);
+  background: var(--bg-card);
   color: var(--text-secondary);
   border-left-color: var(--primary);
 }
 
 [data-theme="dark"] .qr-area-badge {
-  background: var(--bg-secondary);
+  background: var(--bg-card);
   color: var(--text-primary);
   border-color: var(--border);
 }

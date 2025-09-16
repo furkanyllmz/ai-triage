@@ -4,7 +4,7 @@
 
 /* Priority Status */
 .priority-status {
-  background: var(--bg-secondary);
+  background: var(--bg-card);
   border-radius: var(--radius-lg);
   padding: 1.5rem;
   margin-bottom: 2rem;
@@ -54,7 +54,7 @@
 }
 
 .priority-status.esi-1 .priority-icon {
-  background: var(--secondary);
+  background: var(--bg-card);
   border-color: var(--secondary);
   color: white;
 }
@@ -137,7 +137,7 @@
 }
 
 .rationale-content {
-  background: var(--bg-secondary);
+  background: var(--bg-card);
   border-radius: var(--radius-md);
   padding: 1rem;
   font-size: 0.875rem;
@@ -149,7 +149,7 @@
 .findings-content,
 .actions-content,
 .questions-content {
-  background: var(--bg-secondary);
+  background: var(--bg-card);
   border-radius: var(--radius-md);
   padding: 1rem;
 }
@@ -208,7 +208,7 @@
 
 /* Results Panel Styles */
 .result-summary {
-  background: var(--bg-secondary);
+  background: var(--bg-card);
   padding: 1rem;
   border-radius: 8px;
   margin-bottom: 1.5rem;
@@ -246,18 +246,18 @@
 }
 
 .badge.primary {
-  background: #6b7280;
-  color: white;
+  background: var(--text-muted);
+  color: var(--text-inverse);
 }
 
 .badge.secondary {
-  background: #6b7280;
-  color: white;
+  background: var(--text-muted);
+  color: var(--text-inverse);
 }
 
 .badge.tertiary {
-  background: #6b7280;
-  color: white;
+  background: var(--text-muted);
+  color: var(--text-inverse);
 }
 
 .dot {
@@ -299,39 +299,39 @@
 
 .result-summary.esi-1 .status-text,
 .result-summary.esi-2 .status-text {
-  color: #dc2626;
+  color: var(--danger);
   font-weight: 700;
 }
 
 .result-summary.esi-3 .status-text {
-  color: #d97706;
+  color: var(--warning);
   font-weight: 700;
 }
 
 .result-summary.esi-4 .status-text,
 .result-summary.esi-5 .status-text {
-  color: #059669;
+  color: var(--success);
   font-weight: 700;
 }
 
 /* ESI Badge Color Coding */
 .badge.esi-1,
 .badge.esi-2 {
-  background: #ef4444;
-  color: white;
+  background: var(--danger);
+  color: var(--text-inverse);
   font-weight: 700;
 }
 
 .badge.esi-3 {
-  background: #f59e0b;
-  color: white;
+  background: var(--warning);
+  color: var(--text-inverse);
   font-weight: 700;
 }
 
 .badge.esi-4,
 .badge.esi-5 {
-  background: #10b981;
-  color: white;
+  background: var(--success);
+  color: var(--text-inverse);
   font-weight: 700;
 }
 
@@ -347,7 +347,7 @@
 }
 
 .rationale-content {
-  background: var(--bg-secondary);
+  background: var(--bg-card);
   padding: 0.75rem;
   border-radius: 6px;
   font-size: 0.875rem;
@@ -450,12 +450,12 @@
 
 /* Dark mode specific styles */
 [data-theme="dark"] .results-section {
-  background: var(--bg-secondary);
+  background: var(--bg-card);
 }
 
 [data-theme="dark"] .card {
-  background: linear-gradient(135deg, #1A1F35, #2A2F42);
-  border: 1px solid #3A3F52;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
 }
 
 [data-theme="dark"] .priority-badge.critical {
@@ -464,18 +464,18 @@
 }
 
 [data-theme="dark"] .priority-badge.urgent {
-  background: linear-gradient(135deg, #FFB800, #FFD700);
-  color: #0A0E1A;
+  background: linear-gradient(135deg, var(--warning), #FFD700);
+  color: var(--text-primary);
 }
 
 [data-theme="dark"] .priority-badge.moderate {
-  background: linear-gradient(135deg, #4ECDC4, #6ED5CE);
-  color: #0A0E1A;
+  background: linear-gradient(135deg, var(--success), var(--accent-light));
+  color: var(--text-primary);
 }
 
 [data-theme="dark"] .priority-badge.low {
-  background: linear-gradient(135deg, #4ECDC4, #6ED5CE);
-  color: #0A0E1A;
+  background: linear-gradient(135deg, var(--success), var(--accent-light));
+  color: var(--text-primary);
 }
 
 [data-theme="dark"] .finding-item.critical {
@@ -484,6 +484,6 @@
 }
 
 [data-theme="dark"] .action-item {
-  background: linear-gradient(135deg, #2A2F42, #3A3F52);
-  border: 1px solid #4A4F62;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
 }
