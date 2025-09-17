@@ -99,8 +99,10 @@ const InputSection: React.FC<InputSectionProps> = ({
   };
 
   const handleAnswerSubmit = () => {
-    const answer = (document.getElementById('answerInput') as HTMLTextAreaElement)?.value || '';
+    const el = document.getElementById('answerInput') as HTMLTextAreaElement | null;
+    const answer = el?.value || '';
     onSendAnswer(answer, false);
+    if (el) el.value = '';
   };
 
   const handleSkip = () => {

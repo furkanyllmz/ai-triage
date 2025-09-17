@@ -1,4 +1,4 @@
-import { TriageInput, TriageStartResponse, TriageFollowResponse, AnswerBody } from '../types/TriageTypes';
+import { TriageInput, StepResp, AnswerBody } from '../types/TriageTypes';
 
 const BASE_URL = process.env.REACT_APP_API_URL || "http://localhost:9000";
 
@@ -24,16 +24,16 @@ class TriageApiService {
     return response.json();
   }
 
-  async startTriage(input: TriageInput): Promise<TriageStartResponse> {
+  async startTriage(input: TriageInput): Promise<StepResp> {
     console.log('Frontend gönderilen veri:', JSON.stringify(input, null, 2));
-    return this.makeRequest<TriageStartResponse>('/triage/start', {
+    return this.makeRequest<StepResp>('/triage/start', {
       method: 'POST',
       body: JSON.stringify(input),
     });
   }
 
-  async sendAnswer(caseId: string, body: AnswerBody): Promise<TriageFollowResponse> {
-    return this.makeRequest<TriageFollowResponse>(`/triage/${caseId}/answer`, {
+  async sendAnswer(caseId: string, body: AnswerBody): Promise<StepResp> {
+    return this.makeRequest<StepResp>(`/triage/${caseId}/answer`, {
       method: 'PATCH',
       body: JSON.stringify(body),
     });

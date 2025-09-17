@@ -8,7 +8,7 @@ import DoctorPage from './components/DoctorPage';
 import Dashboard from './components/Dashboard';
 import QrCodeTestPage from './components/QrCodeTestPage';
 import { TriageProvider, useTriageContext } from './contexts/TriageContext';
-import { TriageState, TriageInput } from './types/TriageTypes';
+import { TriageState, TriageInput, StepResp } from './types/TriageTypes';
 import { triageApi } from './services/triageApi';
 
 function AppContent() {
@@ -50,17 +50,8 @@ function AppContent() {
     }
   }, []); // Empty dependency array means this runs only once on mount
 
-  const processQuestions = useCallback((questions: any) => {
-    if (Array.isArray(questions)) {
-      return questions;
-    }
-    if (questions && typeof questions === 'object') {
-      const result: string[] = [];
-      if (questions.primary) result.push(...questions.primary);
-      if (questions.secondary) result.push(...questions.secondary);
-      return result;
-    }
-    return [];
+  const processNextQuestion = useCallback((resp: StepResp) => {
+    return resp.next_question || null;
   }, []);
 
   const handleStartTriage = useCallback(async (input: TriageInput) => {
@@ -68,14 +59,12 @@ function AppContent() {
     
     try {
       const response = await triageApi.startTriage(input);
-      const questions = processQuestions(response.questions_to_ask_next);
-      
       setTriageState(prev => ({
         ...prev,
         caseId: response.case_id,
-        currentQuestion: questions[0] || null,
-        remainingQuestions: questions.length - 1,
-        triage: response.triage,
+        currentQuestion: processNextQuestion(response),
+        remainingQuestions: response.finished ? 0 : 2,
+        triage: response.triage || null,
         isLoading: false,
         error: null,
       }));
@@ -89,7 +78,7 @@ function AppContent() {
       }));
       throw error;
     }
-  }, [processQuestions]);
+  }, [processNextQuestion]);
 
   const handleSendAnswer = useCallback(async (answer: string, skip: boolean = false) => {
     if (!triageState.caseId) return;
@@ -104,13 +93,11 @@ function AppContent() {
       };
 
       const response = await triageApi.sendAnswer(triageState.caseId, body);
-      const questions = processQuestions(response.questions_to_ask_next);
-      
       setTriageState(prev => ({
         ...prev,
-        currentQuestion: questions[0] || null,
-        remainingQuestions: questions.length - 1,
-        triage: response.triage,
+        currentQuestion: response.finished ? null : processNextQuestion(response),
+        remainingQuestions: response.finished ? 0 : Math.max(0, prev.remainingQuestions - 1),
+        triage: response.triage || null,
         isLoading: false,
         error: null,
       }));
@@ -122,7 +109,7 @@ function AppContent() {
       }));
       throw error;
     }
-  }, [triageState.caseId, triageState.currentQuestion, processQuestions]);
+  }, [triageState.caseId, triageState.currentQuestion, processNextQuestion]);
 
   const handleDone = useCallback(async () => {
     if (!triageState.caseId) return;
@@ -136,7 +123,7 @@ function AppContent() {
         ...prev,
         currentQuestion: null,
         remainingQuestions: 0,
-        triage: response.triage,
+        triage: response.triage || null,
         isLoading: false,
         error: null,
       }));
@@ -179,17 +166,15 @@ function AppContent() {
       const response = await handleStartTriage(triageInput);
       
       // API'den gelen sonucu kullan ve case_id'yi ekle
-      setTriageResult({
-        ...response.triage,
-        case_id: response.case_id
-      });
+      setTriageResult(response.triage ? { ...response.triage, case_id: response.case_id } : null);
       setTriageState(prev => ({
         ...prev,
-        triage: response.triage,
+        triage: response.triage || null,
         caseId: response.case_id,
         isLoading: false,
         error: null
       }));
+      return response;
     } catch (error) {
       console.error('Error starting triage:', error);
       // Stay on patient page if there's an error

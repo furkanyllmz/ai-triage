@@ -1,7 +1,12 @@
 import os
-from pydantic_settings import BaseSettings
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
 class Settings(BaseSettings):
+    # Pydantic Settings config
+    model_config = SettingsConfigDict(
+        env_file=".env",
+        extra="ignore",  # Allow extra env vars like OPENAI_API_KEY, OUTPUT_DIR, PORT
+    )
     # API Configs
     API_HOST: str = os.getenv("API_HOST", "0.0.0.0")
     API_PORT: int = int(os.getenv("API_PORT", "9000"))
@@ -27,7 +32,4 @@ class Settings(BaseSettings):
     # Environment
     ENV: str = os.getenv("ENV", "development")
     
-    class Config:
-        env_file = ".env"
-        
 settings = Settings()

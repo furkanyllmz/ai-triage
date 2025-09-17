@@ -3,10 +3,11 @@ import { useHistory } from 'react-router-dom';
 import './PatientEntry.css';
 import '../styles/triage-page.css';
 import { useTriageContext } from '../contexts/TriageContext';
+import { StepResp } from '../types/TriageTypes';
 import { triageApi } from '../services/triageApi';
 
 interface PatientEntryProps {
-  onStartAssessment: (patientData: any) => Promise<void>;
+  onStartAssessment: (patientData: any) => Promise<StepResp | void>;
 }
 
 const PatientEntry: React.FC<PatientEntryProps> = ({ onStartAssessment }) => {
@@ -40,7 +41,19 @@ const PatientEntry: React.FC<PatientEntryProps> = ({ onStartAssessment }) => {
   const handleSubmit = async () => {
     setIsLoading(true);
     try {
-      await onStartAssessment(formData);
+      const resp = await onStartAssessment(formData);
+      if (resp && typeof resp === 'object') {
+        const step = resp as StepResp;
+        if (step.case_id) setCaseId(step.case_id);
+        if (!step.finished && step.next_question) {
+          setCurrentQuestions([step.next_question]);
+          setShowQuestions(true);
+          setQuestionAnswers({});
+        } else {
+          setCurrentQuestions([]);
+          setShowQuestions(false);
+        }
+      }
       setIsLoading(false);
     } catch (error) {
       console.error('Error submitting assessment:', error);
@@ -48,23 +61,10 @@ const PatientEntry: React.FC<PatientEntryProps> = ({ onStartAssessment }) => {
     }
   };
 
-  // API'den gelen sonuçları takip et ve soruları başlat
+  // API'den gelen step yanıtını takip et ve soruyu başlat (App artık state'i yönetiyor)
   useEffect(() => {
-    if (triageResult && triageResult.questions_to_ask_next) {
-      const questions = Array.isArray(triageResult.questions_to_ask_next) 
-        ? triageResult.questions_to_ask_next 
-        : [];
-      
-      if (questions.length > 0) {
-        // İlk 3 soruyu al
-        const firstThreeQuestions = questions.slice(0, 3);
-        setCurrentQuestions(firstThreeQuestions);
-        setShowQuestions(true);
-        // Case ID'yi triageResult'tan al
-        setCaseId(triageResult.case_id);
-        // Cevapları sıfırla
-        setQuestionAnswers({});
-      }
+    if (triageResult && triageResult.case_id) {
+      setCaseId(triageResult.case_id);
     }
   }, [triageResult]);
 
@@ -78,17 +78,12 @@ const PatientEntry: React.FC<PatientEntryProps> = ({ onStartAssessment }) => {
       });
       
       // Sonuçları güncelle (context'e yeni veri gönder)
-      setTriageResult(response.triage);
+      setTriageResult(response.triage || null);
       
-      // Yeni gelen soruları kontrol et
-      const newQuestions = Array.isArray(response.questions_to_ask_next) 
-        ? response.questions_to_ask_next 
-        : [];
-      
-      if (newQuestions.length > 0) {
-        // Yeni soruları göster (ilk 3 tanesi)
-        const nextThreeQuestions = newQuestions.slice(0, 3);
-        setCurrentQuestions(nextThreeQuestions);
+      // Yeni step'e göre sıradaki soruyu belirle
+      if (!response.finished && response.next_question) {
+        setCurrentQuestions([response.next_question]);
+        setShowQuestions(true);
         setQuestionAnswers({});
       } else {
         // Sorular bitti

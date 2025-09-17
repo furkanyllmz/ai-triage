@@ -2,7 +2,7 @@
   "id": "sore_throat_adult_v1",
   "title": "Boğaz Ağrısı - Erişkin",
   "lang": "tr",
-  "complaints": ["boğaz ağrısı", "sore throat", "yutkunma güçlüğü"],
+  "complaints": ["boğaz ağrısı", "sore throat", "yutkunma güçlüğü", "gırtlak ağrısı", "boğaz yanması", "ses kısıklığı", "boğaz kaşıntısı", "yutma zorluğu", "boğaz kuruluğu"],
   "age_groups": ["adult"],
   "pregnancy": ["any"],
   "esi_hint": "Red-flag yoksa genelde ESI-4.",
@@ -11,7 +11,12 @@
     "Ağız açmada güçlük (trismus)",
     "Tükürük yutamama/salya akması",
     "Boyunda hızla artan şişlik",
-    "Yüksek ateş + ense sertliği"
+    "Yüksek ateş + ense sertliği",
+    "Epiglottit bulguları",
+    "Peritonsillar apse şüphesi",
+    "Ses kaybı + boğaz ağrısı",
+    "Disfaji + ateş",
+    "Boyun sertliği + boğaz ağrısı"
   ],
   "immediate_actions": [
     "Vital bulguların alınması",
@@ -21,9 +26,16 @@
   "questions_to_ask_next": [
     "Yutkunmada zorlanma var mı?",
     "Nefes almakta güçlük var mı?",
-    "Boyunda şişlik veya ses değişikliği var mı?"
-  ],
-  "routing_hint": { "specialty": "KBB", "priority": "medium" },
+    "Boyunda şişlik veya ses değişikliği var mı?",
+    "Ateş var mı?",
+    "Öksürük var mı?",
+    "Balgam çıkarıyor musunuz?",
+    "Kulak ağrısı var mı?",
+    "Daha önce boğaz enfeksiyonu geçirdiniz mi?",
+    "Antibiyotik kullanıyor musunuz?",
+    "Sigara kullanıyor musunuz?"
+   ],
+   "routing_hint": { "specialty": "KBB", "priority": "medium" },
   "evidence": [{ "source": "NICE Sore Throat Guideline", "url": "https://..." }],
   "version": 1,
   "updated_at": "2025-09-09"

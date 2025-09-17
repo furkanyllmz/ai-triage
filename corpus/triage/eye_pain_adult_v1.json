@@ -2,7 +2,7 @@
   "id": "eye_pain_adult_v1",
   "title": "Göz Ağrısı - Erişkin",
   "lang": "tr",
-  "complaints": ["göz ağrısı", "eye pain", "göz yanması", "göz batması"],
+  "complaints": ["göz ağrısı", "eye pain", "göz yanması", "göz batması", "göz kaşıntısı", "göz sulanması", "göz kızarıklığı", "göz şişliği", "göz kapağı ağrısı", "göz kuruluğu"],
   "age_groups": ["adult"],
   "pregnancy": ["any"],
   "esi_hint": "Ani görme kaybı + ağrı → ESI-2, yüzeyel irritasyon → ESI-4.",
@@ -11,7 +11,12 @@
     "Şiddetli ağrı + bulantı",
     "Işık hassasiyeti",
     "Göz içi basınç artışı",
-    "Travma sonrası ağrı"
+    "Travma sonrası ağrı",
+    "Akut glokom atağı",
+    "Korneal perforasyon",
+    "Endoftalmit şüphesi",
+    "Retinal dekolman",
+    "Kimyasal yanık"
   ],
   "immediate_actions": [
     "Görme keskinliği testi",
@@ -20,12 +25,19 @@
     "Göz içi basınç ölçümü"
   ],
   "questions_to_ask_next": [
+    "Kafa Tramvası var mı?",
     "Görme bulanıklığı var mı?",
     "Işığa hassasiyet var mı?",
     "Göze yabancı cisim kaçtı mı?",
-    "Daha önce glokom tanısı aldınız mı?"
-  ],
-  "routing_hint": { "specialty": "göz hastalıkları", "priority": "medium" },
+    "Daha önce glokom tanısı aldınız mı?",
+    "Göz akıntısı var mı?",
+    "Çift görme var mı?",
+    "Göz kapağında şişlik var mı?",
+    "Kontakt lens kullanıyor musunuz?",
+    "Göz damlası kullanıyor musunuz?",
+    "Ağrı sürekli mi yoksa aralıklı mı?"
+   ],
+   "routing_hint": { "specialty": "göz hastalıkları", "priority": "medium" },
   "evidence": [{ "source": "AAO Guidelines - Eye Pain", "url": "https://..." }],
   "version": 1,
   "updated_at": "2025-01-15"

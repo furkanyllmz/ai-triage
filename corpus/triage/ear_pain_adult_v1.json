@@ -2,16 +2,21 @@
   "id": "ear_pain_adult_v1",
   "title": "Kulak Ağrısı - Erişkin",
   "lang": "tr",
-  "complaints": ["kulak ağrısı", "ear pain", "kulak batması", "kulak sancısı"],
+  "complaints": ["kulak ağrısı", "ear pain", "kulak batması", "kulak sancısı", "kulak kaşıntısı", "kulak tıkanıklığı", "kulak çınlaması", "kulak dolgunluğu", "kulak zonklaması", "kulak enfeksiyonu"],
   "age_groups": ["adult"],
   "pregnancy": ["any"],
-  "esi_hint": "Şiddetli ağrı + işitme kaybı → ESI-3, basit otit → ESI-4.",
+  "esi_hint": " Kafa Tramvası sonrası işitme kaybı → ESI-1, Şiddetli ağrı + işitme kaybı → ESI-3, basit otit → ESI-4.",
   "red_flags": [
     "Ani işitme kaybı",
     "Kulaktan akıntı",
     "Yüz felci",
     "Şiddetli baş dönmesi",
-    "Yüksek ateş + kulak ağrısı"
+    "Yüksek ateş + kulak ağrısı",
+    "Mastoidit bulguları",
+    "Menenjit şüphesi",
+    "Temporal kemik fraktürü",
+    "Akustik nöroma",
+    "Malign otitis eksterna"
   ],
   "immediate_actions": [
     "Kulak muayenesi",
@@ -20,12 +25,19 @@
     "Timpan membran değerlendirmesi"
   ],
   "questions_to_ask_next": [
+    "Kafa Tramvası var mı?",
     "İşitme azalması var mı?",
     "Kulaktan akıntı var mı?",
     "Baş dönmesi eşlik ediyor mu?",
-    "Soğuk algınlığı geçirdiniz mi?"
-  ],
-  "routing_hint": { "specialty": "kulak burun boğaz", "priority": "medium" },
+    "Soğuk algınlığı geçirdiniz mi?",
+    "Kulak çınlaması var mı?",
+    "Yutkunmakla ağrı artıyor mu?",
+    "Kulak temizliği yaptınız mı?",
+    "Daha önce kulak enfeksiyonu geçirdiniz mi?",
+    "Kulak damlası kullanıyor musunuz?",
+    "Ağrı gece artıyor mu?"
+   ],
+   "routing_hint": { "specialty": "kulak burun boğaz", "priority": "medium" },
   "evidence": [{ "source": "AAO-HNS Guidelines - Otitis", "url": "https://..." }],
   "version": 1,
   "updated_at": "2025-01-15"

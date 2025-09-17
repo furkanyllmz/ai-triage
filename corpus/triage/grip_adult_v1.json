@@ -5,7 +5,7 @@
   "complaints": ["grip", "influenza", "soğuk algınlığı", "üst solunum yolu enfeksiyonu", "viral enfeksiyon"],
   "age_groups": ["adult"],
   "pregnancy": ["any"],
-  "esi_hint": "Komplikasyonsuz grip → ESI-4/5, pnömoni şüphesi → ESI-2/3.",
+  "esi_hint": "Uzun Süreli Grip → ESI-3, Komplikasyonsuz grip → ESI-4/5, pnömoni şüphesi → ESI-2/3.",
   "red_flags": [
     "Nefes darlığı",
     "Göğüs ağrısı",
@@ -22,6 +22,7 @@
     "Genel durum değerlendirmesi"
   ],
   "questions_to_ask_next": [
+    "Ne kadar süredir var?",
     "Şikayetler ne zaman başladı?",
     "Ateş kaç gündür var?",
     "Öksürük var mı?",

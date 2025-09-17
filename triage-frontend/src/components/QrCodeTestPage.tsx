@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import TriageLabel from "./QrCodeGenerator";
-import { triageApi } from '../services/triageApi';
+// import { triageApi } from '../services/triageApi';
 import "./QrCodeTestPage.css";
 const BASE_URL = process.env.REACT_APP_API_URL || "http://localhost:9000";
 

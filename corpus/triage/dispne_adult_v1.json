@@ -2,7 +2,7 @@
   "id": "dispne_adult_v1",
   "title": "Dispne (Nefes Darlığı) - Erişkin",
   "lang": "tr",
-  "complaints": ["dispne", "dyspnea", "nefes darlığı", "nefes alamama", "soluk sıkışması","nefes kesilmesi"],
+  "complaints": ["dispne", "dyspnea", "nefes darlığı", "nefes alamama", "soluk sıkışması", "nefes kesilmesi", "hava açlığı", "boğulma hissi", "solunum zorluğu", "göğüs sıkışması"],
   "age_groups": ["adult"],
   "pregnancy": ["any"],
   "esi_hint": "Akut şiddetli dispne → ESI-1/2, kronik dispne alevlenmesi → ESI-3.",
@@ -12,7 +12,12 @@
     "Göğüs ağrısı + dispne",
     "Hemoptizi",
     "Tek taraflı bacak şişliği",
-    "Ortopne"
+    "Ortopne",
+    "SpO2 < 90%",
+    "Taşipne > 30/dk",
+    "Hipotansiyon + dispne",
+    "Bilinç değişikliği + dispne",
+    "Stridor"
   ],
   "immediate_actions": [
     "Oksijen saturasyonu ölçümü",
@@ -26,9 +31,15 @@
     "Göğüs ağrısı var mı?",
     "Öksürük var mı?",
     "Bacaklarda şişlik var mı?",
-    "Kalp hastalığı öyküsü var mı?"
-  ],
-  "routing_hint": { "specialty": "göğüs hastalıkları", "priority": "high" },
+    "Kalp hastalığı öyküsü var mı?",
+    "Astım veya KOAH öyküsü var mı?",
+    "Balgam çıkarıyor musunuz?",
+    "Ateş var mı?",
+    "Eforla nefes darlığı artıyor mu?",
+    "Yatarken nefes darlığı oluyor mu?",
+    "Sigara kullanıyor musunuz?"
+   ],
+   "routing_hint": { "specialty": "göğüs hastalıkları", "priority": "high" },
   "evidence": [{ "source": "Respiratory Medicine Guidelines - Dyspnea", "url": "https://..." }],
   "version": 1,
   "updated_at": "2025-01-15"

@@ -28,16 +28,11 @@ export interface TriageOutput {
   evidence_ids?: string[];
 }
 
-export interface TriageStartResponse {
+export interface StepResp {
   case_id: string;
-  triage: TriageOutput;
-  questions_to_ask_next: string[];
-}
-
-export interface TriageFollowResponse {
-  case_id: string;
-  triage: TriageOutput;
-  questions_to_ask_next: string[];
+  finished: boolean;
+  next_question?: string | null;
+  triage?: TriageOutput | null;
 }
 
 export interface TriageState {

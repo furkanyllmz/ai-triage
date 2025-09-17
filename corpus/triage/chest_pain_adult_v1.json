@@ -2,15 +2,21 @@
   "id": "chest_pain_adult_v1",
   "title": "Göğüs Ağrısı - Erişkin",
   "lang": "tr",
-  "complaints": ["göğüs ağrısı", "chest pain", "sıkışma", "baskı"],
+  "complaints": ["göğüs ağrısı", "chest pain", "sıkışma", "baskı", "kalp ağrısı", "göğüs yanması", "nefes darlığı", "göğüs sıkışması", "kalp çarpıntısı", "göğüs batması"],
   "age_groups": ["adult"],
   "pregnancy": ["any"],
-  "esi_hint": "Red-flag varsa ESI-2; instabil vitallerde ESI-1.",
+  "esi_hint": "Göçük hissi varsa ESI-1; instabil vitallerde ESI-1.;",
   "red_flags": [
     "20+ dk süren baskı tarzı ağrı",
+    "Göçük Hissiyatı",
     "Dispne/soğuk terleme/senkop",
     "Kola/çeneye/arkaya yayılım",
-    "SpO2 < 92 veya sistolik TA < 90"
+    "SpO2 < 92 veya sistolik TA < 90",
+    "Şiddetli göğüs ağrısı + bulantı",
+    "Ani başlayan yırtılma tarzı ağrı",
+    "Hemoptizi + göğüs ağrısı",
+    "Taşikardi + hipotansiyon",
+    "Siyanoz + göğüs ağrısı"
   ],
   "immediate_actions": [
     "12 derivasyon EKG ≤10 dk",
@@ -19,10 +25,17 @@
   ],
   "questions_to_ask_next": [
     "Ağrı eforla artıyor mu?",
+    "Göçük Hissi var mı?",
     "Ailede erken yaş KAH var mı?",
-    "Sigara/DM/HT öyküsü var mı?"
-  ],
-  "routing_hint": { "specialty": "kardiyoloji", "priority": "high" },
+    "Sigara/DM/HT öyküsü var mı?",
+    "Ağrı ne zaman başladı?",
+    "Ağrı istirahatle geçiyor mu?",
+    "Daha önce böyle ağrı yaşadınız mı?",
+    "Ağrı sırta/boyuna yayılıyor mu?",
+    "Nefes almakla ağrı artıyor mu?",
+    "Pozisyon değişikliğiyle ağrı değişiyor mu?"
+   ],
+   "routing_hint": { "specialty": "kardiyoloji", "priority": "high" },
   "evidence": [{ "source": "AHA Chest Pain Guideline 2021", "url": "https://..." }],
   "version": 1,
   "updated_at": "2025-09-09"

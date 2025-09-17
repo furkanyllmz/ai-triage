@@ -5,7 +5,7 @@
   "complaints": ["baş dönmesi", "vertigo", "dizziness", "sersemlik", "dengesizlik"],
   "age_groups": ["adult"],
   "pregnancy": ["any"],
-  "esi_hint": "Santral vertigo şüphesi → ESI-2/3, periferik vertigo → ESI-4/5.",
+  "esi_hint": "Kafa Hasarı varsa → ESI-1,Santral vertigo şüphesi → ESI-3, periferik vertigo → ESI-4/5.",
   "red_flags": [
     "Ani başlayan şiddetli vertigo",
     "Nörolojik bulgular",
@@ -22,6 +22,7 @@
     "Kulak muayenesi"
   ],
   "questions_to_ask_next": [
+    "Kafa hasarı aldınız mı?",
     "Döner tarzda mı?",
     "Baş hareketleriyle artar mı?",
     "İşitme kaybı var mı?",

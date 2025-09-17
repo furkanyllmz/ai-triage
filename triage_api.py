@@ -10,18 +10,20 @@ except ImportError:
     from typing_extensions import Literal
 from sqlalchemy.orm import Session
 from datetime import datetime
+
 from schemas import TriageRead, TriageOutput
 from database import SessionLocal, get_db
 from models import Triage
-from llm_client_openai import call_llm_triage_openai
+from llm_client_openai import call_llm_step  # <-- yeni step tabanlı LLM çağrısı
 from config import settings
 
+# Kaç soru sonra final triage verileceği
 MAX_QA = 3
 
 app = FastAPI(
     title="AI Triage API",
-    description="AI-powered medical triage system",
-    version="1.0.0"
+    description="AI-powered medical triage system (step-wise Q&A)",
+    version="2.0.0"
 )
 
 app.add_middleware(
@@ -32,7 +34,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# In-memory case state
+# ---- In-memory case state ----
 class CaseState(BaseModel):
     case_id: str
     age: int
@@ -41,40 +43,35 @@ class CaseState(BaseModel):
     vitals: dict
     pregnancy: Optional[str]
     chief: Optional[str]
-    rag_cards: List[Dict]
-    qa: List[Dict[str, str]] = []
+    rag_cards: List[Dict] = []
+    qa: List[Dict[str, str]] = []  # {"q": "...", "a": "..."}
     done: bool = False
-    cached_triage: Optional[TriageOutput] = None
+    finished: bool = False  # final triage verildi mi?
 
 CASES: Dict[str, CaseState] = {}
 
-# ---- Input / Output ----
+# ---- Input / Output şemaları ----
 class TriageInput(BaseModel):
-    # TC YOK
+    # TC yok
     age: int
     sex: str
-
     complaint_text: str
     vitals: Optional[dict] = None
-
     pregnancy: Optional[str] = "any"
     chief: Optional[str] = None
     k: int = 3
 
 class AnswerBody(BaseModel):
-    answers: Optional[Dict[str, str]] = None
-    done: Optional[bool] = False
+    answers: Optional[Dict[str, str]] = None  # {"Soru metni": "Cevap"}
+    done: Optional[bool] = False              # kullanıcı erken bitirmek isterse
 
-class TriageStartResp(BaseModel):
+class StepResp(BaseModel):
     case_id: str
-    triage: TriageOutput
-    questions_to_ask_next: List[str]
+    finished: bool
+    next_question: Optional[str] = None
+    triage: Optional[TriageOutput] = None  # final olduğunda dolar
 
-class TriageFollowResp(BaseModel):
-    case_id: str
-    triage: TriageOutput
-    questions_to_ask_next: List[str]
-
+# ---- Yardımcılar ----
 def _serialize_routing(routing_obj_or_dict):
     if hasattr(routing_obj_or_dict, "model_dump"):
         return routing_obj_or_dict.model_dump()
@@ -85,11 +82,12 @@ def _serialize_routing(routing_obj_or_dict):
 def _db() -> Session:
     return SessionLocal()
 
-# ---- Routes ----
-@app.post("/triage/start", response_model=TriageStartResp)
+# ---- Rotalar ----
+@app.post("/triage/start", response_model=StepResp)
 def triage_start(inp: TriageInput):
-    print(f"Backend aldığı veri: {inp.model_dump()}")
+    # Yaş grubunu belirle (RAG için)
     age_group = "adult" if 18 <= inp.age < 65 else ("pediatric" if inp.age < 18 else "geriatric")
+
     rag_body = {
         "text": f"{inp.complaint_text}\nYaş:{inp.age} Cins:{inp.sex} Preg:{inp.pregnancy}",
         "chief": inp.chief,
@@ -98,9 +96,8 @@ def triage_start(inp: TriageInput):
         "k": inp.k,
     }
 
-    # RAG
     try:
-        r = requests.post(RAG_URL, json=rag_body, timeout=15)
+        r = requests.post(settings.RAG_URL, json=rag_body, timeout=15)
         r.raise_for_status()
         cards = r.json()
         if not isinstance(cards, list):
@@ -108,10 +105,8 @@ def triage_start(inp: TriageInput):
     except Exception as e:
         raise HTTPException(status_code=502, detail=f"RAG upstream error: {e}")
 
-    # Yeni case_id
     case_id = str(uuid.uuid4())[:8]
 
-    # State
     cs = CaseState(
         case_id=case_id,
         age=inp.age,
@@ -124,142 +119,146 @@ def triage_start(inp: TriageInput):
     )
     CASES[case_id] = cs
 
-    # LLM
-    out = call_llm_triage_openai(
+    # İlk step → done=False
+    step = call_llm_step(
         age=cs.age,
         sex=cs.sex,
         complaint_text=cs.complaint_text,
         vitals=cs.vitals,
         cards=cs.rag_cards,
         qa_list=cs.qa,
+        done=False,
     )
 
-    if len(out.questions_to_ask_next) > MAX_QA:
-        out.questions_to_ask_next = out.questions_to_ask_next[:MAX_QA]
-
-    # DB insert
-    db = _db()
-    try:
-        tri = Triage(
-            case_id=case_id,
+    next_q = step.get("next_question")
+    # Backend guard: tekrar eden soru geldiyse finala zorla
+    if next_q and any((q.get("q") or "").strip().lower() == next_q.strip().lower() for q in cs.qa):
+        step = call_llm_step(
             age=cs.age,
             sex=cs.sex,
             complaint_text=cs.complaint_text,
             vitals=cs.vitals,
-            triage_level=out.triage_level,
-            rationale=out.rationale_brief,
-            red_flags=out.red_flags,
-            immediate_actions=out.immediate_actions,
-            questions_to_ask_next=out.questions_to_ask_next,
-            routing=_serialize_routing(out.routing),
-            evidence_ids=out.evidence_ids,
+            cards=cs.rag_cards,
+            qa_list=cs.qa,
+            done=True,
         )
-        db.add(tri)
-        db.commit()
-    finally:
-        db.close()
+        finished = True
+        return StepResp(case_id=case_id, finished=finished, next_question=None, triage=TriageOutput(**(step.get("triage") or {})))
+    finished = bool(step.get("finished", False))
 
-    return TriageStartResp(
+    resp = StepResp(
         case_id=case_id,
-        triage=out,
-        questions_to_ask_next=out.questions_to_ask_next,
+        finished=finished,
+        next_question=next_q,
+        triage=None
     )
+    print("DEBUG RESPONSE /triage/start:", resp.model_dump())  # 🔍 LOG
 
-@app.patch("/triage/{case_id}/answer", response_model=TriageFollowResp)
+    return resp
+
+@app.patch("/triage/{case_id}/answer", response_model=StepResp)
 def triage_answer(case_id: str, body: AnswerBody):
     cs = CASES.get(case_id)
     if not cs:
-        # state kaybolduysa ilk satırdan hydrate
-        db = _db()
-        try:
-            first_row = (
-                db.query(Triage)
-                .filter(Triage.case_id == case_id)
-                .order_by(Triage.created_at.asc())
-                .first()
-            )
-        finally:
-            db.close()
+        raise HTTPException(404, "case_id not found")
 
-        if not first_row:
-            raise HTTPException(404, "case_id not found")
-
-        cs = CaseState(
-            case_id=case_id,
-    
-            age=first_row.age,
-            sex=first_row.sex,
-            complaint_text=first_row.complaint_text,
-            vitals=first_row.vitals or {},
-            pregnancy="any",
-            chief=None,
-            rag_cards=[],
-        )
-        CASES[case_id] = cs
-
+    # Kullanıcı erken bitirmek isterse
     if body.done:
         cs.done = True
 
+    # Gelen cevapları kaydet
     if body.answers:
         for q, a in body.answers.items():
             cs.qa.append({"q": q, "a": a})
 
-    # LLM
-    if cs.done or len(cs.qa) >= MAX_QA:
-        out = call_llm_triage_openai(
-            age=cs.age, sex=cs.sex,
-            complaint_text=cs.complaint_text, vitals=cs.vitals,
-            cards=cs.rag_cards, qa_list=cs.qa,
-        )
-        out.questions_to_ask_next = []
-    else:
-        if cs.cached_triage is None:
-            cs.cached_triage = call_llm_triage_openai(
-                age=cs.age, sex=cs.sex,
-                complaint_text=cs.complaint_text, vitals=cs.vitals,
-                cards=cs.rag_cards, qa_list=[],
+    # Final triage zamanı mı?
+    finished_flag = cs.done or (len(cs.qa) >= MAX_QA)
+
+    # LLM çağrısı
+    step = call_llm_step(
+        age=cs.age,
+        sex=cs.sex,
+        complaint_text=cs.complaint_text,
+        vitals=cs.vitals,
+        cards=cs.rag_cards,
+        qa_list=cs.qa,          # 🔑 geçmiş tüm Q/A gönderiliyor
+        done=finished_flag,
+    )
+
+    # Backend guard: tekrar eden soru geldiyse finala zorla
+    if not finished_flag:
+        next_q = step.get("next_question")
+        if next_q and any((q.get("q") or "").strip().lower() == next_q.strip().lower() for q in cs.qa):
+            step = call_llm_step(
+                age=cs.age,
+                sex=cs.sex,
+                complaint_text=cs.complaint_text,
+                vitals=cs.vitals,
+                cards=cs.rag_cards,
+                qa_list=cs.qa,
+                done=True,
             )
-        out = cs.cached_triage.model_copy()
-        remaining = MAX_QA - len(cs.qa)
-        out.questions_to_ask_next = out.questions_to_ask_next[:remaining] if out.questions_to_ask_next else []
+            finished_flag = True
 
-    # DB append
-    db = _db()
-    try:
-        tri = Triage(
+    # Eğer final aşamadaysak
+    if finished_flag:
+        triage_data = step.get("triage") or {}
+        try:
+            triage_obj = TriageOutput(**triage_data)
+        except Exception as e:
+            raise HTTPException(status_code=500, detail=f"LLM triage parse error: {e}")
+
+        cs.finished = True
+
+        # Final triage’ı DB’ye yaz
+        db = _db()
+        try:
+            tri = Triage(
+                case_id=cs.case_id,
+                age=cs.age,
+                sex=cs.sex,
+                complaint_text=cs.complaint_text,
+                vitals=cs.vitals,
+                triage_level=triage_obj.triage_level,
+                rationale=triage_obj.rationale_brief,
+                red_flags=triage_obj.red_flags,
+                immediate_actions=triage_obj.immediate_actions,
+                questions_to_ask_next=[],  # finalde soru yok
+                routing=_serialize_routing(triage_obj.routing),
+                evidence_ids=triage_obj.evidence_ids,
+            )
+            db.add(tri)
+            db.commit()
+        finally:
+            db.close()
+
+        return StepResp(
             case_id=case_id,
-            age=cs.age,
-            sex=cs.sex,
-            complaint_text=cs.complaint_text,
-            vitals=cs.vitals,
-            triage_level=out.triage_level,
-            rationale=out.rationale_brief,
-            red_flags=out.red_flags,
-            immediate_actions=out.immediate_actions,
-            questions_to_ask_next=out.questions_to_ask_next,
-            routing=_serialize_routing(out.routing),
-            evidence_ids=out.evidence_ids,
+            finished=True,
+            next_question=None,
+            triage=triage_obj
         )
-        db.add(tri)
-        db.commit()
-    finally:
-        db.close()
 
-    return TriageFollowResp(
+    # Eğer hala devam ediyorsa → sıradaki soruyu döndür
+    next_q = step.get("next_question")
+    finished = bool(step.get("finished", False))
+
+    return StepResp(
         case_id=case_id,
-        triage=out,
-        questions_to_ask_next=out.questions_to_ask_next,
+        finished=finished,
+        next_question=next_q,
+        triage=None
     )
 
 
-
+# ---- Listeleme uçları (değiştirmeden koruyoruz) ----
 @app.get("/triage/alltriages", response_model=List[TriageRead])
 def get_all_triages(
     db: Session = Depends(get_db),
-    limit: int = Query(1000, ge=1, le=10000),   # istersen “tümü” için büyük bir limit
+    limit: int = Query(1000, ge=1, le=10000),
     offset: int = Query(0, ge=0),
     sort: Literal["asc", "desc"] = "desc",
-    case_id: Optional[str] = None,              # opsiyonel filtre
+    case_id: Optional[str] = None,
 ):
     q = db.query(Triage)
     if case_id:
@@ -267,7 +266,6 @@ def get_all_triages(
     q = q.order_by(Triage.created_at.desc() if sort == "desc" else Triage.created_at.asc())
     rows = q.offset(offset).limit(limit).all()
     return rows
-
 
 @app.get("/triage/alltriages/byCase/{case_id}", response_model=List[TriageRead])
 def get_triages_by_case_id(
@@ -277,16 +275,12 @@ def get_triages_by_case_id(
     offset: int = Query(0, ge=0),
     sort: Literal["asc", "desc"] = "desc",
 ):
-    """Belirli bir case_id'ye ait tüm triage kayıtlarını getirir"""
     q = db.query(Triage).filter(Triage.case_id == case_id)
     q = q.order_by(Triage.created_at.desc() if sort == "desc" else Triage.created_at.asc())
     rows = q.offset(offset).limit(limit).all()
-    
     if not rows:
         raise HTTPException(status_code=404, detail=f"Case ID '{case_id}' için kayıt bulunamadı")
-    
     return rows
-
 
 @app.get("/triage/alltriages/byDate/{date}", response_model=List[TriageRead])
 def get_triages_by_date(
@@ -296,28 +290,23 @@ def get_triages_by_date(
     offset: int = Query(0, ge=0),
     sort: Literal["asc", "desc"] = "desc",
 ):
-    """Belirli bir tarihteki tüm triage kayıtlarını getirir (YYYY-MM-DD formatında)"""
+    """Belirli bir tarihteki tüm triage kayıtlarını getirir (YYYY-MM-DD)."""
     try:
-        # Tarihi parse et
-        from datetime import datetime
         target_date = datetime.strptime(date, "%Y-%m-%d").date()
-        
-        # O günün başlangıcı ve bitişi
         start_datetime = datetime.combine(target_date, datetime.min.time())
         end_datetime = datetime.combine(target_date, datetime.max.time())
-        
-        # Sorgu
+
         q = db.query(Triage).filter(
             Triage.created_at >= start_datetime,
             Triage.created_at <= end_datetime
         )
         q = q.order_by(Triage.created_at.desc() if sort == "desc" else Triage.created_at.asc())
         rows = q.offset(offset).limit(limit).all()
-        
         if not rows:
             raise HTTPException(status_code=404, detail=f"'{date}' tarihinde kayıt bulunamadı")
-        
         return rows
-        
     except ValueError:
-        raise HTTPException(status_code=400, detail="Geçersiz tarih formatı. YYYY-MM-DD formatında olmalı (örn: 2024-01-15)")
+        raise HTTPException(
+            status_code=400,
+            detail="Geçersiz tarih formatı. YYYY-MM-DD olmalı (örn: 2025-01-15)"
+        )

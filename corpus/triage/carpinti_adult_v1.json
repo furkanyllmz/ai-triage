@@ -22,6 +22,8 @@
     "Kardiyak muayene"
   ],
   "questions_to_ask_next": [
+    "Panik atağınız var mı?",
+    "Ailede KAH geçmişi var mı?",
     "Ne zaman başladı?",
     "Göğüs ağrısı var mı?",
     "Nefes darlığı var mı?",

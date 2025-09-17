@@ -2,7 +2,7 @@
   "id": "ates_adult_v1",
   "title": "Ateş (Fever) - Erişkin",
   "lang": "tr",
-  "complaints": ["ateş", "fever", "yüksek ateş", "hipertermi", "ateşlenme"],
+  "complaints": ["ateş", "fever", "yüksek ateş", "hipertermi", "ateşlenme", "vücut sıcaklığı yüksek", "titreme", "üşüme", "sıcaklık", "yanma hissi"],
   "age_groups": ["adult"],
   "pregnancy": ["any"],
   "esi_hint": "Yüksek ateş + sepsis bulguları → ESI-1/2, basit ateş → ESI-3/4.",
@@ -12,7 +12,12 @@
     "Bilinç bozukluğu + ateş",
     "Solunum sıkıntısı + ateş",
     "Hipotansiyon",
-    "İmmünsüpresyon + ateş"
+    "İmmünsüpresyon + ateş",
+    "Şiddetli titreme + ateş",
+    "Taşikardi + hipotansiyon",
+    "Oligüri + ateş",
+    "Peteki/purpura + ateş",
+    "Ense sertliği + ateş"
   ],
   "immediate_actions": [
     "Vital bulgular",
@@ -26,9 +31,15 @@
     "En yüksek kaç derece oldu?",
     "Başka şikayetler var mı?",
     "İlaç kullanımı var mı?",
-    "Kronik hastalık var mı?"
-  ],
-  "routing_hint": { "specialty": "enfeksiyon hastalıkları", "priority": "medium" },
+    "Kronik hastalık var mı?",
+    "Titreme var mı?",
+    "Baş ağrısı var mı?",
+    "İdrar yaparken yanma var mı?",
+    "Öksürük/balgam var mı?",
+    "Son zamanlarda seyahat ettiniz mi?",
+    "Aşı yaptırdınız mı?"
+   ],
+   "routing_hint": { "specialty": "enfeksiyon hastalıkları", "priority": "medium" },
   "evidence": [{ "source": "Infectious Diseases Guidelines - Fever", "url": "https://..." }],
   "version": 1,
   "updated_at": "2025-01-15"

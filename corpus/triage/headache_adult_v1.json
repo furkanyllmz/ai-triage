@@ -2,7 +2,7 @@
   "id": "headache_adult_v1",
   "title": "Baş Ağrısı - Erişkin",
   "lang": "tr",
-  "complaints": ["baş ağrısı", "headache", "migren"],
+  "complaints": ["baş ağrısı", "headache", "migren", "kafa ağrısı", "başım ağrıyor", "şakak ağrısı", "alın ağrısı", "ensede ağrı", "kafatası ağrısı"],
   "age_groups": ["adult"],
   "pregnancy": ["any"],
   "esi_hint": "Thunderclap veya nörolojik defisit varsa ESI-2; yoksa çoğunlukla ESI-4.",
@@ -11,7 +11,12 @@
     "Nörolojik defisit (görme kaybı, güçsüzlük, konuşma bozukluğu)",
     "Ateş + ense sertliği",
     "Travma sonrası yeni baş ağrısı",
-    "İmmünsüpresyon öyküsü"
+    "İmmünsüpresyon öyküsü",
+    "Bilinç değişikliği + baş ağrısı",
+    "Papil ödem bulguları",
+    "50 yaş üstü yeni başlayan baş ağrısı",
+    "Progresif kötüleşen baş ağrısı",
+    "Pozisyonel baş ağrısı"
   ],
   "immediate_actions": [
     "Vital bulgular",
@@ -21,9 +26,16 @@
   "questions_to_ask_next": [
     "Baş ağrısı ne kadar süredir var?",
     "Şiddeti aniden mi başladı?",
-    "Eşlik eden bulantı/kusma var mı?"
-  ],
-  "routing_hint": { "specialty": "nöroloji", "priority": "high" },
+    "Eşlik eden bulantı/kusma var mı?",
+    "Daha önce böyle baş ağrısı yaşadınız mı?",
+    "Ağrı nabız gibi zonkluyor mu?",
+    "Işığa hassasiyet var mı?",
+    "Boyun sertliği hissediyor musunuz?",
+    "Görme bulanıklığı var mı?",
+    "Ağrı hangi bölgede yoğunlaşıyor?",
+    "Stres veya yorgunlukla ilişkili mi?"
+   ],
+   "routing_hint": { "specialty": "nöroloji", "priority": "high" },
   "evidence": [{ "source": "ACEP Headache Clinical Policy", "url": "https://..." }],
   "version": 1,
   "updated_at": "2025-09-09"

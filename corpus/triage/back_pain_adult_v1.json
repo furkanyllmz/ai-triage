@@ -2,7 +2,7 @@
   "id": "back_pain_adult_v1",
   "title": "Sırt Ağrısı - Erişkin",
   "lang": "tr",
-  "complaints": ["sırt ağrısı", "back pain", "bel ağrısı", "omurga ağrısı"],
+  "complaints": ["sırt ağrısı", "back pain", "bel ağrısı", "omurga ağrısı", "boyun ağrısı", "lomber ağrı", "disk hernisi", "siyatik ağrı", "vertebra ağrısı"],
   "age_groups": ["adult"],
   "pregnancy": ["any"],
   "esi_hint": "Nörolojik defisit + şiddetli ağrı → ESI-2, mekanik ağrı → ESI-3–4.",
@@ -11,7 +11,12 @@
     "Uyuşma/güçsüzlük",
     "Mesane/bağırsak kontrolü kaybı",
     "Ateş + sırt ağrısı",
-    "Travma öyküsü"
+    "Travma öyküsü",
+    "Progresif nörolojik defisit",
+    "Kauda equina sendromu belirtileri",
+    "Şiddetli gece ağrısı",
+    "Kilo kaybı + sırt ağrısı",
+    "Kanser öyküsü + yeni sırt ağrısı"
   ],
   "immediate_actions": [
     "Nörolojik muayene",
@@ -23,9 +28,15 @@
     "Ağrı bacaklara yayılıyor mu?",
     "Uyuşma hissediyor musunuz?",
     "Travma geçirdiniz mi?",
-    "Ağrı hangi pozisyonda artıyor?"
-  ],
-  "routing_hint": { "specialty": "ortopedi", "priority": "medium" },
+    "Ağrı hangi pozisyonda artıyor?",
+    "Ağrı ne zaman başladı?",
+    "Sabah kalktığınızda ağrı nasıl?",
+    "Öksürük/hapşırıkla ağrı artıyor mu?",
+    "Daha önce disk hernisi geçirdiniz mi?",
+    "Ağrı istirahatle geçiyor mu?",
+    "Bacaklarınızda güçsüzlük var mı?"
+   ],
+   "routing_hint": { "specialty": "ortopedi", "priority": "medium" },
   "evidence": [{ "source": "American College of Physicians - Low Back Pain", "url": "https://..." }],
   "version": 1,
   "updated_at": "2025-01-15"
