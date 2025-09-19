@@ -153,6 +153,19 @@ function AppContent() {
     try {
       setPatientData(data);
       
+      // Parse vitals - handle both JSON and natural language input
+      let vitals = {};
+      if (data.vitals && data.vitals.trim()) {
+        try {
+          // First try to parse as JSON
+          vitals = JSON.parse(data.vitals);
+        } catch (e) {
+          // If JSON parsing fails, treat as natural language text
+          // Convert natural language to a simple object format
+          vitals = { text: data.vitals.trim() };
+        }
+      }
+      
       // Gerçek API çağrısı
       const triageInput: TriageInput = {
         age: parseInt(data.age),
@@ -160,6 +173,7 @@ function AppContent() {
         complaint_text: data.complaint,
         pregnancy: data.pregnancy,
         chief: data.chief || 'string',
+
         vitals: data.vitals || {}
       };
 

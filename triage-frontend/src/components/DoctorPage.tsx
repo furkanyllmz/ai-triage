@@ -246,6 +246,11 @@ export default function DoctorPage({
                           ? JSON.parse(currentPatientData.vitals)
                           : currentPatientData.vitals;
                         
+                        // If vitals has a 'text' property (natural language), display it directly
+                        if (vitals.text) {
+                          return <div className="vitals-text">{vitals.text}</div>;
+                        }
+                        
                         return (
                           <div className="vitals-list">
                             {vitals.blood_pressure && (
@@ -263,7 +268,7 @@ export default function DoctorPage({
                           </div>
                         );
                       } catch (e) {
-                        return String(currentPatientData.vitals);
+                        return <div className="vitals-text">{String(currentPatientData.vitals)}</div>;
                       }
                     })()}
                   </span>

@@ -343,6 +343,7 @@ const PatientEntry: React.FC<PatientEntryProps> = ({ onStartAssessment }) => {
                 </div>
               </div>
 
+
               <div className="pt-4">
                 <button 
                   className="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-base font-medium text-white hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
