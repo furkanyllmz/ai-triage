@@ -153,18 +153,8 @@ function AppContent() {
     try {
       setPatientData(data);
       
-      // Parse vitals - handle both JSON and natural language input
-      let vitals = {};
-      if (data.vitals && data.vitals.trim()) {
-        try {
-          // First try to parse as JSON
-          vitals = JSON.parse(data.vitals);
-        } catch (e) {
-          // If JSON parsing fails, treat as natural language text
-          // Convert natural language to a simple object format
-          vitals = { text: data.vitals.trim() };
-        }
-      }
+      // Vitals artık obje formatında geliyor, direkt kullan
+      const vitals = data.vitals || {};
       
       // Gerçek API çağrısı
       const triageInput: TriageInput = {
