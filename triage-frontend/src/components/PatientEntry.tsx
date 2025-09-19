@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
-import { useTriageContext } from '../contexts/TriageContext';
-import { StepResp } from '../types/TriageTypes';
+import { TriageOutput, StepResp } from '../types/TriageTypes';
 import { triageApi } from '../services/triageApi';
 
 interface PatientEntryProps {
@@ -9,9 +7,6 @@ interface PatientEntryProps {
 }
 
 const PatientEntry: React.FC<PatientEntryProps> = ({ onStartAssessment }) => {
-  const { triageResult, setTriageResult } = useTriageContext();
-  const history = useHistory();
-  
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
     age: '30',
@@ -33,6 +28,7 @@ const PatientEntry: React.FC<PatientEntryProps> = ({ onStartAssessment }) => {
   const [questionAnswers, setQuestionAnswers] = useState<{[key: string]: string}>({});
   const [showQuestions, setShowQuestions] = useState(false);
   const [caseId, setCaseId] = useState<string | null>(null);
+  const [triageResult, setTriageResult] = useState<TriageOutput | null>(null);
 
   const handleInputChange = (field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
@@ -77,9 +73,7 @@ const PatientEntry: React.FC<PatientEntryProps> = ({ onStartAssessment }) => {
 
   // API'den gelen step yanıtını takip et ve soruyu başlat
   useEffect(() => {
-    if (triageResult && triageResult.case_id) {
-      setCaseId(triageResult.case_id);
-    }
+    // TriageResult artık case_id içermiyor, caseId ayrı state olarak yönetiliyor
   }, [triageResult]);
 
   const handleAnswerAllQuestions = async () => {
@@ -126,7 +120,7 @@ const PatientEntry: React.FC<PatientEntryProps> = ({ onStartAssessment }) => {
 
   const handleViewLabel = () => {
     if (caseId) {
-      history.push(`/qr-test?caseId=${caseId}`);
+      window.open(`/qr-test?caseId=${caseId}`, '_blank');
     }
   };
 
@@ -163,10 +157,10 @@ const PatientEntry: React.FC<PatientEntryProps> = ({ onStartAssessment }) => {
   };
 
   const renderRationale = () => {
-    if (!triageResult?.rationale_brief && !triageResult?.rationale) {
+    if (!triageResult?.rationale_brief) {
       return 'Henüz değerlendirme yapılmadı. Hasta bilgilerini girin ve değerlendirmeyi başlatın.';
     }
-    return triageResult.rationale_brief || triageResult.rationale;
+    return triageResult.rationale_brief;
   };
 
   const renderRedFlags = () => {
@@ -190,27 +184,26 @@ const PatientEntry: React.FC<PatientEntryProps> = ({ onStartAssessment }) => {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-gray-50">
-     
-     
-
+    <div className="flex flex-col min-h-screen bg-gray-50 dark:bg-gray-900">
       {/* Main Content */}
       <main className="flex-grow w-full max-w-6xl mx-auto py-4 sm:py-8 lg:py-12 px-4 sm:px-6 lg:px-8">
-        <div className="bg-white p-4 sm:p-6 lg:p-8 xl:p-10 rounded-xl shadow-lg">
-          <div className="text-center mb-6 sm:mb-8">
-            <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900">Hastalık Giriş ve ESI Önceliklendirme</h2>
-            <p className="mt-2 text-xs sm:text-sm text-gray-600">Lütfen bilgilerinizi girerek ön değerlendirme sürecini başlatın.</p>
+        <div className="bg-white dark:bg-gray-800 p-4 sm:p-6 lg:p-8 xl:p-10 rounded-xl shadow-lg">
+          <div className="mb-6 sm:mb-8">
+            <div className="bg-blue-600 text-white p-4 rounded-lg mb-6 w-full lg:w-1/2">
+              <h2 className="text-lg sm:text-xl font-bold text-left text-white">Triaj Değerlendirme</h2>
+              <p className="mt-2 text-xs sm:text-sm text-left text-white opacity-90">Lütfen bilgilerinizi girerek ön değerlendirme sürecini başlatın.</p>
+            </div>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-4 sm:gap-x-8 lg:gap-x-12 gap-y-6 sm:gap-y-8">
             {/* Sol: Hasta Bilgileri */}
             <div className="space-y-4 sm:space-y-6">
-              <h3 className="text-lg sm:text-xl font-bold text-gray-900 border-b border-gray-200 pb-2 sm:pb-3">Hasta Bilgileri</h3>
+              <h3 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white border-b border-gray-200 dark:border-gray-600 pb-2 sm:pb-3">Hasta Bilgileri</h3>
               
               <div>
-                <label className="block text-sm font-medium text-gray-700" htmlFor="complaint">Ana Şikayetiniz</label>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300" htmlFor="complaint">Ana Şikayetiniz</label>
                 <input 
-                  className="block w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-sm placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-indigo-600 focus:border-indigo-600 mt-1"
+                  className="block w-full px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md text-sm text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-indigo-600 focus:border-indigo-600 mt-1"
                   id="complaint" 
                   name="complaint" 
                   placeholder="Örn: Göğüs ağrısı, baş dönmesi..."
@@ -221,9 +214,9 @@ const PatientEntry: React.FC<PatientEntryProps> = ({ onStartAssessment }) => {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700" htmlFor="age">Yaş</label>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300" htmlFor="age">Yaş</label>
                   <input 
-                    className="block w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-sm placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-indigo-600 focus:border-indigo-600 mt-1"
+                    className="block w-full px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md text-sm text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-indigo-600 focus:border-indigo-600 mt-1"
                     id="age" 
                     name="age" 
                     placeholder="Örn: 35" 
@@ -233,9 +226,9 @@ const PatientEntry: React.FC<PatientEntryProps> = ({ onStartAssessment }) => {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700" htmlFor="gender">Cinsiyet</label>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300" htmlFor="gender">Cinsiyet</label>
                   <select 
-                    className="block w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-1 focus:ring-indigo-600 focus:border-indigo-600 mt-1"
+                    className="block w-full px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md text-sm text-gray-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-indigo-600 focus:border-indigo-600 mt-1"
                     id="gender" 
                     name="gender"
                     value={formData.sex}
@@ -248,12 +241,12 @@ const PatientEntry: React.FC<PatientEntryProps> = ({ onStartAssessment }) => {
               </div>
 
               <div>
-                <h4 className="block text-sm font-medium text-gray-700 mb-2">Vital Bulgular</h4>
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-4">
+                <h4 className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Vital Bulgular</h4>
+                <div className="grid grid-cols-2 gap-2 sm:gap-4">
                   <div>
-                    <label className="block text-xs text-gray-500" htmlFor="pulse">Nabız (bpm)</label>
+                    <label className="block text-xs text-gray-500 dark:text-gray-400" htmlFor="pulse">Nabız (bpm)</label>
                     <input 
-                      className="block w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-sm placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-indigo-600 focus:border-indigo-600 mt-1"
+                      className="block w-full px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md text-sm text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-indigo-600 focus:border-indigo-600 mt-1"
                       id="pulse" 
                       name="pulse" 
                       placeholder="80" 
@@ -263,9 +256,9 @@ const PatientEntry: React.FC<PatientEntryProps> = ({ onStartAssessment }) => {
                     />
                   </div>
                   <div>
-                    <label className="block text-xs text-gray-500" htmlFor="temperature">Ateş (°C)</label>
+                    <label className="block text-xs text-gray-500 dark:text-gray-400" htmlFor="temperature">Ateş (°C)</label>
                     <input 
-                      className="block w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-sm placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-indigo-600 focus:border-indigo-600 mt-1"
+                      className="block w-full px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md text-sm text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-indigo-600 focus:border-indigo-600 mt-1"
                       id="temperature" 
                       name="temperature" 
                       placeholder="36.5" 
@@ -275,9 +268,9 @@ const PatientEntry: React.FC<PatientEntryProps> = ({ onStartAssessment }) => {
                     />
                   </div>
                   <div>
-                    <label className="block text-xs text-gray-500" htmlFor="oxygen">O2 Sat. (%)</label>
+                    <label className="block text-xs text-gray-500 dark:text-gray-400" htmlFor="oxygen">O2 Sat. (%)</label>
                     <input 
-                      className="block w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-sm placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-indigo-600 focus:border-indigo-600 mt-1"
+                      className="block w-full px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md text-sm text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-indigo-600 focus:border-indigo-600 mt-1"
                       id="oxygen" 
                       name="oxygen" 
                       placeholder="98" 
@@ -286,12 +279,10 @@ const PatientEntry: React.FC<PatientEntryProps> = ({ onStartAssessment }) => {
                       onChange={(e) => handleVitalChange('oxygen', e.target.value)}
                     />
                   </div>
-                </div>
-                <div className="grid grid-cols-2 gap-2 sm:gap-4 mt-3 sm:mt-4">
                   <div>
-                    <label className="block text-xs text-gray-500" htmlFor="blood_pressure">Tansiyon (mmHg)</label>
+                    <label className="block text-xs text-gray-500 dark:text-gray-400" htmlFor="blood_pressure">Tansiyon (mmHg)</label>
                     <input 
-                      className="block w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-sm placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-indigo-600 focus:border-indigo-600 mt-1"
+                      className="block w-full px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md text-sm text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-indigo-600 focus:border-indigo-600 mt-1"
                       id="blood_pressure" 
                       name="blood_pressure" 
                       placeholder="120/80" 
@@ -300,10 +291,10 @@ const PatientEntry: React.FC<PatientEntryProps> = ({ onStartAssessment }) => {
                       onChange={(e) => handleVitalChange('blood_pressure', e.target.value)}
                     />
                   </div>
-                  <div>
-                    <label className="block text-xs text-gray-500" htmlFor="respiratory_rate">Solunum (dakika)</label>
+                  <div className="col-span-2">
+                    <label className="block text-xs text-gray-500 dark:text-gray-400" htmlFor="respiratory_rate">Solunum (dakika)</label>
                     <input 
-                      className="block w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-sm placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-indigo-600 focus:border-indigo-600 mt-1"
+                      className="block w-full px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md text-sm text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-indigo-600 focus:border-indigo-600 mt-1"
                       id="respiratory_rate" 
                       name="respiratory_rate" 
                       placeholder="20" 
@@ -317,9 +308,9 @@ const PatientEntry: React.FC<PatientEntryProps> = ({ onStartAssessment }) => {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700" htmlFor="pregnancy">Gebelik</label>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300" htmlFor="pregnancy">Gebelik</label>
                   <select 
-                    className="block w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-1 focus:ring-indigo-600 focus:border-indigo-600 mt-1"
+                    className="block w-full px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md text-sm text-gray-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-indigo-600 focus:border-indigo-600 mt-1"
                     id="pregnancy" 
                     name="pregnancy"
                     value={formData.pregnancy}
@@ -331,9 +322,9 @@ const PatientEntry: React.FC<PatientEntryProps> = ({ onStartAssessment }) => {
                   </select>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700" htmlFor="chief">Hastalık Özeti</label>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300" htmlFor="chief">Hastalık Özeti</label>
                   <input 
-                    className="block w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-sm placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-indigo-600 focus:border-indigo-600 mt-1"
+                    className="block w-full px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md text-sm text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-indigo-600 focus:border-indigo-600 mt-1"
                     id="chief" 
                     name="chief" 
                     placeholder="Göğüs ağrısı"
@@ -342,7 +333,6 @@ const PatientEntry: React.FC<PatientEntryProps> = ({ onStartAssessment }) => {
                   />
                 </div>
               </div>
-
 
               <div className="pt-4">
                 <button 
@@ -358,17 +348,17 @@ const PatientEntry: React.FC<PatientEntryProps> = ({ onStartAssessment }) => {
 
             {/* Sağ: Takip Soruları ve Sonuçlar */}
             <div className="space-y-4 sm:space-y-6">
-              <h3 className="text-lg sm:text-xl font-bold text-gray-900 border-b border-gray-200 pb-2 sm:pb-3">Takip Soruları</h3>
+              <h3 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white border-b border-gray-200 dark:border-gray-600 pb-2 sm:pb-3">Takip Soruları</h3>
               
               {showQuestions && currentQuestions.length > 0 ? (
                 <div className="space-y-4">
                   {currentQuestions.map((question, index) => (
-                    <div key={index} className="p-4 rounded-lg bg-indigo-50 border border-indigo-200">
-                      <p className="font-medium text-sm text-gray-700 mb-3">
+                    <div key={index} className="p-4 rounded-lg bg-indigo-50 dark:bg-indigo-900/20 border border-indigo-200 dark:border-indigo-700">
+                      <p className="font-medium text-sm text-gray-700 dark:text-gray-300 mb-3">
                         {index + 1}. {question}
                       </p>
                       <textarea 
-                        className="block w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-sm placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-indigo-600 focus:border-indigo-600"
+                        className="block w-full px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md text-sm text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-indigo-600 focus:border-indigo-600"
                         placeholder="Cevabınızı yazın..."
                         value={questionAnswers[question] || ''}
                         onChange={(e) => handleAnswerChange(question, e.target.value)}
@@ -386,7 +376,7 @@ const PatientEntry: React.FC<PatientEntryProps> = ({ onStartAssessment }) => {
                       Cevapları Gönder
                     </button>
                     <button 
-                      className="flex-1 py-2 px-3 sm:px-4 border border-gray-300 rounded-md shadow-sm text-xs sm:text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2"
+                      className="flex-1 py-2 px-3 sm:px-4 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2"
                       onClick={handleSkipAllQuestions}
                     >
                       Atla
@@ -400,16 +390,16 @@ const PatientEntry: React.FC<PatientEntryProps> = ({ onStartAssessment }) => {
                   </div>
                 </div>
               ) : (
-                <div className="p-4 rounded-lg bg-indigo-50 border border-indigo-200 text-center">
-                  <p className="text-gray-600">Şu an sorulacak başka soru yok.</p>
+                <div className="p-4 rounded-lg bg-indigo-50 dark:bg-indigo-900/20 border border-indigo-200 dark:border-indigo-700 text-center">
+                  <p className="text-gray-600 dark:text-gray-300">Şu an sorulacak başka soru yok.</p>
                 </div>
               )}
 
               {/* Oturum Bilgisi */}
               {caseId && (
-                <div className="p-4 rounded-lg bg-indigo-50 border border-indigo-200">
-                  <h4 className="font-medium text-sm text-gray-900 mb-2">Oturum Bilgisi</h4>
-                  <div className="text-xs text-gray-700">
+                <div className="p-4 rounded-lg bg-indigo-50 dark:bg-indigo-900/20 border border-indigo-200 dark:border-indigo-700">
+                  <h4 className="font-medium text-sm text-gray-900 dark:text-white mb-2">Oturum Bilgisi</h4>
+                  <div className="text-xs text-gray-700 dark:text-gray-300">
                     <p><strong>Case ID:</strong> {caseId}</p>
                     <p><strong>Son kayıt:</strong> {new Date().toLocaleString('tr-TR')}</p>
                   </div>
@@ -420,9 +410,9 @@ const PatientEntry: React.FC<PatientEntryProps> = ({ onStartAssessment }) => {
 
           {/* Sonuç Bölümü */}
           {triageResult && (
-            <div className="mt-10 border-t border-gray-200 pt-8">
-              <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-3 sm:mb-4">Ön Değerlendirme Sonucu ve Yönlendirme</h3>
-              <div className="p-3 sm:p-4 lg:p-5 rounded-lg border" style={{ backgroundColor: '#f0f4ff', borderColor: '#2563eb' }}>
+            <div className="mt-10 border-t border-gray-200 dark:border-gray-600 pt-8">
+              <h3 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white mb-3 sm:mb-4">Ön Değerlendirme Sonucu ve Yönlendirme</h3>
+              <div className="p-3 sm:p-4 lg:p-5 rounded-lg border bg-blue-50 dark:bg-indigo-900/20 border-blue-200 dark:border-indigo-700">
                 <div className="flex items-start">
                   <div className="flex-shrink-0">
                     <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ color: '#2563eb' }}>
@@ -430,16 +420,16 @@ const PatientEntry: React.FC<PatientEntryProps> = ({ onStartAssessment }) => {
                     </svg>
                   </div>
                   <div className="ml-3 flex-1">
-                    <p className="text-base font-bold text-gray-900">ESI Seviyesi: {renderTriageLevel()}</p>
-                    <p className="mt-1 text-sm text-gray-600">
+                    <p className="text-base font-bold text-gray-900 dark:text-white">ESI Seviyesi: {renderTriageLevel()}</p>
+                    <p className="mt-1 text-sm text-gray-600 dark:text-gray-300">
                       <span className="font-semibold">Yönlendirme:</span> {renderSpecialty()} - {renderPriority()} öncelik
                     </p>
-                    <p className="mt-2 text-sm text-gray-700">{renderRationale()}</p>
+                    <p className="mt-2 text-sm text-gray-700 dark:text-gray-300">{renderRationale()}</p>
                     
                     {renderRedFlags().length > 0 && (
                       <div className="mt-3">
-                        <p className="text-sm font-semibold text-red-600">Kritik Bulgular:</p>
-                        <ul className="text-sm text-gray-600 mt-1">
+                        <p className="text-sm font-semibold text-red-600 dark:text-red-400">Kritik Bulgular:</p>
+                        <ul className="text-sm text-gray-600 dark:text-gray-300 mt-1">
                           {renderRedFlags().map((flag: string, index: number) => (
                             <li key={index} className="flex items-center">
                               <span className="w-1 h-1 bg-red-500 rounded-full mr-2"></span>
@@ -452,8 +442,8 @@ const PatientEntry: React.FC<PatientEntryProps> = ({ onStartAssessment }) => {
 
                     {renderImmediateActions().length > 0 && (
                       <div className="mt-3">
-                        <p className="text-sm font-semibold text-orange-600">İlk Müdahaleler:</p>
-                        <ul className="text-sm text-gray-600 mt-1">
+                        <p className="text-sm font-semibold text-orange-600 dark:text-orange-400">İlk Müdahaleler:</p>
+                        <ul className="text-sm text-gray-600 dark:text-gray-300 mt-1">
                           {renderImmediateActions().map((action: string, index: number) => (
                             <li key={index} className="flex items-center">
                               <span className="w-1 h-1 bg-orange-500 rounded-full mr-2"></span>
@@ -473,7 +463,7 @@ const PatientEntry: React.FC<PatientEntryProps> = ({ onStartAssessment }) => {
                         📋 Etiketi Görüntüle
                       </button>
                       <button 
-                        className="py-2 px-3 sm:px-4 border border-gray-300 rounded-md shadow-sm text-xs sm:text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2"
+                        className="py-2 px-3 sm:px-4 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2"
                         onClick={() => window.location.reload()}
                       >
                         Yeni Değerlendirme
@@ -481,7 +471,7 @@ const PatientEntry: React.FC<PatientEntryProps> = ({ onStartAssessment }) => {
                     </div>
                   </div>
                 </div>
-                <p className="mt-4 text-xs text-gray-500">
+                <p className="mt-4 text-xs text-gray-500 dark:text-gray-400">
                   <strong>Yasal Uyarı:</strong> Bu sonuç, yapay zeka tarafından yapılan bir ön değerlendirmedir ve tıbbi bir tanı niteliği taşımaz. Sağlık sorunlarınız için mutlaka bir sağlık uzmanına danışın.
                 </p>
               </div>

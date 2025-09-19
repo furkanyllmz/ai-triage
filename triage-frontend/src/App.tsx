@@ -32,12 +32,22 @@ function AppContent() {
     const shouldBeDark = savedTheme === 'dark' || (!savedTheme && prefersDark);
     
     setIsDarkMode(shouldBeDark);
+    if (shouldBeDark) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
     document.documentElement.setAttribute('data-theme', shouldBeDark ? 'dark' : 'light');
   }, []);
 
   const toggleTheme = () => {
     const newTheme = !isDarkMode;
     setIsDarkMode(newTheme);
+    if (newTheme) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
     document.documentElement.setAttribute('data-theme', newTheme ? 'dark' : 'light');
     localStorage.setItem('theme', newTheme ? 'dark' : 'light');
   };
@@ -194,7 +204,7 @@ function AppContent() {
   }, [handleReset]);
 
   return (
-    <div className="App">
+    <div className="App min-h-screen flex flex-col">
       <Router>
         <Header />
         <div className="theme-toggle-container">
@@ -206,7 +216,7 @@ function AppContent() {
             {isDarkMode ? '☀️' : '🌙'}
           </button>
         </div>
-        <main className="main-content">
+        <main className="main-content flex-grow">
           <Switch>
             <Route path="/" exact>
               <HomePage />
@@ -235,6 +245,15 @@ function AppContent() {
             </Route>
           </Switch>
         </main>
+        
+        {/* Footer */}
+        <footer className="w-full py-4 px-4 bg-gray-100 dark:bg-gray-800 border-t border-gray-200 dark:border-gray-600 mt-auto">
+          <div className="max-w-6xl mx-auto text-center">
+            <p className="text-xs text-gray-600 dark:text-gray-400">
+              Product by Furkan Yılmaz, Talip Kurt, Aleyna Taşdemir
+            </p>
+          </div>
+        </footer>
       </Router>
     </div>
   );

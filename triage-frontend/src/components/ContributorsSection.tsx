@@ -11,76 +11,53 @@ interface Contributor {
 const contributorsData: Contributor[] = [
   {
     id: 1,
-    firstName: "Ahmet",
-    lastName: "Yılmaz",
-    title: "Başhekim"
+    firstName: "Nursima",
+    lastName: "Çörten",
+    title: "3.Sınıf Tıp Öğrencisi"
   },
   {
     id: 2,
-    firstName: "Fatma",
-    lastName: "Demir",
-    title: "Senior Developer"
+    firstName: "Miralay",
+    lastName: "Aksoy",
+    title: "4.Sınıf Tıp Öğrencisi"
   },
   {
     id: 3,
-    firstName: "Mehmet",
-    lastName: "Kaya",
-    title: "Başhemşire"
+    firstName: "Ömer",
+    lastName: "Coşkun",
+    title: "4.Sınıf Tıp Öğrencisi"
   },
   {
     id: 4,
-    firstName: "Ayşe",
-    lastName: "Özkan",
-    title: "Lead Designer"
+    firstName: "Yusuf Furkan",
+    lastName: "Seçkin",
+    title: "4.Sınıf Tıp Öğrencisi"
   },
   {
     id: 5,
-    firstName: "Mustafa",
-    lastName: "Çelik",
-    title: "6. Sınıf Öğrencisi"
+    firstName: "Celal",
+    lastName: "Ertürk",
+    title: "4.Sınıf Tıp Öğrencisi"
   },
   {
     id: 6,
-    firstName: "Zeynep",
-    lastName: "Arslan",
-    title: "Project Manager"
+    firstName: "Mehmet Efe",
+    lastName: "Calap",
+    title: "4.Sınıf Tıp Öğrencisi"
   },
   {
     id: 7,
-    firstName: "Emre",
-    lastName: "Şahin",
-    title: "Uzman Doktor"
+    firstName: "Ramazan",
+    lastName: "Yazgan",
+    title: "4.Sınıf Tıp Öğrencisi"
   },
   {
     id: 8,
-    firstName: "Seda",
-    lastName: "Koç",
-    title: "QA Engineer"
-  },
-  {
-    id: 9,
-    firstName: "Ali",
-    lastName: "Veli",
+    firstName: "İlker",
+    lastName: "Lafçı",
     title: "Acil Servis Hemşiresi"
   },
-  {
-    id: 10,
-    firstName: "Can",
-    lastName: "Yılmaz",
-    title: "Prof. Dr."
-  },
-  {
-    id: 11,
-    firstName: "Elif",
-    lastName: "Türk",
-    title: "Acil Tıp Uzmanı"
-  },
-  {
-    id: 12,
-    firstName: "Burak",
-    lastName: "Öztürk",
-    title: "Teknik Direktör"
-  }
+  
 ];
 
 const ContributorsSection: React.FC = () => {
