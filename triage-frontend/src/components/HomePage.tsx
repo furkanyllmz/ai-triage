@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './HomePage.css';
+import ContributorsSection from './ContributorsSection';
 
 const HomePage: React.FC = () => {
   const [activeStep, setActiveStep] = useState<number>(0);
@@ -531,6 +532,8 @@ const HomePage: React.FC = () => {
           </div>
         </div>
 
+        {/* Contributors Section */}
+        <ContributorsSection />
 
         {/* CTA Section */}
         <div className="cta-section">
@@ -627,6 +630,7 @@ const HomePage: React.FC = () => {
             </div>
           </div>
         </div>
+
       </div>
     </div>
   );

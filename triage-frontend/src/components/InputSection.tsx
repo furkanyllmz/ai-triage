@@ -64,15 +64,15 @@ const InputSection: React.FC<InputSectionProps> = ({
       return;
     }
 
-    // Parse vitals JSON
+    // Parse vitals - handle both JSON and natural language input
     let vitals = {};
     if (formData.vitals.trim()) {
       try {
+        // First try to parse as JSON
         vitals = JSON.parse(formData.vitals);
       } catch (e) {
-        setMessage('Vitaller geçerli JSON değil.');
-        setMessageType('err');
-        return;
+        // If JSON parsing fails, treat as natural language text
+        vitals = { text: formData.vitals.trim() };
       }
     }
 

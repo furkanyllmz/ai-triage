@@ -270,6 +270,9 @@ const PatientEntry: React.FC<PatientEntryProps> = ({ onStartAssessment }) => {
                     <li><strong>Solunum sayısı:</strong> 20/dk, 24/dk gibi</li>
                     <li><strong>Diğer:</strong> İstediğiniz vital bulguları serbest metin olarak yazabilirsiniz</li>
                   </ul>
+                  <div className="vitals-note">
+                    <strong>Not:</strong> Vitalleri doğal dilde yazabilirsiniz. Sistem otomatik olarak işleyecektir.
+                  </div>
                 </div>
               </div>
 
