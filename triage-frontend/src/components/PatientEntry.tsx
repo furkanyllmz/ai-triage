@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import './PatientEntry.css';
-import '../styles/triage-page.css';
 import { useTriageContext } from '../contexts/TriageContext';
 import { StepResp } from '../types/TriageTypes';
 import { triageApi } from '../services/triageApi';
@@ -14,10 +12,6 @@ const PatientEntry: React.FC<PatientEntryProps> = ({ onStartAssessment }) => {
   const { triageResult, setTriageResult } = useTriageContext();
   const history = useHistory();
   
-  // Debug: triageResult'ı console'a yazdır
-  useEffect(() => {
-    console.log('PatientEntry - triageResult:', triageResult);
-  }, [triageResult]);
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
     age: '30',
@@ -25,7 +19,13 @@ const PatientEntry: React.FC<PatientEntryProps> = ({ onStartAssessment }) => {
     complaint: '',
     pregnancy: 'any',
     chief: '',
-    vitals: ''
+    vitals: {
+      pulse: '',
+      temperature: '',
+      oxygen: '',
+      blood_pressure: '',
+      respiratory_rate: ''
+    }
   });
   
   // Takip soruları için state
@@ -38,10 +38,24 @@ const PatientEntry: React.FC<PatientEntryProps> = ({ onStartAssessment }) => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
+  const handleVitalChange = (vitalField: string, value: string) => {
+    setFormData(prev => ({
+      ...prev,
+      vitals: {
+        ...prev.vitals,
+        [vitalField]: value
+      }
+    }));
+  };
+
   const handleSubmit = async () => {
     setIsLoading(true);
     try {
-      const resp = await onStartAssessment(formData);
+      const apiData = {
+        ...formData,
+        vitals: getVitalsForAPI()
+      };
+      const resp = await onStartAssessment(apiData);
       if (resp && typeof resp === 'object') {
         const step = resp as StepResp;
         if (step.case_id) setCaseId(step.case_id);
@@ -61,7 +75,7 @@ const PatientEntry: React.FC<PatientEntryProps> = ({ onStartAssessment }) => {
     }
   };
 
-  // API'den gelen step yanıtını takip et ve soruyu başlat (App artık state'i yönetiyor)
+  // API'den gelen step yanıtını takip et ve soruyu başlat
   useEffect(() => {
     if (triageResult && triageResult.case_id) {
       setCaseId(triageResult.case_id);
@@ -72,21 +86,17 @@ const PatientEntry: React.FC<PatientEntryProps> = ({ onStartAssessment }) => {
     if (!caseId || currentQuestions.length === 0) return;
     
     try {
-      // Tüm cevapları birden gönder
       const response = await triageApi.sendAnswer(caseId, {
         answers: questionAnswers
       });
       
-      // Sonuçları güncelle (context'e yeni veri gönder)
       setTriageResult(response.triage || null);
       
-      // Yeni step'e göre sıradaki soruyu belirle
       if (!response.finished && response.next_question) {
         setCurrentQuestions([response.next_question]);
         setShowQuestions(true);
         setQuestionAnswers({});
       } else {
-        // Sorular bitti
         setCurrentQuestions([]);
         setShowQuestions(false);
       }
@@ -122,6 +132,18 @@ const PatientEntry: React.FC<PatientEntryProps> = ({ onStartAssessment }) => {
 
   const isFormValid = () => {
     return formData.age && formData.sex && formData.complaint.trim();
+  };
+
+  // Vitalleri API formatına çevir
+  const getVitalsForAPI = () => {
+    const vitals = { ...formData.vitals };
+    // Boş değerleri temizle
+    Object.keys(vitals).forEach(key => {
+      if (!vitals[key as keyof typeof vitals]) {
+        delete vitals[key as keyof typeof vitals];
+      }
+    });
+    return vitals;
   };
 
   // Triaj sonuçlarını render etmek için yardımcı fonksiyonlar
@@ -161,56 +183,61 @@ const PatientEntry: React.FC<PatientEntryProps> = ({ onStartAssessment }) => {
     return triageResult.immediate_actions;
   };
 
-  const renderQuestionsToAsk = () => {
-    if (!triageResult?.questions_to_ask_next || triageResult.questions_to_ask_next.length === 0) {
-      return [];
-    }
-    return triageResult.questions_to_ask_next;
-  };
-
   const getESIClass = () => {
     if (!triageResult?.triage_level) return '';
     const level = triageResult.triage_level.split('-')[1];
     return `esi-${level}`;
   };
 
-  const getDotClass = () => {
-    if (!triageResult?.triage_level) return 'dot green';
-    const level = parseInt(triageResult.triage_level.split('-')[1]);
-    if (level <= 2) return 'dot red';
-    if (level === 3) return 'dot yellow';
-    return 'dot green';
-  };
-
   return (
-    <div className="app-shell">
-      <div className="grid">
-        {/* SOL: Giriş & Soru Akışı */}
-        <section className="card form-card">
-          <div className="card__body">
-            {/* Header Section */}
-            <div className="form-header">
-              <h2 className="form-title">Triaj Değerlendirme</h2>
-              <p className="form-subtitle">Hasta bilgilerini girin ve sistemin sorularını yanıtlayın</p>
-            </div>
-            
-            {/* Hasta Bilgisi Section */}
-            <h3 className="section-title">Hasta Bilgisi</h3>
-            <div className="patient-info-section">
+    <div className="flex flex-col min-h-screen bg-gray-50">
+     
+     
+
+      {/* Main Content */}
+      <main className="flex-grow w-full max-w-6xl mx-auto py-4 sm:py-8 lg:py-12 px-4 sm:px-6 lg:px-8">
+        <div className="bg-white p-4 sm:p-6 lg:p-8 xl:p-10 rounded-xl shadow-lg">
+          <div className="text-center mb-6 sm:mb-8">
+            <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900">Hastalık Giriş ve ESI Önceliklendirme</h2>
+            <p className="mt-2 text-xs sm:text-sm text-gray-600">Lütfen bilgilerinizi girerek ön değerlendirme sürecini başlatın.</p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-4 sm:gap-x-8 lg:gap-x-12 gap-y-6 sm:gap-y-8">
+            {/* Sol: Hasta Bilgileri */}
+            <div className="space-y-4 sm:space-y-6">
+              <h3 className="text-lg sm:text-xl font-bold text-gray-900 border-b border-gray-200 pb-2 sm:pb-3">Hasta Bilgileri</h3>
               
-              <div className="form-row">
-                <div className="form-field">
-                  <label>Yaş</label>
+              <div>
+                <label className="block text-sm font-medium text-gray-700" htmlFor="complaint">Ana Şikayetiniz</label>
+                <input 
+                  className="block w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-sm placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-indigo-600 focus:border-indigo-600 mt-1"
+                  id="complaint" 
+                  name="complaint" 
+                  placeholder="Örn: Göğüs ağrısı, baş dönmesi..."
+                  value={formData.complaint}
+                  onChange={(e) => handleInputChange('complaint', e.target.value)}
+                />
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700" htmlFor="age">Yaş</label>
                   <input 
-                    type="number" 
-                    min="0" 
+                    className="block w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-sm placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-indigo-600 focus:border-indigo-600 mt-1"
+                    id="age" 
+                    name="age" 
+                    placeholder="Örn: 35" 
+                    type="number"
                     value={formData.age}
                     onChange={(e) => handleInputChange('age', e.target.value)}
                   />
                 </div>
-                <div className="form-field">
-                  <label>Cinsiyet</label>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700" htmlFor="gender">Cinsiyet</label>
                   <select 
+                    className="block w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-1 focus:ring-indigo-600 focus:border-indigo-600 mt-1"
+                    id="gender" 
+                    name="gender"
                     value={formData.sex}
                     onChange={(e) => handleInputChange('sex', e.target.value)}
                   >
@@ -220,20 +247,81 @@ const PatientEntry: React.FC<PatientEntryProps> = ({ onStartAssessment }) => {
                 </div>
               </div>
 
-              <div className="form-field">
-                <label>Şikâyet metni</label>
-                <textarea 
-                  placeholder="örn. göğsümde baskı var, nefes almakta zorlanıyorum"
-                  value={formData.complaint}
-                  onChange={(e) => handleInputChange('complaint', e.target.value)}
-                  rows={4}
-                ></textarea>
+              <div>
+                <h4 className="block text-sm font-medium text-gray-700 mb-2">Vital Bulgular</h4>
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-4">
+                  <div>
+                    <label className="block text-xs text-gray-500" htmlFor="pulse">Nabız (bpm)</label>
+                    <input 
+                      className="block w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-sm placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-indigo-600 focus:border-indigo-600 mt-1"
+                      id="pulse" 
+                      name="pulse" 
+                      placeholder="80" 
+                      type="text"
+                      value={formData.vitals.pulse}
+                      onChange={(e) => handleVitalChange('pulse', e.target.value)}
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs text-gray-500" htmlFor="temperature">Ateş (°C)</label>
+                    <input 
+                      className="block w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-sm placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-indigo-600 focus:border-indigo-600 mt-1"
+                      id="temperature" 
+                      name="temperature" 
+                      placeholder="36.5" 
+                      type="text"
+                      value={formData.vitals.temperature}
+                      onChange={(e) => handleVitalChange('temperature', e.target.value)}
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs text-gray-500" htmlFor="oxygen">O2 Sat. (%)</label>
+                    <input 
+                      className="block w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-sm placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-indigo-600 focus:border-indigo-600 mt-1"
+                      id="oxygen" 
+                      name="oxygen" 
+                      placeholder="98" 
+                      type="text"
+                      value={formData.vitals.oxygen}
+                      onChange={(e) => handleVitalChange('oxygen', e.target.value)}
+                    />
+                  </div>
+                </div>
+                <div className="grid grid-cols-2 gap-2 sm:gap-4 mt-3 sm:mt-4">
+                  <div>
+                    <label className="block text-xs text-gray-500" htmlFor="blood_pressure">Tansiyon (mmHg)</label>
+                    <input 
+                      className="block w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-sm placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-indigo-600 focus:border-indigo-600 mt-1"
+                      id="blood_pressure" 
+                      name="blood_pressure" 
+                      placeholder="120/80" 
+                      type="text"
+                      value={formData.vitals.blood_pressure}
+                      onChange={(e) => handleVitalChange('blood_pressure', e.target.value)}
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs text-gray-500" htmlFor="respiratory_rate">Solunum (dakika)</label>
+                    <input 
+                      className="block w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-sm placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-indigo-600 focus:border-indigo-600 mt-1"
+                      id="respiratory_rate" 
+                      name="respiratory_rate" 
+                      placeholder="20" 
+                      type="text"
+                      value={formData.vitals.respiratory_rate}
+                      onChange={(e) => handleVitalChange('respiratory_rate', e.target.value)}
+                    />
+                  </div>
+                </div>
               </div>
 
-              <div className="form-row">
-                <div className="form-field">
-                  <label>Gebelik</label>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700" htmlFor="pregnancy">Gebelik</label>
                   <select 
+                    className="block w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-1 focus:ring-indigo-600 focus:border-indigo-600 mt-1"
+                    id="pregnancy" 
+                    name="pregnancy"
                     value={formData.pregnancy}
                     onChange={(e) => handleInputChange('pregnancy', e.target.value)}
                   >
@@ -242,9 +330,12 @@ const PatientEntry: React.FC<PatientEntryProps> = ({ onStartAssessment }) => {
                     <option value="negative">Negatif</option>
                   </select>
                 </div>
-                <div className="form-field">
-                  <label>Hastalık Özeti</label>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700" htmlFor="chief">Hastalık Özeti</label>
                   <input 
+                    className="block w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-sm placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-indigo-600 focus:border-indigo-600 mt-1"
+                    id="chief" 
+                    name="chief" 
                     placeholder="Göğüs ağrısı"
                     value={formData.chief}
                     onChange={(e) => handleInputChange('chief', e.target.value)}
@@ -252,190 +343,152 @@ const PatientEntry: React.FC<PatientEntryProps> = ({ onStartAssessment }) => {
                 </div>
               </div>
 
-              <div className="form-field">
-                <label>Vitaller (opsiyonel)</label>
-                <textarea 
-                  placeholder='Örnek: Tansiyon 120/80, Nabız 90, Ateş 37.5°C, Oksijen 95%'
-                  value={formData.vitals}
-                  onChange={(e) => handleInputChange('vitals', e.target.value)}
-                  rows={3}
-                ></textarea>
-                <div className="vitals-help-box">
-                  <h4>Hangi bilgileri yazabilirsiniz?</h4>
-                  <ul>
-                    <li><strong>Tansiyon:</strong> 120/80, 140/90 gibi</li>
-                    <li><strong>Nabız:</strong> 90, 110 gibi</li>
-                    <li><strong>Ateş:</strong> 37.5°C, 38.2°C gibi</li>
-                    <li><strong>Oksijen saturasyonu:</strong> 95%, 98% gibi</li>
-                    <li><strong>Solunum sayısı:</strong> 20/dk, 24/dk gibi</li>
-                    <li><strong>Diğer:</strong> İstediğiniz vital bulguları serbest metin olarak yazabilirsiniz</li>
-                  </ul>
-                  <div className="vitals-note">
-                    <strong>Not:</strong> Vitalleri doğal dilde yazabilirsiniz. Sistem otomatik olarak işleyecektir.
-                  </div>
-                </div>
-              </div>
 
-              <div className="action-buttons">
-                <button className="btn btn--primary" onClick={handleSubmit} disabled={!isFormValid() || isLoading}>
-                  {isLoading ? 'Değerlendiriliyor...' : 'Başla'}
-                </button>
-                <button className="btn btn--secondary" onClick={() => window.location.reload()}>
-                  Sıfırla
+              <div className="pt-4">
+                <button 
+                  className="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-base font-medium text-white hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  style={{ backgroundColor: '#2563eb' }}
+                  onClick={handleSubmit} 
+                  disabled={!isFormValid() || isLoading}
+                >
+                  {isLoading ? 'Değerlendiriliyor...' : 'Değerlendir ve Sonucu Göster'}
                 </button>
               </div>
             </div>
 
-            {/* Takip Soruları Section */}
-            <div className="follow-up-section">
-              <h3 className="section-title">Takip Soruları</h3>
-              <div className="qa" style={{display: showQuestions ? 'block' : 'none'}}>
-                {currentQuestions.map((question, index) => (
-                  <div key={index} className="question-item">
-                    <div className="question-text">
-                      {index + 1}. {question}
+            {/* Sağ: Takip Soruları ve Sonuçlar */}
+            <div className="space-y-4 sm:space-y-6">
+              <h3 className="text-lg sm:text-xl font-bold text-gray-900 border-b border-gray-200 pb-2 sm:pb-3">Takip Soruları</h3>
+              
+              {showQuestions && currentQuestions.length > 0 ? (
+                <div className="space-y-4">
+                  {currentQuestions.map((question, index) => (
+                    <div key={index} className="p-4 rounded-lg bg-indigo-50 border border-indigo-200">
+                      <p className="font-medium text-sm text-gray-700 mb-3">
+                        {index + 1}. {question}
+                      </p>
+                      <textarea 
+                        className="block w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-sm placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-indigo-600 focus:border-indigo-600"
+                        placeholder="Cevabınızı yazın..."
+                        value={questionAnswers[question] || ''}
+                        onChange={(e) => handleAnswerChange(question, e.target.value)}
+                        rows={3}
+                      />
                     </div>
-                    <textarea 
-                      placeholder="Cevabınızı yazın..."
-                      value={questionAnswers[question] || ''}
-                      onChange={(e) => handleAnswerChange(question, e.target.value)}
-                      className="answer-input"
-                    ></textarea>
+                  ))}
+                  
+                  <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 pt-3 sm:pt-4">
+                    <button 
+                      className="flex-1 py-2 px-3 sm:px-4 border border-transparent rounded-md shadow-sm text-xs sm:text-sm font-medium text-white hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2"
+                      style={{ backgroundColor: '#2563eb' }}
+                      onClick={handleAnswerAllQuestions}
+                    >
+                      Cevapları Gönder
+                    </button>
+                    <button 
+                      className="flex-1 py-2 px-3 sm:px-4 border border-gray-300 rounded-md shadow-sm text-xs sm:text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2"
+                      onClick={handleSkipAllQuestions}
+                    >
+                      Atla
+                    </button>
+                    <button 
+                      className="flex-1 py-2 px-3 sm:px-4 border border-transparent rounded-md shadow-sm text-xs sm:text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+                      onClick={handleFinishQuestions}
+                    >
+                      Bitir
+                    </button>
                   </div>
-                ))}
-                <div className="question-actions">
-                  <button className="btn btn--primary" onClick={handleAnswerAllQuestions}>
-                    Tüm Cevapları Gönder
-                  </button>
-                  <button className="btn btn--secondary" onClick={handleSkipAllQuestions}>
-                    Tümünü Atla
-                  </button>
-                  <button className="btn btn--success" onClick={handleFinishQuestions}>
-                    Bitir
-                  </button>
                 </div>
-                <div className="question-info">
-                  <button 
-                    className="btn btn--secondary" 
-                    onClick={handleViewLabel}
-                    disabled={!caseId}
-                  >
-                    Etiketi Görüntüle
-                  </button>
+              ) : (
+                <div className="p-4 rounded-lg bg-indigo-50 border border-indigo-200 text-center">
+                  <p className="text-gray-600">Şu an sorulacak başka soru yok.</p>
                 </div>
-                <div className="question-count">
-                  Toplam soru sayısı: {currentQuestions.length}
-                </div>
-              </div>
-              <div className="no-questions" style={{display: !showQuestions ? 'block' : 'none'}}>
-                Şu an sorulacak başka soru yok.
-              </div>
-            </div>
-
-            {/* Oturum Bilgisi Section */}
-            <div className="session-info-section">
-              <h3 className="section-title">Oturum Bilgisi</h3>
-              <div className="session-details">
-                <div className="session-item">
-                  <span className="session-label">Case ID:</span>
-                  <span className="session-value">{caseId || '-'}</span>
-                </div>
-                <div className="session-item">
-                  <span className="session-label">Son kayıt:</span>
-                  <span className="session-value">{caseId ? 'MOCK-' + Date.now() : '-'}</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* SAĞ: Canlı Sonuç Paneli */}
-        <aside className="card result-card">
-          <div className="card__body">
-            {/* Header Section */}
-            <h2 className="section-title">Değerlendirme Sonuçları</h2>
-            {/* Durum Özeti */}
-            <div className="status-bar">
-              <div className="status-bar__title">Değerlendirme Durumu</div>
-              <div className="status-bar__content">
-                <div className="status-bar__value">{renderTriageLevel()}</div>
-                <div className="status-pills">
-                  <span className="status-pill status-pill--inactive">
-                    ESI: {renderTriageLevel()}
-                  </span>
-                  <span className="status-pill status-pill--inactive">
-                    Öncelik: {renderPriority()}
-                  </span>
-                  <span className="status-pill status-pill--inactive">
-                    Bölüm: {renderSpecialty()}
-                  </span>
-                </div>
-              </div>
-            </div>
-
-          {/* Değerlendirme Açıklaması */}
-          <div className="rationale-section">
-            <h3>Değerlendirme Açıklaması</h3>
-            <div className="rationale-content">
-              {renderRationale()}
-            </div>
-          </div>
-
-          <div className="hr"></div>
-          
-          {/* Kritik Bulgular */}
-          <div className="section-block">
-            <h3>Kritik Bulgular (Red Flags)</h3>
-            <ul className="findings-list">
-              {renderRedFlags().map((flag: string, index: number) => (
-                <li key={index}>{flag}</li>
-              ))}
-              {renderRedFlags().length === 0 && (
-                <li className="no-items">Henüz kritik bulgu tespit edilmedi</li>
               )}
-            </ul>
-          </div>
 
-          <div className="hr"></div>
-          
-          {/* İlk Müdahaleler */}
-          <div className="section-block">
-            <h3>İlk Müdahaleler</h3>
-            <ul>
-              {renderImmediateActions().map((action: string, index: number) => (
-                <li key={index}>{action}</li>
-              ))}
-              {renderImmediateActions().length === 0 && (
-                <li className="no-items">Henüz acil müdahale önerisi yok</li>
+              {/* Oturum Bilgisi */}
+              {caseId && (
+                <div className="p-4 rounded-lg bg-indigo-50 border border-indigo-200">
+                  <h4 className="font-medium text-sm text-gray-900 mb-2">Oturum Bilgisi</h4>
+                  <div className="text-xs text-gray-700">
+                    <p><strong>Case ID:</strong> {caseId}</p>
+                    <p><strong>Son kayıt:</strong> {new Date().toLocaleString('tr-TR')}</p>
+                  </div>
+                </div>
               )}
-            </ul>
-          </div>
-
-          <div className="hr"></div>
-          <div className="section-block">
-            <h3>Sorulacak ek sorular (güncel)</h3>
-            <ul>
-              {renderQuestionsToAsk().map((question: string, index: number) => (
-                <li key={index}>{question}</li>
-              ))}
-              {renderQuestionsToAsk().length === 0 && (
-                <li className="no-items">Henüz ek soru önerisi yok</li>
-              )}
-            </ul>
-            <div className="split" style={{marginTop: '12px'}}>
-              <button 
-                className="btn secondary" 
-                onClick={handleViewLabel}
-                disabled={!caseId}
-                style={{width: '100%'}}
-              >
-                📋 Etiketi Görüntüle
-              </button>
             </div>
           </div>
-          </div>
-        </aside>
-      </div>
+
+          {/* Sonuç Bölümü */}
+          {triageResult && (
+            <div className="mt-10 border-t border-gray-200 pt-8">
+              <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-3 sm:mb-4">Ön Değerlendirme Sonucu ve Yönlendirme</h3>
+              <div className="p-3 sm:p-4 lg:p-5 rounded-lg border" style={{ backgroundColor: '#f0f4ff', borderColor: '#2563eb' }}>
+                <div className="flex items-start">
+                  <div className="flex-shrink-0">
+                    <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ color: '#2563eb' }}>
+                      <path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"></path>
+                    </svg>
+                  </div>
+                  <div className="ml-3 flex-1">
+                    <p className="text-base font-bold text-gray-900">ESI Seviyesi: {renderTriageLevel()}</p>
+                    <p className="mt-1 text-sm text-gray-600">
+                      <span className="font-semibold">Yönlendirme:</span> {renderSpecialty()} - {renderPriority()} öncelik
+                    </p>
+                    <p className="mt-2 text-sm text-gray-700">{renderRationale()}</p>
+                    
+                    {renderRedFlags().length > 0 && (
+                      <div className="mt-3">
+                        <p className="text-sm font-semibold text-red-600">Kritik Bulgular:</p>
+                        <ul className="text-sm text-gray-600 mt-1">
+                          {renderRedFlags().map((flag: string, index: number) => (
+                            <li key={index} className="flex items-center">
+                              <span className="w-1 h-1 bg-red-500 rounded-full mr-2"></span>
+                              {flag}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+
+                    {renderImmediateActions().length > 0 && (
+                      <div className="mt-3">
+                        <p className="text-sm font-semibold text-orange-600">İlk Müdahaleler:</p>
+                        <ul className="text-sm text-gray-600 mt-1">
+                          {renderImmediateActions().map((action: string, index: number) => (
+                            <li key={index} className="flex items-center">
+                              <span className="w-1 h-1 bg-orange-500 rounded-full mr-2"></span>
+                              {action}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+
+                    <div className="mt-3 sm:mt-4 flex flex-col sm:flex-row gap-2 sm:gap-3">
+                      <button 
+                        className="py-2 px-3 sm:px-4 border border-transparent rounded-md shadow-sm text-xs sm:text-sm font-medium text-white hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2"
+                        style={{ backgroundColor: '#2563eb' }}
+                        onClick={handleViewLabel}
+                      >
+                        📋 Etiketi Görüntüle
+                      </button>
+                      <button 
+                        className="py-2 px-3 sm:px-4 border border-gray-300 rounded-md shadow-sm text-xs sm:text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2"
+                        onClick={() => window.location.reload()}
+                      >
+                        Yeni Değerlendirme
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <p className="mt-4 text-xs text-gray-500">
+                  <strong>Yasal Uyarı:</strong> Bu sonuç, yapay zeka tarafından yapılan bir ön değerlendirmedir ve tıbbi bir tanı niteliği taşımaz. Sağlık sorunlarınız için mutlaka bir sağlık uzmanına danışın.
+                </p>
+              </div>
+            </div>
+          )}
+        </div>
+      </main>
     </div>
   );
 };

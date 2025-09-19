@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './DoctorPage.css';
-
+const BASE_URL = process.env.REACT_APP_API_URL || "http://localhost:9000";
 // Add TypeScript interfaces for better type safety
 interface PatientVitals {
   blood_pressure?: string;
@@ -84,7 +84,7 @@ export default function DoctorPage({
     setSearchResult(null); // Reset previous results
     
     try {
-      const response = await fetch(`http://localhost:9000/triage/alltriages/byCase/${searchCaseId}`);
+      const response = await fetch(`${BASE_URL}/triage/alltriages/byCase/${searchCaseId}`);
       
       if (!response.ok) {
         throw new Error('Case bulunamadı');
