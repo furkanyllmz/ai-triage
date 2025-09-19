@@ -424,7 +424,7 @@ select {
 .btn--primary:hover {
   background: var(--primary-dark);
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+  box-shadow: 0 4px 12px rgba(7, 74, 218, 0.3);
 }
 
 .btn--primary:disabled {

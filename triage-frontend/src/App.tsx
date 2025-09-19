@@ -160,7 +160,7 @@ function AppContent() {
         complaint_text: data.complaint,
         pregnancy: data.pregnancy,
         chief: data.chief || 'string',
-        vitals: data.vitals ? JSON.parse(data.vitals) : {}
+        vitals: data.vitals || {}
       };
 
       const response = await handleStartTriage(triageInput);
