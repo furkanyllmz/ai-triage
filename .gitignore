@@ -1,6 +1,7 @@
 # Environment variables
 .env
 .triage-frontend/node_modules/
+node_modules/
 
 # Python
 __pycache__/
